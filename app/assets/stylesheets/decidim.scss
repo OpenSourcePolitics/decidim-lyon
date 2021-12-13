@@ -16,6 +16,13 @@
 // $google: #dd4b39;
 
 @import "decidim/application";
+@import "fontface";
+
+$body-font-family: 'Minion Pro','Roboto', 'Source Sans Pro', Helvetica, Arial, sans-serif;
+
+body, h1, h2, h3, h4, h5, h6, p, a, span {
+  font-family: $body-font-family;
+}
 
 // .logo-cityhall {
 //   position: static;
