@@ -3,7 +3,7 @@
   src: font-url('decidim/MinionPro/MinionPro-Regular.eot');
   src: local('MinionPro Regular'), local('MinionPro-Regular'),
       font-url('decidim/MinionPro/MinionPro-Regular.eot?#iefix') format('embedded-opentype'),
-      asset-data-url('decidim/MinionPro/MinionPro-Regular.woff2') format('woff2'),
+      font-url('decidim/MinionPro/MinionPro-Regular.woff2') format('woff2'),
       font-url('decidim/MinionPro/MinionPro-Regular.woff') format('woff'),
       font-url('decidim/MinionPro/MinionPro-Regular.ttf') format('truetype'),
       font-url('decidim/MinionPro/MinionPro-Regular.svg#MinionPro-Regular') format('svg');
@@ -18,7 +18,8 @@
       font-url('decidim/MinionPro/MinionPro-Bold.eot?#iefix') format('embedded-opentype'),
       font-url('decidim/MinionPro/MinionPro-Bold.woff2') format('woff2'),
       font-url('decidim/MinionPro/MinionPro-Bold.woff') format('woff'),
-      font-url('decidim/MinionPro/MinionPro-Bold.ttf') format('truetype');
+      font-url('decidim/MinionPro/MinionPro-Bold.ttf') format('truetype'),
+      font-url('decidim/MinionPro/MinionPro-Bold.svg#MinionPro-Bold') format('svg');
   font-weight: bold;
   font-style: normal;
 }
@@ -30,7 +31,8 @@
       font-url('decidim/MinionPro/MinionPro-MediumIt.eot?#iefix') format('embedded-opentype'),
       font-url('decidim/MinionPro/MinionPro-MediumIt.woff2') format('woff2'),
       font-url('decidim/MinionPro/MinionPro-MediumIt.woff') format('woff'),
-      font-url('decidim/MinionPro/MinionPro-MediumIt.ttf') format('truetype');
+      font-url('decidim/MinionPro/MinionPro-MediumIt.ttf') format('truetype'),
+      font-url('decidim/MinionPro/MinionPro-MediumIt.svg#MinionPro-MediumIt') format('svg');
   font-weight: 500;
   font-style: italic;
 }
