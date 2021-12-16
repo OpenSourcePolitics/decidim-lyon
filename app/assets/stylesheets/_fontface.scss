@@ -1,0 +1,38 @@
+@font-face {
+  font-family: 'MinionPro';
+  src: font-url('decidim/MinionPro/MinionPro-Regular.eot');
+  src: local('MinionPro Regular'), local('MinionPro-Regular'),
+      font-url('decidim/MinionPro/MinionPro-Regular.eot?#iefix') format('embedded-opentype'),
+      font-url('decidim/MinionPro/MinionPro-Regular.woff2') format('woff2'),
+      font-url('decidim/MinionPro/MinionPro-Regular.woff') format('woff'),
+      font-url('decidim/MinionPro/MinionPro-Regular.ttf') format('truetype'),
+      font-url('decidim/MinionPro/MinionPro-Regular.svg#MinionPro-Regular') format('svg');
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Minion Pro';
+  src: font-url('decidim/MinionPro/MinionPro-Bold.eot');
+  src: local('Minion Pro Bold'), local('MinionPro-Bold'),
+      font-url('decidim/MinionPro/MinionPro-Bold.eot?#iefix') format('embedded-opentype'),
+      font-url('decidim/MinionPro/MinionPro-Bold.woff2') format('woff2'),
+      font-url('decidim/MinionPro/MinionPro-Bold.woff') format('woff'),
+      font-url('decidim/MinionPro/MinionPro-Bold.ttf') format('truetype'),
+      font-url('decidim/MinionPro/MinionPro-Bold.svg#MinionPro-Bold') format('svg');
+  font-weight: bold;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Minion Pro';
+  src: font-url('decidim/MinionPro/MinionPro-MediumIt.eot');
+  src: local('Minion Pro Medium Italic'), local('MinionPro-MediumIt'),
+      font-url('decidim/MinionPro/MinionPro-MediumIt.eot?#iefix') format('embedded-opentype'),
+      font-url('decidim/MinionPro/MinionPro-MediumIt.woff2') format('woff2'),
+      font-url('decidim/MinionPro/MinionPro-MediumIt.woff') format('woff'),
+      font-url('decidim/MinionPro/MinionPro-MediumIt.ttf') format('truetype'),
+      font-url('decidim/MinionPro/MinionPro-MediumIt.svg#MinionPro-MediumIt') format('svg');
+  font-weight: 500;
+  font-style: italic;
+}
