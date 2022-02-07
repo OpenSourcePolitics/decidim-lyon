@@ -59,6 +59,10 @@ en:
           actions:
             osp_authorization_handler: Verify with the identity verification form
             osp_authorization_workflow: Verify with the identity verification form
+  devise:
+    shared:
+      links:
+        sign_in_with_provider: Grand Lyon Connect
   faker:
     address:
       country_code:

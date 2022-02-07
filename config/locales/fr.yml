@@ -59,6 +59,10 @@ fr:
           actions:
             osp_authorization_handler: Vérifier avec le formulaire de vérification de l'identité
             osp_authorization_workflow: Vérifier avec le formulaire de vérification de l'identité
+  devise:
+    shared:
+      links:
+        sign_in_with_provider: Grand Lyon Connect
   faker:
     address:
       country_code:
