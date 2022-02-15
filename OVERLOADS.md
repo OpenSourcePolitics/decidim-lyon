@@ -1,5 +1,8 @@
 # Overrides
 
+## Fix geocoded proposals
+* `app/controllers/decidim/proposals/proposals_controller.rb`
+* `spec/controllers/decidim/proposals/proposals_controller_spec.rb`
 ## Fix meetings orders in indexes
 * `app/controllers/decidim/meetings/meetings_controller.rb`
 * `app/controllers/decidim/meetings/directory/meetings_controller.rb`
