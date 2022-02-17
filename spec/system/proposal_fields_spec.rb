@@ -109,7 +109,6 @@ describe "Proposals", type: :system do
             visit complete_proposal_path(component, proposal_draft)
 
             within ".edit_proposal" do
-              check :proposal_has_address
               fill_in :proposal_title, with: "More sidewalks and less roads"
               fill_in :proposal_body, with: "Cities need more people, not more cars"
               fill_in_geocoding :proposal_address, with: address
@@ -295,6 +294,7 @@ describe "Proposals", type: :system do
             within ".edit_proposal" do
               fill_in :proposal_title, with: "Proposal with attachments"
               fill_in :proposal_body, with: "This is my proposal and I want to upload attachments."
+              expect(page).to have_content("(Optional) Add an image to the proposal card.\nNote: You must be owner of the image")
               attach_file :proposal_add_photos, Decidim::Dev.asset("city.jpeg")
               find("*[type=submit]").click
             end
