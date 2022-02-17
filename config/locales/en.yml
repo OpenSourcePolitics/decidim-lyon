@@ -61,10 +61,10 @@ en:
         error: There was a problem deleting the collaborative draft.
         success: Proposal draft was successfully deleted.
       proposals:
-        edit:
-          gallery_legend: "(Optional) Add an image to the proposal card. <br> <b><em>Note: You must be owner of the image</em></b>"
         compare:
           no_similars_found: Well done! No similar proposals found
+        edit:
+          gallery_legend: "(Optional) Add an image to the proposal card. <br> <b><em>Note: You must be owner of the image</em></b>"
       publish:
         error: There was a problem publishing the proposal.
         success: Proposal successfully published.

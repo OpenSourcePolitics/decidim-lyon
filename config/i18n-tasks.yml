@@ -88,6 +88,18 @@ ignore_missing:
  - decidim.endorsable.endorsements
  - decidim.proposals.proposals.votes_count.most_popular_proposal
  - decidim.proposals.proposals.votes_count.need_more_votes
+ - decidim.proposals.proposals.edit.select_a_category
+ - decidim.proposals.proposals.edit.delete_image
+ - decidim.proposals.proposals.edit.add_images
+ - decidim.proposals.proposals.edit.attachment_legend
+ - decidim.proposals.proposals.edit.delete_document
+ - decidim.proposals.proposals.edit.add_documents
+ - decidim.proposals.proposals.placeholder.address
+ - decidim.proposals.collaborative_drafts.edit.select_a_category
+ - decidim.proposals.collaborative_drafts.edit.attachment_legend
+ - activemodel.attributes.proposal.address
+
+
 
 
 # Consider these keys used:
@@ -103,3 +115,4 @@ ignore_unused:
   - decidim.verifications.authorizations.first_login.actions.osp_authorization_handler
   - decidim.verifications.authorizations.first_login.actions.osp_authorization_workflow
   - layouts.decidim.user_menu.account
+  - activemodel.attributes.proposal.address

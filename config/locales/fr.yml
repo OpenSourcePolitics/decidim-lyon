@@ -2,14 +2,14 @@
 fr:
   activemodel:
     attributes:
-      proposal:
-        address: Adresse précise (facultatif)
       osp_authorization_handler:
         birthday: Date de naissance
         document_number: Numéro unique
         postal_code: Code postal
       participatory_process:
         private_space: Espace privé
+      proposal:
+        address: Adresse précise (facultatif)
   decidim:
     accessibility:
       skip_button: Passer au contenu principal
@@ -63,10 +63,10 @@ fr:
         error: Des erreurs sont survenues lors de la suppression du brouillon de la proposition.
         success: Le brouillon de la proposition a bien été supprimé.
       proposals:
-        edit:
-          gallery_legend: "(Facultatif) Ajouter une image à la carte de proposition. <br> <em>Attention : le déposant s’engage à posséder les droits de diffusion de l’image</em>"
         compare:
           no_similars_found: Bien joué ! Aucune proposition similaire n'a été trouvée
+        edit:
+          gallery_legend: "(Facultatif) Ajouter une image à la carte de proposition. <br> <em>Attention : le déposant s’engage à posséder les droits de diffusion de l’image</em>"
       publish:
         error: Il y a eu des erreurs lors de la publication de la proposition.
         success: Proposition publiée avec succès.
