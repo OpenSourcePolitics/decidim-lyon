@@ -23,5 +23,9 @@ RSpec.configure do |config|
     SocialShareButton.configure do |social_share_button|
       social_share_button.allow_sites = %w(twitter facebook whatsapp_app whatsapp_web telegram)
     end
+
+    Decidim::Verifications.register_workflow(:dummy_authorization_handler) do |auth|
+      auth.form = "DummyAuthorizationHandler"
+    end
   end
 end
