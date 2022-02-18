@@ -1,5 +1,14 @@
 # Overrides
+## Delete newsletter checkbox
+* `app/forms/decidim/registration_form.rb:13`
+```ruby
+  def newsletter_at
+  return nil unless newsletter?
 
+      Time.current
+  end
+```
+* `app/views/decidim/devise/registrations/new.html.erb:79`
 ## Fix geocoded proposals
 * `app/controllers/decidim/proposals/proposals_controller.rb`
 * `spec/controllers/decidim/proposals/proposals_controller_spec.rb`
