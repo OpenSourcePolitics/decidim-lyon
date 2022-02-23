@@ -24,7 +24,7 @@ module Decidim
               "email" => email,
               "password" => password,
               "password_confirmation" => password_confirmation,
-              "tos_agreement" => tos_agreement,
+              "tos_agreement" => tos_agreement
             }
           }
         end
@@ -40,7 +40,7 @@ module Decidim
 
         describe "when the form is not valid" do
           before do
-            expect(form).to receive(:invalid?).and_return(true)
+            allow(form).to receive(:invalid?).and_return(true)
           end
 
           it "broadcasts invalid" do
@@ -67,7 +67,7 @@ module Decidim
                 user.reload
               end.to change(User, :count).by(0)
                                          .and broadcast(:invalid)
-                                                .and change(user.reload, :invitation_token)
+                .and change(user.reload, :invitation_token)
               expect(ActionMailer::DeliveryJob).to have_been_enqueued.on_queue("mailers")
             end
           end
