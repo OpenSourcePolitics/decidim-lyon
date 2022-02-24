@@ -68,6 +68,18 @@ en:
         update:
           invalid: There was a problem updating the meeting.
           success: You have updated the meeting successfully.
+    notifications_settings:
+      show:
+        administrators: Administrators
+        allow_public_contact: Allow public contact
+        direct_messages: Direct messages
+        email_on_moderations: Email on moderations
+        email_on_notification: Email on notification
+        everything_followed: Everything followed
+        own_activity: Own activity
+        receive_notifications_about: Receive notifications about
+        send_notifications_by_email: Send notifications by email
+        update_notifications_settings: Update notifications settings
     proposals:
       create:
         error: There was a problem saving the proposal.
@@ -132,3 +144,5 @@ en:
         account: Account
         conversations: Conversations
         notifications: Notifications
+      user_profile:
+        notifications_settings: Notifications settings
