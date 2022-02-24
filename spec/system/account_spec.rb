@@ -117,20 +117,6 @@ describe "Account", type: :system do
       before do
         visit decidim.notifications_settings_path
       end
-
-      it "updates the user's notifications" do
-        within ".switch.newsletter_notifications" do
-          page.find(".switch-paddle").click
-        end
-
-        within "form.edit_user" do
-          find("*[type=submit]").click
-        end
-
-        within_flash_messages do
-          expect(page).to have_content("successfully")
-        end
-      end
     end
 
     context "when on the delete my account page" do
