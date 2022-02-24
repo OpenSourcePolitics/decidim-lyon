@@ -113,12 +113,6 @@ describe "Account", type: :system do
       end
     end
 
-    context "when on the notifications settings page" do
-      before do
-        visit decidim.notifications_settings_path
-      end
-    end
-
     context "when on the delete my account page" do
       before do
         visit decidim.delete_account_path
