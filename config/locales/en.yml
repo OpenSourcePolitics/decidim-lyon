@@ -32,6 +32,21 @@ en:
         name: Identity Verification Form
       osp_authorization_workflow:
         name: Authorization procedure
+    devise:
+      registrations:
+        new:
+          already_have_an_account?: Already have an account?
+          newsletter: Newsletter
+          newsletter_title: Newsletter title
+          nickname_help: Nickname help
+          password_help: Password help
+          sign_in: Sign in
+          sign_up: Sign up
+          subtitle: Subtitle
+          terms: Terms
+          tos_agreement: Tos agreement
+          tos_title: Tos title
+          username_help: Username help
     events:
       budgets:
         pending_order:
@@ -83,6 +98,12 @@ en:
           actions:
             osp_authorization_handler: Verify with the identity verification form
             osp_authorization_workflow: Verify with the identity verification form
+  devise:
+    failure:
+      invited: Invited
+    registrations:
+      new:
+        sign_up: Sign up
   faker:
     address:
       country_code:
