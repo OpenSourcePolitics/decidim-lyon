@@ -6,6 +6,8 @@
 * `app/commands/decidim/create_registration.rb`
 * `app/views/decidim/devise/registrations/new.html.erb`
 * `app/views/decidim/notifications_settings/show.html.erb`
+## Load decidim-awesome assets only if dependency is present
+* `app/views/layouts/decidim/_head.html.erb:33`
 ## Fix geocoded proposals
 * `app/controllers/decidim/proposals/proposals_controller.rb`
 * `spec/controllers/decidim/proposals/proposals_controller_spec.rb`
