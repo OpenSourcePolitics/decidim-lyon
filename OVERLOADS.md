@@ -1,5 +1,11 @@
 # Overrides
-
+## Delete newsletter checkbox
+* `app/forms/decidim/registration_form.rb:13`
+* `app/views/decidim/devise/registrations/new.html.erb:79`
+* `app/assets/javascripts/decidim/user_registrations.js.es6`
+* `app/commands/decidim/create_registration.rb`
+* `app/views/decidim/devise/registrations/new.html.erb`
+* `app/views/decidim/notifications_settings/show.html.erb`
 ## Load decidim-awesome assets only if dependency is present
 * `app/views/layouts/decidim/_head.html.erb:33`
 ## Fix geocoded proposals

@@ -32,6 +32,21 @@ en:
         name: Identity Verification Form
       osp_authorization_workflow:
         name: Authorization procedure
+    devise:
+      registrations:
+        new:
+          already_have_an_account?: Already have an account?
+          newsletter: Newsletter
+          newsletter_title: Newsletter title
+          nickname_help: Nickname help
+          password_help: Password help
+          sign_in: Sign in
+          sign_up: Sign up
+          subtitle: Subtitle
+          terms: Terms
+          tos_agreement: Tos agreement
+          tos_title: Tos title
+          username_help: Username help
     events:
       budgets:
         pending_order:
@@ -53,6 +68,18 @@ en:
         update:
           invalid: There was a problem updating the meeting.
           success: You have updated the meeting successfully.
+    notifications_settings:
+      show:
+        administrators: Administrators
+        allow_public_contact: Allow public contact
+        direct_messages: Direct messages
+        email_on_moderations: Email on moderations
+        email_on_notification: Email on notification
+        everything_followed: Everything followed
+        own_activity: Own activity
+        receive_notifications_about: Receive notifications about
+        send_notifications_by_email: Send notifications by email
+        update_notifications_settings: Update notifications settings
     proposals:
       create:
         error: There was a problem saving the proposal.
@@ -83,6 +110,12 @@ en:
           actions:
             osp_authorization_handler: Verify with the identity verification form
             osp_authorization_workflow: Verify with the identity verification form
+  devise:
+    failure:
+      invited: Invited
+    registrations:
+      new:
+        sign_up: Sign up
   faker:
     address:
       country_code:
@@ -111,3 +144,5 @@ en:
         account: Account
         conversations: Conversations
         notifications: Notifications
+      user_profile:
+        notifications_settings: Notifications settings

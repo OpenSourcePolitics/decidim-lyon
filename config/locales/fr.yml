@@ -34,6 +34,21 @@ fr:
         name: Formulaire de vérification d'identité
       osp_authorization_workflow:
         name: Procédure d'autorisation
+    devise:
+      registrations:
+        new:
+          already_have_an_account?: Vous avez déjà un compte ?
+          newsletter: Pour recevoir tout l'actualité de la démocratie locale de la ville de Lyon, cliquez ici.
+          newsletter_title: Actualités
+          nickname_help: Cet identifiant est public et unique sur la plateforme "%{organization}" ; il permet aux autres utilisateurs de vous suivre, de vous contacter ou de vous mentionner dans leurs commentaires. Il s’affichera précédé d’un « @ » ; il ne doit pas contenir d’espace ni de caractère spécial.
+          password_help: "%{minimun_characters} caractères minimum, ne doit pas être trop commun (par exemple 123456) et doit être différent de votre pseudo et de votre email."
+          sign_in: Se connecter
+          sign_up: Créer un compte
+          subtitle: Inscrivez-vous pour participer aux discussions et pour exprimer votre soutien aux propositions de votre choix.
+          terms: les termes et conditions d'utilisation
+          tos_agreement: En vous inscrivant, vous acceptez %{link}.
+          tos_title: Conditions d'utilisation
+          username_help: Le nom est public et apparaît dans votre profil et sur vos messages. Dans le but de garantir l'anonymat, vous pouvez choisir n'importe quel nom.
     events:
       budgets:
         pending_order:
@@ -55,6 +70,18 @@ fr:
         update:
           invalid: Il y a eu une erreur lors de la mise à jour de la rencontre.
           success: La rencontre a été mise à jour avec succès.
+    notifications_settings:
+      show:
+        administrators: Administrateurs
+        allow_public_contact: Permettre à n'importe quoi de m'envoyer un message direct, même si je ne les suis pas.
+        direct_messages: Recevoir des messages directs de n'importe qui
+        email_on_moderations: Je veux recevoir un email chaque fois que quelque chose est signalé pour modération.
+        email_on_notification: Je souhaite recevoir un email à chaque fois que je reçois une notification.
+        everything_followed: Tout ce que je suis
+        own_activity: Ma propre activité, comme quand quelqu'un commente dans ma proposition ou me mentionne
+        receive_notifications_about: Je veux recevoir des notifications sur
+        send_notifications_by_email: Envoyer des notifications par email
+        update_notifications_settings: Enregistrer les modifications
     proposals:
       create:
         error: Il y a eu des erreurs lors de la sauvegarde de la proposition.
@@ -85,6 +112,12 @@ fr:
           actions:
             osp_authorization_handler: Vérifier avec le formulaire de vérification de l'identité
             osp_authorization_workflow: Vérifier avec le formulaire de vérification de l'identité
+  devise:
+    failure:
+      invited: Vous avez une invitation en attente, acceptez-la pour terminer la création de votre compte.
+    registrations:
+      new:
+        sign_up: Créer un compte
   faker:
     address:
       country_code:
@@ -113,3 +146,5 @@ fr:
         account: Mon compte
         conversations: Conversations
         notifications: Notifications
+      user_profile:
+        notifications_settings: Paramètres des notifications
