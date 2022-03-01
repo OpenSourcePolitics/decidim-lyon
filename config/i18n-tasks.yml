@@ -99,9 +99,6 @@ ignore_missing:
  - decidim.proposals.collaborative_drafts.edit.attachment_legend
  - activemodel.attributes.proposal.address
 
-
-
-
 # Consider these keys used:
 ignore_unused:
   - faker.*
