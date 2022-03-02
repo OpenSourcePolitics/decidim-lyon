@@ -98,6 +98,8 @@ ignore_missing:
  - decidim.proposals.collaborative_drafts.edit.select_a_category
  - decidim.proposals.collaborative_drafts.edit.attachment_legend
  - activemodel.attributes.proposal.address
+ - devise.shared.links.sign_in_with_provider
+ - devise.devise.shared.omniauth_buttons.or
 
 # Consider these keys used:
 ignore_unused:
