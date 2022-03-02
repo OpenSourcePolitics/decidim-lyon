@@ -38,3 +38,93 @@
         false
       end
 ```
+* `app/forms/decidim/proposals/proposal_form.rb`
+7b49261 - [Feature] - customize proposal form (#10), 2022-02-18
+
+* `app/views/decidim/devise/shared/_omniauth_buttons.html.erb`
+3f99373 - Add SSO logo to omniauth button, 2022-03-02
+
+* `app/views/decidim/proposals/collaborative_drafts/_edit_form_fields.html.erb`
+7b49261 - [Feature] - customize proposal form (#10), 2022-02-18
+
+* `app/views/decidim/proposals/proposals/_edit_form_fields.html.erb`
+7b49261 - [Feature] - customize proposal form (#10), 2022-02-18
+
+* `app/assets/images/decidim/gl_connect_sso.png`
+3f99373 - Add SSO logo to omniauth button, 2022-03-02
+
+* `app/assets/javascripts/decidim/proposals/add_proposal.js.es6`
+7b49261 - [Feature] - customize proposal form (#10), 2022-02-18
+
+* `app/assets/fonts/decidim/MinionPro/MinionPro-Bold.ttf`
+b5f0966 - Add fonts and import fontface.scss (#1), 2021-12-16
+
+* `app/assets/fonts/decidim/MinionPro/MinionPro-MediumIt.eot`
+b5f0966 - Add fonts and import fontface.scss (#1), 2021-12-16
+
+* `app/assets/fonts/decidim/MinionPro/MinionPro-Regular.woff`
+b5f0966 - Add fonts and import fontface.scss (#1), 2021-12-16
+
+* `app/assets/fonts/decidim/MinionPro/MinionPro-Regular.woff2`
+b5f0966 - Add fonts and import fontface.scss (#1), 2021-12-16
+
+* `app/assets/fonts/decidim/MinionPro/MinionPro-Bold.eot`
+b5f0966 - Add fonts and import fontface.scss (#1), 2021-12-16
+
+* `app/assets/fonts/decidim/MinionPro/MinionPro-MediumIt.ttf`
+b5f0966 - Add fonts and import fontface.scss (#1), 2021-12-16
+
+* `app/assets/fonts/decidim/MinionPro/MinionPro-Regular.svg`
+b5f0966 - Add fonts and import fontface.scss (#1), 2021-12-16
+
+* `app/assets/fonts/decidim/MinionPro/MinionPro-Regular.eot`
+b5f0966 - Add fonts and import fontface.scss (#1), 2021-12-16
+
+* `app/assets/fonts/decidim/MinionPro/MinionPro-Bold.woff`
+b5f0966 - Add fonts and import fontface.scss (#1), 2021-12-16
+
+* `app/assets/fonts/decidim/MinionPro/MinionPro-Bold.svg`
+b5f0966 - Add fonts and import fontface.scss (#1), 2021-12-16
+
+* `app/assets/fonts/decidim/MinionPro/MinionPro-Regular.ttf`
+b5f0966 - Add fonts and import fontface.scss (#1), 2021-12-16
+
+* `app/assets/fonts/decidim/MinionPro/MinionPro-MediumIt.woff2`
+b5f0966 - Add fonts and import fontface.scss (#1), 2021-12-16
+
+* `app/assets/fonts/decidim/MinionPro/MinionPro-Bold.woff2`
+b5f0966 - Add fonts and import fontface.scss (#1), 2021-12-16
+
+* `app/assets/fonts/decidim/MinionPro/MinionPro-MediumIt.woff`
+b5f0966 - Add fonts and import fontface.scss (#1), 2021-12-16
+
+* `app/assets/fonts/decidim/MinionPro/MinionPro-MediumIt.svg`
+b5f0966 - Add fonts and import fontface.scss (#1), 2021-12-16
+
+* `app/assets/stylesheets/decidim/vizzs/_areachart.scss`
+ba7313e - Fix metrics in admin dashboard, 2021-12-02
+
+* `app/assets/stylesheets/_fontface.scss`
+b5f0966 - Add fonts and import fontface.scss (#1), 2021-12-16
+
+* `app/helpers/decidim/backup_helper.rb`
+83830be - Add retention service for daily backups (#19), 2021-11-09
+
+* `app/services/decidim/s3_retention_service.rb`
+83830be - Add retention service for daily backups (#19), 2021-11-09
+
+* `config/initializers/extends.rb`
+0088323 - backport/8679 (#13), 2022-02-24
+
+* `config/initializers/omniauth_publik.rb`
+95e4c7e - [SSO] Enable publik (#2), 2022-02-07
+
+* `config/initializers/ransack.rb`
+550ccbf - Don't cast integers to booleans (#5), 2022-02-15
+
+* `lib/extends/serializers/proposals/proposals_serializer_extends.rb`
+0088323 - backport/8679 (#13), 2022-02-24
+
+* `lib/tasks/restore_dump.rake`
+705e0ad - Run rubocop, 2021-12-01
+
