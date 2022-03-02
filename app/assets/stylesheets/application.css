@@ -18,3 +18,17 @@
  *= require decidim
  *= require_self
  */
+
+.button--social__icon {
+    display: flex;
+    align-items: center;
+}
+
+.button--social__text__custom{
+    display: block;
+    padding: .85em 1rem;
+    margin-left: 6rem;
+    padding-bottom: 1rem;
+    padding-top: 1rem;
+}
+
