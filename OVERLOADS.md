@@ -128,3 +128,6 @@ b5f0966 - Add fonts and import fontface.scss (#1), 2021-12-16
 * `lib/tasks/restore_dump.rake`
 705e0ad - Run rubocop, 2021-12-01
 
+* `app/views/decidim/devise/shared/_omniauth_buttons_mini.html.erb`
+6790cdd - Update omniauth buttons mini, 2022-03-02
+
