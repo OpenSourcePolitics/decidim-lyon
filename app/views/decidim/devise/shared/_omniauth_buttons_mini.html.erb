@@ -1,0 +1,25 @@
+<% if Devise.mappings[:user].omniauthable? && current_organization.enabled_omniauth_providers.any? %>
+  <div class="row">
+    <div class="columns medium-8 medium-centered">
+      <span class="register__separator">
+        <span class="register__separator__text"><%= t("or", scope: "decidim.devise.shared.omniauth_buttons") %></span>
+      </span>
+      <div class="text-center">
+        <%- current_organization.enabled_omniauth_providers.keys.each do |provider| %>
+          <%= link_to decidim.send("user_#{provider}_omniauth_authorize_path"), class: "button button--social button--#{normalize_provider_name(provider)} button--social", method: :post do %>
+            <span class="button--social__icon" aria-hidden="true">
+              <% if provider == :publik %>
+                <%= image_tag image_path("decidim/gl_connect_sso.png"), alt: t("devise.shared.links.sign_in_with_provider", provider: normalize_provider_name(provider).titleize), width: 60, height: 20 %>
+              <%  else %>
+                <%= oauth_icon provider %>
+              <% end %>
+            </span>
+            <span class="button--social__text__custom">
+              <%= t("devise.shared.links.sign_in_with_provider", provider: normalize_provider_name(provider).titleize) %>
+            </span>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>
