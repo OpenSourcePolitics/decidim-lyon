@@ -15,3 +15,5 @@ $(() => {
 
     window.DecidimProposals.bindProposalAddress();
 });
+
+console.log("coucou")
