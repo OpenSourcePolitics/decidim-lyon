@@ -7,6 +7,7 @@ module Decidim
       helper Decidim::WidgetUrlsHelper
       helper ProposalWizardHelper
       helper ParticipatoryTextsHelper
+      helper UserGroupHelper
       include Decidim::ApplicationHelper
       include Flaggable
       include Withdrawable
@@ -31,7 +32,7 @@ module Decidim
                        .published
                        .not_hidden
                        .only_amendables
-                       .includes(:category, :scope)
+                       .includes(:category, :scope, :attachments, :coauthorships)
                        .order(position: :asc)
           render "decidim/proposals/proposals/participatory_texts/participatory_text"
         else
@@ -40,7 +41,7 @@ module Decidim
                         .published
                         .not_hidden
 
-          @proposals = @base_query.includes(:component, :coauthorships)
+          @proposals = @base_query.includes(:component, :coauthorships, :attachments)
           @all_geocoded_proposals = @base_query.geocoded.where.not(latitude: Float::NAN).where.not(longitude: Float::NAN)
 
           @voted_proposals = if current_user
@@ -90,6 +91,7 @@ module Decidim
       end
 
       def compare
+        enforce_permission_to :edit, :proposal, proposal: @proposal
         @step = :step_2
         @similar_proposals ||= Decidim::Proposals::SimilarProposals
                                .for(current_component, @proposal)
@@ -102,7 +104,7 @@ module Decidim
       end
 
       def complete
-        enforce_permission_to :create, :proposal
+        enforce_permission_to :edit, :proposal, proposal: @proposal
         @step = :step_3
 
         @form = form_proposal_model
@@ -111,11 +113,13 @@ module Decidim
       end
 
       def preview
+        enforce_permission_to :edit, :proposal, proposal: @proposal
         @step = :step_4
         @form = form(ProposalForm).from_model(@proposal)
       end
 
       def publish
+        enforce_permission_to :edit, :proposal, proposal: @proposal
         @step = :step_4
         PublishProposal.call(@proposal, current_user) do
           on(:ok) do
