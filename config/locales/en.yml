@@ -8,6 +8,12 @@ en:
         postal_code: Postal code
       participatory_process:
         private_space: Private space
+    errors:
+      models:
+        proposal:
+          attributes:
+            attachment:
+              needs_to_be_reattached: Needs to be reattached
   decidim:
     accessibility:
       skip_button: Skip button

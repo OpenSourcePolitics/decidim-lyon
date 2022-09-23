@@ -10,6 +10,12 @@ fr:
         private_space: Espace privé
       proposal:
         address: Adresse précise (facultatif)
+    errors:
+      models:
+        proposal:
+          attributes:
+            attachment:
+              needs_to_be_reattached: Doit être ré-attaché
   decidim:
     accessibility:
       skip_button: Passer au contenu principal
