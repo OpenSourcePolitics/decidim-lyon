@@ -41,7 +41,7 @@ module Decidim
                         .not_hidden
 
           @proposals = @base_query.includes(:component, :coauthorships)
-          @all_geocoded_proposals = @base_query.geocoded.where.not(latitude: Float::NAN, longitude: Float::NAN)
+          @all_geocoded_proposals = @base_query.geocoded.where.not(latitude: Float::NAN).where.not(longitude: Float::NAN)
 
           @voted_proposals = if current_user
                                ProposalVote.where(
