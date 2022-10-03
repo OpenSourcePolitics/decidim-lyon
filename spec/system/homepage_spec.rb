@@ -37,6 +37,8 @@ describe "Homepage", type: :system do
         visit decidim.root_path
       end
 
+      it_behaves_like "accessible page"
+
       it "includes the official organization links and images" do
         expect(page).to have_selector("a.logo-cityhall[href='#{official_url}']")
         expect(page).to have_selector("a.main-footer__badge[href='#{official_url}']")
@@ -173,6 +175,89 @@ describe "Homepage", type: :system do
             expect(page).to have_content(organization.name)
           end
         end
+
+        context "when organization forces users to authenticate before access" do
+          let(:organization) do
+            create(
+              :organization,
+              official_url: official_url,
+              force_users_to_authenticate_before_access_organization: true
+            )
+          end
+          let(:user) { nil }
+          let!(:static_page_1) { create(:static_page, organization: organization, show_in_footer: true, allow_public_access: true) }
+          let!(:static_page_topic1) { create(:static_page_topic, organization: organization, show_in_footer: true) }
+          let!(:static_page_topic1_page1) do
+            create(
+              :static_page,
+              organization: organization,
+              topic: static_page_topic1,
+              weight: 0,
+              allow_public_access: false
+            )
+          end
+          let!(:static_page_topic1_page2) do
+            create(
+              :static_page,
+              organization: organization,
+              topic: static_page_topic1,
+              weight: 1,
+              allow_public_access: true
+            )
+          end
+          let!(:static_page_topic2) { create(:static_page_topic, organization: organization, show_in_footer: true) }
+          let!(:static_page_topic2_page1) { create(:static_page, organization: organization, topic: static_page_topic2, weight: 0) }
+          let!(:static_page_topic2_page2) { create(:static_page, organization: organization, topic: static_page_topic2, weight: 1) }
+          let!(:static_page_topic3) { create(:static_page_topic, organization: organization) }
+          let!(:static_page_topic3_page1) { create(:static_page, organization: organization, topic: static_page_topic3) }
+
+          # Re-visit required for the added pages and topics to be visible and
+          # to sign in the user when it is defined.
+          before do
+            login_as user, scope: :user if user
+            visit current_path
+          end
+
+          it "displays only publicly accessible pages and topics in the footer" do
+            within ".main-footer" do
+              expect(page).to have_content(static_page_1.title["en"])
+              expect(page).to have_no_content(static_page_2.title["en"])
+              expect(page).to have_no_content(static_page_3.title["en"])
+              expect(page).to have_content(static_page_topic1.title["en"])
+              expect(page).to have_no_content(static_page_topic2.title["en"])
+              expect(page).to have_no_content(static_page_topic3.title["en"])
+
+              expect(page).to have_link(
+                static_page_topic1.title["en"],
+                href: "/pages/#{static_page_topic1_page2.slug}"
+              )
+            end
+          end
+
+          context "when authenticated" do
+            let(:user) { create :user, :confirmed, organization: organization }
+
+            it_behaves_like "accessible page"
+
+            it "displays all pages and topics in footer that are configured to display in footer" do
+              expect(page).to have_content(static_page_1.title["en"])
+              expect(page).to have_content(static_page_2.title["en"])
+              expect(page).to have_no_content(static_page_3.title["en"])
+              expect(page).to have_content(static_page_topic1.title["en"])
+              expect(page).to have_content(static_page_topic2.title["en"])
+              expect(page).to have_no_content(static_page_topic3.title["en"])
+
+              expect(page).to have_link(
+                static_page_topic1.title["en"],
+                href: "/pages/#{static_page_topic1_page1.slug}"
+              )
+              expect(page).to have_link(
+                static_page_topic2.title["en"],
+                href: "/pages/#{static_page_topic2_page1.slug}"
+              )
+            end
+          end
+        end
       end
 
       describe "includes statistics" do
@@ -302,6 +387,27 @@ describe "Homepage", type: :system do
         end
       end
 
+      describe "decidim link with external icon" do
+        before { visit current_path }
+
+        let(:webpacker_helper) do
+          Class.new do
+            include ActionView::Helpers::AssetUrlHelper
+            include Webpacker::Helper
+          end.new
+        end
+
+        it "displays the decidim link with external link indicator" do
+          within ".footer .mini-footer" do
+            expect(page).to have_selector("a[target='_blank'][href='https://github.com/decidim/decidim']")
+
+            within "a[target='_blank'][href='https://github.com/decidim/decidim']" do
+              expect(page).to have_selector("svg.icon use[href='#{webpacker_helper.asset_pack_path("media/images/icons.svg")}#icon-external-link']")
+            end
+          end
+        end
+      end
+
       context "and has highlighted content banner enabled" do
         let(:organization) do
           create(:organization,
@@ -345,7 +451,7 @@ describe "Homepage", type: :system do
         end
 
         it "lets the users download open data files" do
-          click_link "Open data"
+          click_link "Download Open Data files"
           expect(File.basename(download_path)).to include("open-data.zip")
           Zip::File.open(download_path) do |zipfile|
             expect(zipfile.glob("*open-data-proposals.csv").length).to eq(1)

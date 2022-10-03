@@ -57,13 +57,13 @@
 <% end %>
 
 <% if component_settings.attachments_allowed? && @proposal %>
-  <fieldset class="gallery__container">
-    <legend><%= raw t("gallery_legend", scope: "decidim.proposals.proposals.edit") %></legend>
+  <fieldset class="gallery__container photos_container">
+    <legend><%== t("gallery_legend", scope: "decidim.proposals.proposals.edit") %></legend>
 
     <% if @form.photos.any? %>
       <% @form.photos.each do |photo| %>
         <div class="callout gallery__item" id="attachment_<%= photo.id %>" data-closable>
-          <%= image_tag photo.thumbnail_url, class: "thumbnail", alt: photo.file.file.filename %>
+          <%= image_tag photo.thumbnail_url, class: "thumbnail", alt: photo.file.filename %>
           <%= form.hidden_field :photos, multiple: true, value: photo.id, id: "photo-#{photo.id}" %>
           <button class="close-button"
                   aria-label="<%= t("delete_image", scope: "decidim.proposals.proposals.edit") %>"
@@ -81,7 +81,7 @@
     </div>
   </fieldset>
 
-  <fieldset class="gallery__container">
+  <fieldset class="attachments_container gallery__container documents_container">
     <legend><%= t("attachment_legend", scope: "decidim.proposals.proposals.edit") %></legend>
 
     <% if @form.documents.any? %>

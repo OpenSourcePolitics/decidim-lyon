@@ -115,3 +115,4 @@ ignore_unused:
   - decidim.verifications.authorizations.first_login.actions.osp_authorization_workflow
   - layouts.decidim.user_menu.account
   - activemodel.attributes.proposal.address
+  - activemodel.errors.models.proposal.attributes.attachment.needs_to_be_reattached

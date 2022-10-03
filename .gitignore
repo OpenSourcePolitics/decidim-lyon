@@ -76,3 +76,10 @@ git-status.txt
 
 # Ignore RSpec failures
 .rspec-failures
+/public/packs
+/public/packs-test
+/public/decidim-packs
+/node_modules
+/yarn-error.log
+yarn-debug.log*
+.yarn-integrity

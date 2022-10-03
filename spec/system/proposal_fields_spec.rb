@@ -44,7 +44,7 @@ describe "Proposals", type: :system do
                  settings: { scopes_enabled: true, scope_id: participatory_process.scope&.id })
         end
 
-        let(:proposal_draft) { create(:proposal, :draft, component: component) }
+        let(:proposal_draft) { create(:proposal, :draft, component: component, users: [user]) }
 
         context "when process is not related to any scope" do
           it "can be related to a scope" do
@@ -277,7 +277,7 @@ describe "Proposals", type: :system do
           end
         end
 
-        context "when attachments are allowed", processing_uploads_for: Decidim::AttachmentUploader do
+        context "when attachments are allowed" do
           let!(:component) do
             create(:proposal_component,
                    :with_creation_enabled,

@@ -6,7 +6,7 @@
           <%= link_to decidim.send("user_#{provider}_omniauth_authorize_path"), class: "button button--social button--#{normalize_provider_name(provider)}", method: :post do %>
             <span class="button--social__icon">
               <% if provider == :publik %>
-                <%= image_tag image_path("decidim/gl_connect_sso.png"), alt: t("devise.shared.links.sign_in_with_provider", provider: normalize_provider_name(provider).titleize), width: 60, height: 20 %>
+                <%= image_pack_tag "media/images/gl_connect_sso.png", alt: t("devise.shared.links.sign_in_with_provider", provider: normalize_provider_name(provider).titleize), width: 60, height: 20 %>
               <%  else %>
                 <%= oauth_icon provider %>
               <% end %>

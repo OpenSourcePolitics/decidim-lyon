@@ -2,7 +2,7 @@
 ## Delete newsletter checkbox
 * `app/forms/decidim/registration_form.rb:13`
 * `app/views/decidim/devise/registrations/new.html.erb:79`
-* `app/assets/javascripts/decidim/user_registrations.js.es6`
+* `app/assets/javascripts/decidim/user_registrations.js`
 * `app/commands/decidim/create_registration.rb`
 * `app/views/decidim/devise/registrations/new.html.erb`
 * `app/views/decidim/notifications_settings/show.html.erb`
@@ -53,7 +53,7 @@
 * `app/assets/images/decidim/gl_connect_sso.png`
 3f99373 - Add SSO logo to omniauth button, 2022-03-02
 
-* `app/assets/javascripts/decidim/proposals/add_proposal.js.es6`
+* `app/assets/javascripts/decidim/proposals/add_proposal.js`
 7b49261 - [Feature] - customize proposal form (#10), 2022-02-18
 
 * `app/assets/fonts/decidim/MinionPro/MinionPro-Bold.ttf`

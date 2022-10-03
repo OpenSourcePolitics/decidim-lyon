@@ -2,7 +2,7 @@
 
 require_relative "boot"
 
-require "rails/all"
+require "decidim/rails"
 
 # TODO : add missing dep to decidim-initiatives/lib/decidim/initiatives/engine.rb
 # require "wicked_pdf"
