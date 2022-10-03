@@ -116,3 +116,6 @@ ignore_unused:
   - layouts.decidim.user_menu.account
   - activemodel.attributes.proposal.address
   - activemodel.errors.models.proposal.attributes.attachment.needs_to_be_reattached
+  - budgets.projects_helper.current_rule_description.*
+  - budgets.projects_helper.current_rule_explanation.*
+  - decidim.components.budgets.settings.global.geocoding_enabled
