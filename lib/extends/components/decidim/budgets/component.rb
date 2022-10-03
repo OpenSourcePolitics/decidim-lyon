@@ -2,6 +2,8 @@
 
 require "decidim/components/namer"
 
+Decidim.component_manifests.delete(Decidim.find_component_manifest(:budgets))
+
 Decidim.register_component(:budgets) do |component|
   component.engine = Decidim::Budgets::Engine
   component.admin_engine = Decidim::Budgets::AdminEngine
