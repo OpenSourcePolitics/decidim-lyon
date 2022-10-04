@@ -14,6 +14,26 @@ en:
           attributes:
             attachment:
               needs_to_be_reattached: Needs to be reattached
+  budgets:
+    projects_helper:
+      current_rule_description:
+        minimum_projects_rule:
+          description: Description
+        projects_rule:
+          description: Description
+        projects_rule_maximum_only:
+          description: Description
+        vote_threshold_percent_rule:
+          description: Description
+      current_rule_explanation:
+        minimum_projects_rule:
+          instruction: Instruction
+        projects_rule:
+          instruction: Instruction
+        projects_rule_maximum_only:
+          instruction: Instruction
+        vote_threshold_percent_rule:
+          instruction: Instruction
   decidim:
     accessibility:
       skip_button: Skip button
@@ -38,6 +58,40 @@ en:
         name: Identity Verification Form
       osp_authorization_workflow:
         name: Authorization procedure
+    budgets:
+      admin:
+        projects:
+          index:
+            view_project: View project
+          show:
+            budget: Budget
+            view_all_projects: View all projects
+      projects:
+        projects_for: Projects for
+      projects_helper:
+        current_rule_description:
+          minimum_projects_rule:
+            description: Description
+          projects_rule:
+            description: Description
+          projects_rule_maximum_only:
+            description: Description
+          vote_threshold_percent_rule:
+            description: Description
+        current_rule_explanation:
+          minimum_projects_rule:
+            instruction: Instruction
+          projects_rule:
+            instruction: Instruction
+          projects_rule_maximum_only:
+            instruction: Instruction
+          vote_threshold_percent_rule:
+            instruction: Instruction
+    components:
+      budgets:
+        settings:
+          global:
+            geocoding_enabled: Geocoding enabled
     devise:
       registrations:
         new:
