@@ -10,7 +10,7 @@ gem "decidim", git: "https://github.com/decidim/decidim.git", branch: DECIDIM_VE
 
 gem "decidim-decidim_awesome", "0.8.3"
 gem "decidim-term_customizer", git: "https://github.com/mainio/decidim-module-term_customizer.git", branch: "master"
-gem "omniauth-publik", git: "https://github.com/OpenSourcePolitics/omniauth-publik", branch: "v0.0.9"
+gem "omniauth-publik", git: "https://github.com/OpenSourcePolitics/omniauth-publik"
 
 gem "bootsnap", "~> 1.4"
 
