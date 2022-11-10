@@ -167,7 +167,7 @@ Decidim.register_component(:budgets) do |component|
           attached_to: project,
           content_type: "application/pdf",
           file: ActiveStorage::Blob.create_after_upload!(
-            io: File.open(File.join(__dir__, "seeds", "Exampledocument.pdf")),
+            io: File.open(Rails.root.join("lib/assets/Exampledocument.pdf")),
             filename: "Exampledocument.pdf",
             content_type: "application/pdf",
             metadata: nil
@@ -179,7 +179,7 @@ Decidim.register_component(:budgets) do |component|
           attached_to: project,
           content_type: "image/jpeg",
           file: ActiveStorage::Blob.create_after_upload!(
-            io: File.open(File.join(__dir__, "seeds", "city.jpeg")),
+            io: File.open(Rails.root.join("lib/assets/city.jpeg")),
             filename: "city.jpeg",
             content_type: "image/jpeg",
             metadata: nil
@@ -191,7 +191,7 @@ Decidim.register_component(:budgets) do |component|
           attached_to: project,
           content_type: "application/pdf",
           file: ActiveStorage::Blob.create_after_upload!(
-            io: File.open(File.join(__dir__, "seeds", "Exampledocument.pdf")),
+            io: File.open(Rails.root.join("lib/assets/Exampledocument.pdf")),
             filename: "Exampledocument.pdf",
             content_type: "application/pdf",
             metadata: nil
