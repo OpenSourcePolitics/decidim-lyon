@@ -35,7 +35,7 @@ module Decidim
                     .and_return(["dummy_authorization_handler"])
                 end
 
-                it { is_expected.to eq("/authorizations/first_login") }
+                it { is_expected.to eq("/") }
 
                 context "when there's a pending redirection" do
                   before do
@@ -66,7 +66,7 @@ module Decidim
                     user.blocked = false
                   end
 
-                  it { is_expected.to eq("/authorizations/first_login") }
+                  it { is_expected.to eq("/") }
                 end
 
                 context "when first login authorization is skipped" do
