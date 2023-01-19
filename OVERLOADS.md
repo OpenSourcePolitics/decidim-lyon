@@ -1,4 +1,7 @@
 # Overrides
+## Add budget and proposal map caching
+* `app/views/decidim/budgets/projects/index.html.erb:9`
+* `app/views/decidim/proposals/proposals/index.html.erb:5`
 ## Delete newsletter checkbox
 * `app/forms/decidim/registration_form.rb:13`
 * `app/views/decidim/devise/registrations/new.html.erb:79`

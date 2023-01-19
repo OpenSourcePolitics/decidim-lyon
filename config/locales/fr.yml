@@ -140,6 +140,10 @@ fr:
           no_similars_found: Bien joué ! Aucune proposition similaire n'a été trouvée
         edit:
           gallery_legend: "(Facultatif) Ajouter une image à la carte de proposition. <br> <em>Attention : le déposant s’engage à posséder les droits de diffusion de l’image</em>"
+        index:
+          collaborative_drafts_list: Accéder aux brouillons collaboratifs
+          new_proposal: Nouvelle proposition
+          view_proposal: Voir la proposition
       publish:
         error: Il y a eu des erreurs lors de la publication de la proposition.
         success: Proposition publiée avec succès.
