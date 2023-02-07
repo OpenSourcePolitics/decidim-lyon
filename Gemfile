@@ -9,6 +9,7 @@ ruby RUBY_VERSION
 gem "decidim", git: "https://github.com/decidim/decidim.git", branch: DECIDIM_VERSION
 
 gem "decidim-decidim_awesome", "0.8.3"
+gem "decidim-homepage_interactive_map", git: "https://github.com/OpenSourcePolitics/decidim-module-homepage_interactive_map.git", branch: "release/0.26-stable"
 gem "decidim-term_customizer", git: "https://github.com/mainio/decidim-module-term_customizer.git", branch: "master"
 gem "omniauth-publik", git: "https://github.com/OpenSourcePolitics/omniauth-publik"
 

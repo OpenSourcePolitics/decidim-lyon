@@ -1,4 +1,16 @@
 GIT
+  remote: https://github.com/OpenSourcePolitics/decidim-module-homepage_interactive_map.git
+  revision: 0e80a82aa53b06595dbd914964e96c9986aa3c5c
+  branch: release/0.26-stable
+  specs:
+    decidim-homepage_interactive_map (2.0.0)
+      decidim-admin (>= 0.25.0, < 0.27)
+      decidim-core (>= 0.25.0, < 0.27)
+      decidim-dev (>= 0.25.0, < 0.27)
+      rgeo (~> 2.4)
+      rgeo-proj4 (~> 3.1)
+
+GIT
   remote: https://github.com/OpenSourcePolitics/omniauth-publik
   revision: ab703a565c402b773ce0025593554b329f603e5c
   specs:
@@ -664,6 +676,9 @@ GEM
       actionpack (>= 5.0)
       railties (>= 5.0)
     rexml (3.2.5)
+    rgeo (2.4.0)
+    rgeo-proj4 (3.1.1)
+      rgeo (~> 2.0)
     rspec (3.11.0)
       rspec-core (~> 3.11.0)
       rspec-expectations (~> 3.11.0)
@@ -851,6 +866,7 @@ DEPENDENCIES
   decidim!
   decidim-decidim_awesome (= 0.8.3)
   decidim-dev!
+  decidim-homepage_interactive_map!
   decidim-term_customizer!
   dotenv-rails
   faker (~> 2.14)
