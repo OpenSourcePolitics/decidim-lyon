@@ -32,7 +32,6 @@ module DevelopmentApp
 
     config.after_initialize do
       require "extends/controllers/decidim/devise/sessions_controller_extends"
-      require "extends/controllers/decidim/budgets/projects_controller_extends"
     end
   end
 end
