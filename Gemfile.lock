@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/OpenSourcePolitics/decidim-module-homepage_interactive_map.git
-  revision: a55f268c8847f225d19e8c2b88997d95e2093aea
+  revision: 3bbd5fff51fbfa94ff6e784baa73af190b1c679d
   branch: release/0.26-stable
   specs:
     decidim-homepage_interactive_map (2.0.0)
@@ -530,6 +530,7 @@ GEM
     mime-types-data (3.2023.0218.1)
     mini_magick (4.12.0)
     mini_mime (1.1.2)
+    mini_portile2 (2.8.1)
     minitest (5.17.0)
     mixlib-cli (2.1.8)
     mixlib-config (3.0.27)
@@ -551,6 +552,9 @@ GEM
       net-protocol
     newrelic_rpm (9.0.0)
     nio4r (2.5.8)
+    nokogiri (1.13.10)
+      mini_portile2 (~> 2.8.0)
+      racc (~> 1.4)
     nokogiri (1.13.10-x86_64-darwin)
       racc (~> 1.4)
     nokogiri (1.13.10-x86_64-linux)
@@ -870,6 +874,7 @@ GEM
     zeitwerk (2.6.7)
 
 PLATFORMS
+  ruby
   x86_64-darwin-20
   x86_64-linux
 
