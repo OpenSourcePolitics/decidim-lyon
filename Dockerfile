@@ -13,7 +13,7 @@ RUN --mount=type=cache,target=/var/cache/apt \
     npm install -g npm@8.19.2 && \
     npm install --global yarn && \
     apt install -y libicu-dev postgresql-client && \
-    gem install bundler:2.2.17 && \
+    gem install bundler:2.4.6 && \
     rm -rf /var/lib/apt/lists/*
 
 COPY Gemfile* ./
