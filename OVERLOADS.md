@@ -11,9 +11,8 @@
 ## Fix geocoded proposals
 * `app/controllers/decidim/proposals/proposals_controller.rb`
 * `spec/controllers/decidim/proposals/proposals_controller_spec.rb`
-## Fix meetings orders in indexes
-* `app/controllers/decidim/meetings/meetings_controller.rb`
-* `app/controllers/decidim/meetings/directory/meetings_controller.rb`
+## Fix cache on Hero Cell
+* `lib/extends/cells/decidim/content_blocks/hero_cell_extends.rb:13`
 ##  Fix meetings registration serializer
 * `app/serializers/decidim/meetings/registration_serializer.rb`
 ## Fix UserAnswersSerializer for CSV exports

@@ -9,7 +9,8 @@ ruby RUBY_VERSION
 gem "decidim", git: "https://github.com/decidim/decidim.git", branch: DECIDIM_VERSION
 
 gem "decidim-decidim_awesome", "0.8.3"
-gem "decidim-term_customizer", git: "https://github.com/mainio/decidim-module-term_customizer.git", branch: "master"
+gem "decidim-homepage_interactive_map", git: "https://github.com/OpenSourcePolitics/decidim-module-homepage_interactive_map.git", branch: "release/0.26-stable"
+gem "decidim-term_customizer", git: "https://github.com/mainio/decidim-module-term_customizer.git", branch: "release/0.26-stable"
 gem "omniauth-publik", git: "https://github.com/OpenSourcePolitics/omniauth-publik"
 
 gem "bootsnap", "~> 1.4"
@@ -33,7 +34,7 @@ gem "sys-filesystem"
 
 group :development, :test do
   gem "byebug", "~> 11.0", platform: :mri
-
+  gem "climate_control", "~> 1.2"
   gem "decidim-dev", git: "https://github.com/decidim/decidim.git", branch: DECIDIM_VERSION
 end
 
@@ -47,6 +48,7 @@ end
 
 group :production do
   gem "dalli"
+  gem "health_check", "~> 3.1"
   gem "lograge"
   gem "newrelic_rpm"
   gem "passenger"
@@ -54,6 +56,7 @@ group :production do
   gem "sentry-rails"
   gem "sentry-ruby"
   gem "sentry-sidekiq"
-  gem "sidekiq"
-  gem "sidekiq-scheduler"
+  gem "sidekiq", "~> 6.0"
+  gem "sidekiq_alive", "~> 2.2"
+  gem "sidekiq-scheduler", "~> 5.0"
 end
