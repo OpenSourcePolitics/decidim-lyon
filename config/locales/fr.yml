@@ -8,48 +8,27 @@ fr:
         postal_code: Code postal
       participatory_process:
         private_space: Espace privé
-      proposal:
-        address: Adresse précise (facultatif)
-    errors:
-      models:
-        proposal:
-          attributes:
-            attachment:
-              needs_to_be_reattached: Doit être ré-attaché
-  budgets:
-    projects_helper:
-      current_rule_description:
-        minimum_projects_rule:
-          description: Description
-        projects_rule:
-          description: Description
-        projects_rule_maximum_only:
-          description: Description
-        vote_threshold_percent_rule:
-          description: Description
-      current_rule_explanation:
-        minimum_projects_rule:
-          instruction: Instruction
-        projects_rule:
-          instruction: Instruction
-        projects_rule_maximum_only:
-          instruction: Instruction
-        vote_threshold_percent_rule:
-          instruction: Instruction
   decidim:
-    accessibility:
-      skip_button: Passer au contenu principal
     admin:
       participatory_space_private_users:
         create:
           error: Erreur
           success: Succès
+      reminders:
+        create:
+          error: Il y a eu un problème en créant le rappel.
+          success:
+            one: "%{count} utilisateur recevra le rappel"
+            other: "%{count} utilisateurs recevront le rappel"
+        new:
+          submit: Send
     amendments:
       emendation:
         announcement:
           evaluating: |-
             Cet amendement pour le %{amendable_type} %{proposal_link}
             est en cours d’évaluation.
+    anonymous_user: Utilisateur anonyme
     authorization_handlers:
       osp_authorization_handler:
         explanation: Vérifier votre identité en saisissant un numéro unique
@@ -61,54 +40,55 @@ fr:
       osp_authorization_workflow:
         name: Procédure d'autorisation
     budgets:
+      actions:
+        confirm_destroy: Êtes-vous certain de vouloir supprimer ce projet?
+        destroy: Supprimer
+        edit: Modifier
+        edit_projects: Gérer les projets
+        new: Nouveau %{name}
+        preview: Aperçu
+        title: Actions
+      admin:
+        budgets:
+          index:
+            finished_orders: Votes terminés
+            pending_orders: Votes en cours
+            title: Budgets
+            users_with_finished_orders: Utilisateurs ayant fini leur vote
+            users_with_pending_orders: Utilisateurs ayant des votes en attente
+        models:
+          budget:
+            name: Budget
+        reminders:
+          orders:
+            description: Les utilisateurs vont recevoir un mail avec les liens des budgets pour lesquels ils ont un vote en cours. Le rappel ne sera pas envoyé aux utilisateurs ayant commencé leur vote il y a moins de deux heures, ni à ceux ayant reçu un rappel dans les dernières 24 heures.
+            title:
+              one: Vous êtes sur le point d'envoyer un mail de rappel à %{count} utilisateur.
+              other: Vous êtes sur le point d'envoyer un mail de rappel à %{count} utilisateurs.
+      models:
+        budget:
+          fields:
+            name: Nom
+            projects_count: Nombre de projets
+            total_budget: Budget total
       projects:
         count:
-          projects_count: "%{count} projets"
-        index:
-          view_project: View project
-        projects_for: Projects for
-        show:
-          budget: Budget
-          view_all_projects: Voir tous les projets
-      projects_helper:
-        current_rule_description:
-          minimum_projects_rule:
-            description: Description
-          projects_rule:
-            description: Description
-          projects_rule_maximum_only:
-            description: Description
-          vote_threshold_percent_rule:
-            description: Description
-        current_rule_explanation:
-          minimum_projects_rule:
-            instruction: Instruction
-          projects_rule:
-            instruction: Instruction
-          projects_rule_maximum_only:
-            instruction: Instruction
-          vote_threshold_percent_rule:
-            instruction: Instruction
-    components:
-      budgets:
-        settings:
-          global:
-            geocoding_enabled: Geocoding enabled
+          projects_count:
+            one: 1 projet
+            other: "%{count} projets"
+      vote_reminder_mailer:
+        vote_reminder:
+          email_budgets: 'Budget où vous avez un vote non terminé:'
+          email_intro: Vous avez commencé un vote de budget participatif, mais vous ne l'avez pas terminé.
+          email_link: Terminer mon vote
+          email_outro: Pensez à terminer votre vote. Pour voter, vous devez d'abord séléctionner le ou les projets pour lesquels vous voulez voter, puis confirmer votre vote avec le bouton "Voter".
+          email_subject:
+            one: Vous n'avez pas finalisé votre vote
+            other: Vous n'avez pas finalisé vos votes
     devise:
-      registrations:
+      sessions:
         new:
-          already_have_an_account?: Vous avez déjà un compte ?
-          newsletter: Pour recevoir tout l'actualité de la démocratie locale de la ville de Lyon, cliquez ici.
-          newsletter_title: Actualités
-          nickname_help: Cet identifiant est public et unique sur la plateforme "%{organization}" ; il permet aux autres utilisateurs de vous suivre, de vous contacter ou de vous mentionner dans leurs commentaires. Il s’affichera précédé d’un « @ » ; il ne doit pas contenir d’espace ni de caractère spécial.
-          password_help: "%{minimun_characters} caractères minimum, ne doit pas être trop commun (par exemple 123456) et doit être différent de votre pseudo et de votre email."
-          sign_in: Se connecter
-          sign_up: Créer un compte
-          subtitle: Inscrivez-vous pour participer aux discussions et pour exprimer votre soutien aux propositions de votre choix.
-          terms: les termes et conditions d'utilisation
-          tos_agreement: En vous inscrivant, vous acceptez %{link}.
-          tos_title: Conditions d'utilisation
-          username_help: Le nom est public et apparaît dans votre profil et sur vos messages. Dans le but de garantir l'anonymat, vous pouvez choisir n'importe quel nom.
+          sign_in_disabled: Vous pouvez accéder avec un compte externe
     events:
       budgets:
         pending_order:
@@ -116,54 +96,139 @@ fr:
           email_outro: Vous avez reçu cette notification parce que vous avez commencé à voter sur la concertation "%{participatory_space_title}"
           email_subject: Votre vote est toujours en attente sur la concertation %{participatory_space_title}
           notification_title: Votre vote pour le budget <a href="%{resource_path}">%{resource_title}</a> attend d'être finalisé sur la concertation %{participatory_space_title}
-    notifications_settings:
-      show:
-        administrators: Administrateurs
-        allow_public_contact: Permettre à n'importe quoi de m'envoyer un message direct, même si je ne les suis pas.
-        direct_messages: Recevoir des messages directs de n'importe qui
-        email_on_moderations: Je veux recevoir un email chaque fois que quelque chose est signalé pour modération.
-        email_on_notification: Je souhaite recevoir un email à chaque fois que je reçois une notification.
-        everything_followed: Tout ce que je suis
-        own_activity: Ma propre activité, comme quand quelqu'un commente dans ma proposition ou me mentionne
-        receive_notifications_about: Je veux recevoir des notifications sur
-        send_notifications_by_email: Envoyer des notifications par email
-        update_notifications_settings: Enregistrer les modifications
+      users:
+        user_officialized:
+          email_intro: Le participant %{name} (%{nickname}) a été officialisé.
+          email_outro: Vous avez reçu cette notification car vous êtes administrateur de l'organisation.
+          email_subject: "%{name} a été officialisé"
+          notification_title: Le participant %{name} (%{nickname}) a été officialisé.
+      verifications:
+        verify_with_managed_user:
+          email_intro: Le participant <a href="%{resource_path}">%{resource_title}</a> a tenté de se faire vérifier avec les données de l'utilisateur représenté <a href="%{managed_user_path}">%{managed_user_name}</a>.
+          email_outro: Vérifiez la <a href="%{conflicts_path}">Liste de conflits des vérifications</a> et contactez les participants pour vérifier leurs renseignements et résoudre le problème.
+          email_subject: Un utilisateur a tenté de se faire vérifier avec les données d'un utilisateur représenté
+          notification_title: Le participant <a href="%{resource_path}">%{resource_title}</a> a tenté de se faire vérifier avec les données de l'utilisateur représenté <a href="%{managed_user_path}">%{managed_user_name}</a>.
+    meetings:
+      directory:
+        meetings:
+          index:
+            all: Tous
+      meeting:
+        not_allowed: Vous n'êtes pas autorisé à vous inscrire à cette rencontre.
+      meetings:
+        create:
+          invalid: Il y a eu une erreur lors de la création de la rencontre.
+          success: La rencontre a été créée avec succès.
+        update:
+          invalid: Il y a eu une erreur lors de la mise à jour de la rencontre.
+          success: La rencontre a été mise à jour avec succès.
+    omniauth:
+      france_connect:
+        explanation: FranceConnect est la solution proposée par l’État pour sécuriser et simplifier la connexion à vos services en ligne.
+        external:
+          link: https://franceconnect.gouv.fr/
+          text: Qu'est-ce-que FranceConnect ?
+        forgot_password:
+          ok_text: Attention, ce mot de passe est celui de votre compte local et en aucun cas celui du compte que vous utilisez au travers de FranceConnect. Il vous servira uniquement lorsque vous vous connecterez avec votre adresse mail plutôt que via FranceConnect.
     proposals:
-      create:
-        error: Il y a eu des erreurs lors de la sauvegarde de la proposition.
-        success: Proposition créée avec succès. Enregistrée comme brouillon.
-      destroy_draft:
-        error: Des erreurs sont survenues lors de la suppression du brouillon de la proposition.
-        success: Le brouillon de la proposition a bien été supprimé.
-      proposals:
-        compare:
-          no_similars_found: Bien joué ! Aucune proposition similaire n'a été trouvée
+      collaborative_drafts:
+        collaborative_draft:
+          publish:
+            error: Il y a eu des erreurs lors de la publication du brouillon collaboratif.
+            success: Brouillon collaboratif publié avec succès en tant que proposition.
+          withdraw:
+            error: Il y a eu des erreurs en fermant le brouillon collaboratif.
+            success: Brouillon collaboratif retiré avec succès.
+        create:
+          error: Il y a eu un problème lors de la création de ces brouillons collaboratifs
+          success: Brouillon collaboratif créé avec succès.
         edit:
-          gallery_legend: "(Facultatif) Ajouter une image à la carte de proposition. <br> <em>Attention : le déposant s’engage à posséder les droits de diffusion de l’image</em>"
-      publish:
-        error: Il y a eu des erreurs lors de la publication de la proposition.
-        success: Proposition publiée avec succès.
-      update:
-        error: Des erreurs se sont produites lors de l'enregistrement de la proposition.
-        success: Proposition mise à jour avec succès.
-      update_draft:
-        error: Des erreurs sont survenues lors de l'enregistrement du brouillon de la proposition.
-        success: Le brouillon de proposition a été mis à jour.
-      withdraw:
-        errors:
-          has_supports: Cette proposition ne peut pas être retirée car elle dispose déjà de supports.
+          attachment_legend: "(Facultatif) Ajouter une pièce jointe"
+          select_a_category: Veuillez sélectionner une catégorie
+        new:
+          add_file: Ajouter le fichier
+          edit_file: Editer le fichier
+        show:
+          back: Retour
+          edit: Modifier un brouillon collaboratif
+          info-message: Ceci est un <strong>projet collaboratif</strong> pour une proposition. Cela signifie que vous pouvez aider leurs auteurs à façonner la proposition en utilisant la section commentaire ci-dessous ou l'améliorer directement en demandant l'accès pour la modifier. Une fois que les auteurs vous accordent l'accès, vous pourrez apporter des modifications à ce brouillon.
+          publish_info: Publiez cette version du brouillon ou
+          requested_access: Accès demandé
+        update:
+          error: Il y a eu des erreurs lors de l'enregistrement du brouillon collaboratif.
+          success: Brouillon collaboratif mis à jour avec succès.
+        wizard_aside:
+          back_from_collaborative_draft: Retour aux brouillons collaboratifs
+          info: Vous créez un <strong>projet collaboratif</strong>.
+      index:
+        collaborative_drafts_list: Accéder aux brouillons collaboratifs
+        new_proposal: Nouvelle proposition
+        view_proposal: Voir la proposition
+      models:
+        collaborative_draft:
+          fields:
+            authors: Auteurs
+            comments: Commentaires
+            contributions: Contributions
+    scopes:
+      global: Portée générale
+      picker:
+        cancel: Annuler
+        change: Modifier
+        choose: Sélectionner
+        currently_selected: Sélectionné
+    shared:
+      login_modal:
+        close_modal: Fermer
+        please_sign_in: Veuillez vous connecter
+        sign_up: Créer un compte
+    system:
+      organizations:
+        omniauth_settings:
+          france_connect:
+            client_id: Client ID
+            client_secret: Client secret
+            provider: FranceConnect
+            provider_name: FranceConnect
+            scope: Périmètre de données
+            site_url: Site URL
+          france_connect_profile:
+            button_path: Chemin du bouton
+            client_id: Client ID
+            client_secret: Client secret
+            provider_name: Provider name
+            site: Site URL
+          france_connect_uid:
+            button_path: Chemin du bouton
+            client_id: Client ID
+            client_secret: Client secret
+            provider_name: Provider name
+            site: Site URL
+          publik:
+            client_id: Client ID
+            client_secret: Client secret
+            site_url: Site URL
     verifications:
       authorizations:
+        create:
+          error: Il y a eu une erreur lors de votre vérification.
+          success: Vous avez été vérifié avec succès.
         first_login:
           actions:
             osp_authorization_handler: Vérifier avec le formulaire de vérification de l'identité
             osp_authorization_workflow: Vérifier avec le formulaire de vérification de l'identité
   devise:
-    failure:
-      invited: Vous avez une invitation en attente, acceptez-la pour terminer la création de votre compte.
-    registrations:
+    passwords:
       new:
-        sign_up: Créer un compte
+        forgot_your_password: Mot de passe oublié ?
+        send_me_reset_password_instructions: Envoyez-moi les instructions de réinitialisation du mot de passe
+    sessions:
+      new:
+        sign_in: S'identifier
+    shared:
+      links:
+        forgot_your_password: Mot de passe oublié ?
+        sign_in_with_france_connect: FranceConnect
   faker:
     address:
       country_code:
@@ -180,7 +245,11 @@ fr:
       - FR9
   layouts:
     decidim:
-      user_menu:
-        account: Mon compte
-      user_profile:
-        notifications_settings: Paramètres des notifications
+      footer:
+        made_with_open_source: Site réalisé par <a target="_blank" href="https://opensourcepolitics.eu">Open Source Politics</a> grâce au <a target="_blank" href="https://github.com/decidim/decidim">logiciel libre Decidim</a>.
+  rack_attack:
+    too_many_requests:
+      message: Il semblerait que vous fassiez trop de requetes sur notre serveur, votre connexion a ete ralentie.
+      time: 'Vous pourrez naviguer de nouveau sur notre plateforme dans :'
+      time_unit: seconds
+      title: Thank you for your participation on %{organization_name}

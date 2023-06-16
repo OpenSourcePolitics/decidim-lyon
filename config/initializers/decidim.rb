@@ -1,18 +1,28 @@
 # frozen_string_literal: true
 
+require "decidim-app/config"
+require "decidim/dev/dummy_translator"
+
 Decidim.configure do |config|
-  config.skip_first_login_authorization = ENV["SKIP_FIRST_LOGIN_AUTHORIZATION"] ? ActiveRecord::Type::Boolean.new.cast(ENV["SKIP_FIRST_LOGIN_AUTHORIZATION"]) : true
   config.application_name = "OSP Agora"
   config.mailer_sender = "OSP Agora <ne-pas-repondre@opensourcepolitics.eu>"
 
   # Change these lines to set your preferred locales
-  config.default_locale = :en
-  config.available_locales = [:en, :fr]
+  if Rails.env.production?
+    config.default_locale = ENV.fetch("DEFAULT_LOCALE", "fr").to_sym
+    config.available_locales = ENV.fetch("AVAILABLE_LOCALES", "fr").split(",").map(&:to_sym)
+  else
+    config.default_locale = ENV.fetch("DEFAULT_LOCALE", "en").to_sym
+    config.available_locales = ENV.fetch("AVAILABLE_LOCALES", "en,fr").split(",").map(&:to_sym)
+  end
 
   # Timeout session
   config.expire_session_after = ENV.fetch("DECIDIM_SESSION_TIMEOUT", 180).to_i.minutes
 
   config.maximum_attachment_height_or_width = 6000
+
+  # Whether SSL should be forced or not (only in production).
+  config.force_ssl = (ENV.fetch("FORCE_SSL", "1") == "1") && Rails.env.production?
 
   # Geocoder configuration
   config.maps = {
@@ -24,14 +34,6 @@ Decidim.configure do |config|
     }
   }
 
-  if defined?(Decidim::Initiatives) && defined?(Decidim::Initiatives.do_not_require_authorization)
-    # puts "Decidim::Initiatives are loaded"
-    Decidim::Initiatives.minimum_committee_members = 1
-    Decidim::Initiatives.do_not_require_authorization = true
-    Decidim::Initiatives.print_enabled = false
-    Decidim::Initiatives.face_to_face_voting_allowed = false
-  end
-
   # Custom resource reference generator method
   # config.resource_reference_generator = lambda do |resource, feature|
   #   # Implement your custom method to generate resources references
@@ -39,7 +41,7 @@ Decidim.configure do |config|
   # end
 
   # Currency unit
-  # config.currency_unit = "€"
+  config.currency_unit = Rails.application.secrets.decidim[:currency]
 
   # The number of reports which an object can receive before hiding it
   # config.max_reports_before_hiding = 3
@@ -97,7 +99,42 @@ Decidim.configure do |config|
   end
 
   config.base_uploads_path = "#{ENV["HEROKU_APP_NAME"]}/" if ENV["HEROKU_APP_NAME"].present?
+
+  # Machine Translation Configuration
+  #
+  # Enable machine translations
+  config.enable_machine_translations = Rails.application.secrets.translator[:enabled]
+  config.machine_translation_service = "DeeplTranslator"
+  config.machine_translation_delay = Rails.application.secrets.translator[:delay]
+end
+
+Decidim.module_eval do
+  autoload :ReminderRegistry, "decidim/reminder_registry"
+  autoload :ReminderManifest, "decidim/reminder_manifest"
+  autoload :ManifestMessages, "decidim/manifest_messages"
+
+  def self.reminders_registry
+    @reminders_registry ||= Decidim::ReminderRegistry.new
+  end
+end
+
+Decidim.reminders_registry.register(:orders) do |reminder_registry|
+  reminder_registry.generator_class_name = "Decidim::Budgets::OrderReminderGenerator"
+  reminder_registry.form_class_name = "Decidim::Budgets::Admin::OrderReminderForm"
+  reminder_registry.command_class_name = "Decidim::Budgets::Admin::CreateOrderReminders"
+
+  reminder_registry.settings do |settings|
+    settings.attribute :reminder_times, type: :array, default: [2.hours, 1.week, 2.weeks]
+  end
+
+  reminder_registry.messages do |msg|
+    msg.set(:title) { |count: 0| I18n.t("decidim.budgets.admin.reminders.orders.title", count: count) }
+    msg.set(:description) { I18n.t("decidim.budgets.admin.reminders.orders.description") }
+  end
 end
 
 Rails.application.config.i18n.available_locales = Decidim.available_locales
 Rails.application.config.i18n.default_locale = Decidim.default_locale
+
+# Inform Decidim about the assets folder
+Decidim.register_assets_path File.expand_path("app/packs", Rails.application.root)
