@@ -3,11 +3,7 @@
 require "spec_helper"
 
 describe DecidimApp::RackAttack::Fail2ban do
-<<<<<<< HEAD
   describe ".enabled?" do
-=======
-  describe "#enabled?" do
->>>>>>> 1ed0296 (Refactor Rack Attack configuration (#312))
     it "returns true" do
       expect(described_class).to be_enabled
     end
@@ -23,11 +19,7 @@ describe DecidimApp::RackAttack::Fail2ban do
     end
   end
 
-<<<<<<< HEAD
   describe ".unauthorized_path?" do
-=======
-  describe "#unauthorized_path?" do
->>>>>>> 1ed0296 (Refactor Rack Attack configuration (#312))
     let(:path) { "SELECT" }
 
     it "returns true" do
