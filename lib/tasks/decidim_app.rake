@@ -66,4 +66,13 @@ namespace :decidim_app do
       DecidimApp::K8s::Manager.run(ENV["path"])
     end
   end
+
+  # This task is used to upgrade your decidim-app to the latest version
+  # Meant to be used in a CI/CD pipeline or a k8s job/operator
+  # You can add your own customizations here
+  desc "Upgrade decidim-app"
+  task upgrade: :environment do
+    puts "Running db:migrate"
+    Rake::Task["db:migrate"].invoke
+  end
 end
