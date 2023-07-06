@@ -56,8 +56,13 @@ module DecidimApp
         end
 
         def update
+<<<<<<< HEAD
           form = Decidim::System::UpdateOrganizationForm.from_params(update_params)
 
+=======
+          mapped_attributes = Decidim::System::UpdateOrganizationForm.from_model(existing_organization).attributes_with_values
+          form = Decidim::System::UpdateOrganizationForm.from_params(mapped_attributes.merge(@configuration, id: existing_organization.id))
+>>>>>>> 28a5c60 (Create organization, system admin and admin from YAML (#339))
           Decidim::System::UpdateOrganization.call(existing_organization.id, form) do
             on(:ok) do
               K8s::Manager.logger.info("Organization #{form.name} updated")
@@ -79,6 +84,7 @@ module DecidimApp
         def existing_organization
           Decidim::Organization.find_by(name: @configuration[:name]) || Decidim::Organization.find_by(host: @configuration[:host])
         end
+<<<<<<< HEAD
 
         def existing_organization_attributes
           Decidim::System::UpdateOrganizationForm.from_model(existing_organization).attributes_with_values.deep_symbolize_keys
@@ -103,6 +109,8 @@ module DecidimApp
 
           params
         end
+=======
+>>>>>>> 28a5c60 (Create organization, system admin and admin from YAML (#339))
       end
     end
   end
