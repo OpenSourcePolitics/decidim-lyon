@@ -23,6 +23,7 @@ describe DecidimApp::K8s::Configuration do
 
     it "returns the organization configuration" do
       expect(subject.organizations).to be_a(Array)
+<<<<<<< HEAD
       expect(subject.organizations.first[:name]).to eq("OSP Decidim")
       expect(subject.organizations.last[:name]).to eq("OSP Decidim 2")
 
@@ -34,6 +35,9 @@ describe DecidimApp::K8s::Configuration do
       expect(file_upload_settings[:allowed_file_extensions][:default]).to eq("jpg,jpeg,gif,png,bmp,pdf,rtf,txt")
       expect(file_upload_settings[:allowed_content_types][:admin]).to eq("image/*,application/vnd.oasis.opendocument,application/vnd.ms-*,application/msword,application/vnd.ms-word,application/vnd.openxmlformats-officedocument,application/vnd.oasis.opendocument,application/pdf,application/rtf,text/plain")
       expect(file_upload_settings[:allowed_content_types][:default]).to eq("image/*,application/pdf,application/rtf,text/plain")
+=======
+      expect(subject.organizations.first).to eq(configuration[:organizations].first)
+>>>>>>> 28a5c60 (Create organization, system admin and admin from YAML (#339))
     end
   end
 

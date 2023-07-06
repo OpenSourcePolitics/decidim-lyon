@@ -3,6 +3,7 @@
 module DecidimApp
   module RackAttack
     def self.rack_enabled?
+<<<<<<< HEAD
       setting = Rails.application.secrets.dig(:decidim, :rack_attack, :enabled)
       return setting == "1" if setting.present?
 
@@ -57,6 +58,9 @@ module DecidimApp
           DecidimApp::RackAttack::Fail2ban.unauthorized_path?(req.path)
         end
       end
+=======
+      (Rails.application.secrets.dig(:decidim, :rack_attack, :enabled) == 1) || Rails.env.production?
+>>>>>>> 28a5c60 (Create organization, system admin and admin from YAML (#339))
     end
   end
 end

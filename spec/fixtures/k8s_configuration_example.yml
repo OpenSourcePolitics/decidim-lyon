@@ -9,9 +9,13 @@ default_admin:
 organizations:
   - name: "OSP Decidim"
     host: decidim.osp.example
+<<<<<<< HEAD
     secondary_hosts:
       - osp.example.org
       - osp.decidim.example
+=======
+    secondary_hosts: 'osp.example.org,osp.decidim.example'
+>>>>>>> 28a5c60 (Create organization, system admin and admin from YAML (#339))
     available_locales:
       - en
       - fr
@@ -88,6 +92,7 @@ organizations:
       port: 8080
       authentication: plain
       enable_starttls_auto: true
+<<<<<<< HEAD
     publik:
       enabled: true
       client_id: 12345
@@ -98,6 +103,11 @@ organizations:
     secondary_hosts:
       - second.example.org
       - second.decidim.example
+=======
+  - name: "OSP Decidim 2"
+    host: second.osp.example
+    secondary_hosts: 'second.example.org,second.decidim.example'
+>>>>>>> 28a5c60 (Create organization, system admin and admin from YAML (#339))
     available_locales:
       - en
       - fr
@@ -174,9 +184,12 @@ organizations:
       port: 8080
       authentication: plain
       enable_starttls_auto: true
+<<<<<<< HEAD
     omniauth_settings:
       publik:
         enabled: true
         client_id: 12345
         client_secret: 12345
         site_url: https://example.com/
+=======
+>>>>>>> 28a5c60 (Create organization, system admin and admin from YAML (#339))
