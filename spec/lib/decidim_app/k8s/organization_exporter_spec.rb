@@ -10,10 +10,6 @@ describe DecidimApp::K8s::OrganizationExporter do
   let(:logger) { Logger.new($stdout) }
   let(:export_path) { Rails.root.join("tmp/test_export") }
   let(:organization_host) { "my-host.domain.org" }
-<<<<<<< HEAD
-  let(:organization_secondary_host) { "www.my-host.domain.org" }
-=======
->>>>>>> 28a5c60 (Create organization, system admin and admin from YAML (#339))
   let(:hostname) { "my-host" }
   let(:name_space) { "domain-org" }
   let(:image) { "my-image" }
@@ -27,15 +23,6 @@ describe DecidimApp::K8s::OrganizationExporter do
 
   let(:database_name) { Rails.configuration.database_configuration[Rails.env]["database"] }
 
-<<<<<<< HEAD
-  before do
-    organization.update!(secondary_hosts: [organization_secondary_host])
-    allow(DecidimApp::K8s::SecondaryHostsChecker).to receive(:valid_secondary_hosts).with(host: organization_host, secondary_hosts: [organization_secondary_host])
-                                                                                    .and_return([organization_secondary_host])
-  end
-
-=======
->>>>>>> 28a5c60 (Create organization, system admin and admin from YAML (#339))
   describe ".export!" do
     it "calls the right methods" do
       # rubocop:disable RSpec/AnyInstance
@@ -59,11 +46,7 @@ describe DecidimApp::K8s::OrganizationExporter do
   describe "#dumping_database" do
     it "dumps the database" do
       # rubocop:disable RSpec/SubjectStub
-<<<<<<< HEAD
-      expect(subject).to receive(:system).with("pg_dump -Fc #{database_name} > #{export_path}/#{name_space}--#{hostname}/postgres/#{hostname}--de.dump")
-=======
       expect(subject).to receive(:system).with("pg_dump -Fc #{database_name} > #{export_path}/#{name_space}--#{hostname}/postgres/#{hostname}--#{organization.host}--de.dump")
->>>>>>> 28a5c60 (Create organization, system admin and admin from YAML (#339))
       # rubocop:enable RSpec/SubjectStub
       subject.dumping_database
     end
@@ -156,13 +139,8 @@ describe DecidimApp::K8s::OrganizationExporter do
     end
 
     it "returns the correct host and secondary hosts" do
-<<<<<<< HEAD
-      expect(subject.organization_settings["spec"]["host"]).to eq(organization_host)
-      expect(subject.organization_settings["spec"]["additionalHosts"]).to eq([organization_secondary_host])
-=======
       expect(subject.organization_settings["spec"]["host"]).to eq(organization.host)
       expect(subject.organization_settings["spec"]["additionalHosts"]).to eq(organization.secondary_hosts)
->>>>>>> 28a5c60 (Create organization, system admin and admin from YAML (#339))
     end
 
     it "returns the correct organization" do
@@ -184,24 +162,7 @@ describe DecidimApp::K8s::OrganizationExporter do
                                                    "available_authorizations" => [],
                                                    "available_locales" => %w(en fr),
                                                    "default_locale" => "en",
-<<<<<<< HEAD
-                                                   "file_upload_settings" => {
-                                                     "allowed_content_types" => {
-                                                       "admin" => %w(image/* application/vnd.oasis.opendocument application/vnd.ms-* application/msword application/vnd.ms-word application/vnd.openxmlformats-officedocument application/vnd.oasis.opendocument application/pdf application/rtf text/plain),
-                                                       "default" => %w(image/* application/pdf application/rtf text/plain)
-                                                     },
-                                                     "allowed_file_extensions" => {
-                                                       "admin" => %w(jpg jpeg gif png bmp pdf doc docx xls xlsx ppt pptx ppx rtf txt odt ott odf otg ods ots),
-                                                       "default" => %w(jpg jpeg gif png bmp pdf rtf txt),
-                                                       "image" => %w(jpg jpeg gif png bmp ico)
-                                                     },
-                                                     "maximum_file_size" => {
-                                                       "avatar" => 5, "default" => 10
-                                                     }
-                                                   },
-=======
                                                    "file_upload_settings" => { "allowed_content_types" => { "admin" => %w(image/* application/vnd.oasis.opendocument application/vnd.ms-* application/msword application/vnd.ms-word application/vnd.openxmlformats-officedocument application/vnd.oasis.opendocument application/pdf application/rtf text/plain), "default" => ["image/*", "application/pdf", "application/rtf", "text/plain"] }, "allowed_file_extensions" => { "admin" => %w(jpg jpeg gif png bmp pdf doc docx xls xlsx ppt pptx ppx rtf txt odt ott odf otg ods ots), "default" => %w(jpg jpeg gif png bmp pdf rtf txt), "image" => %w(jpg jpeg gif png bmp ico) }, "maximum_file_size" => { "avatar" => 5, "default" => 10 } },
->>>>>>> 28a5c60 (Create organization, system admin and admin from YAML (#339))
                                                    "force_users_to_authenticate_before_access_organization" => false,
                                                    "id" => organization.id,
                                                    "users_registration_mode" => 0
@@ -213,23 +174,15 @@ describe DecidimApp::K8s::OrganizationExporter do
     let(:allowed_env_vars) do
       {
         "FOO" => "bar",
-<<<<<<< HEAD
         "BAR" => "baz",
         "DUMMY" => 3
-=======
-        "BAR" => "baz"
->>>>>>> 28a5c60 (Create organization, system admin and admin from YAML (#339))
       }
     end
 
     let(:forbidden_env_vars) do
       {
-<<<<<<< HEAD
         "BACKUP_S3SYNC_BUCKET" => "bucket-1216",
         "ENABLE_RACK_ATTACK" => 1
-=======
-        "BACKUP_S3SYNC_BUCKET" => "bucket-1216"
->>>>>>> 28a5c60 (Create organization, system admin and admin from YAML (#339))
       }
     end
 
@@ -240,11 +193,7 @@ describe DecidimApp::K8s::OrganizationExporter do
     end
 
     it "returns the env vars" do
-<<<<<<< HEAD
       expect(subject.env_vars).to eq({ "FOO" => "bar", "BAR" => "baz", "DUMMY" => "3", "ENABLE_RACK_ATTACK" => "0" })
-=======
-      expect(subject.env_vars).to eq(allowed_env_vars)
->>>>>>> 28a5c60 (Create organization, system admin and admin from YAML (#339))
     end
 
     context "when the .env file is empty" do
@@ -253,11 +202,7 @@ describe DecidimApp::K8s::OrganizationExporter do
       end
 
       it "returns an empty hash" do
-<<<<<<< HEAD
         expect(subject.env_vars).to eq({ "ENABLE_RACK_ATTACK" => "0" })
-=======
-        expect(subject.env_vars).to eq({})
->>>>>>> 28a5c60 (Create organization, system admin and admin from YAML (#339))
       end
     end
   end
@@ -266,30 +211,13 @@ describe DecidimApp::K8s::OrganizationExporter do
     it "returns the smtp settings" do
       expect(subject.smtp_settings).to eq({ "SMTP_ADDRESS" => "smtp.example.org", "SMTP_FROM" => "test@example.org", "SMTP_PASSWORD" => "demo", "SMTP_PORT" => "25", "SMTP_USER_NAME" => "test" })
     end
-<<<<<<< HEAD
-
-    context "when smtp settings are not present" do
-      before do
-        organization.update!(smtp_settings: nil)
-      end
-
-      it "returns empty smtp settings" do
-        expect(subject.smtp_settings).to eq({})
-      end
-    end
-=======
->>>>>>> 28a5c60 (Create organization, system admin and admin from YAML (#339))
   end
 
   describe "#omniauth_settings" do
     it "returns the decrypted omniauth settings" do
       expect(subject.omniauth_settings).to match("OMNIAUTH_SETTINGS_FACEBOOK_APP_ID" => "app_id_123456",
                                                  "OMNIAUTH_SETTINGS_FACEBOOK_APP_SECRET" => "app_secret_123456",
-<<<<<<< HEAD
                                                  "OMNIAUTH_SETTINGS_FACEBOOK_ENABLED" => "true")
-=======
-                                                 "OMNIAUTH_SETTINGS_FACEBOOK_ENABLED" => true)
->>>>>>> 28a5c60 (Create organization, system admin and admin from YAML (#339))
     end
 
     context "when the omniauth settings are not present" do
@@ -320,11 +248,7 @@ describe DecidimApp::K8s::OrganizationExporter do
       it "returns the omniauth settings as it" do
         expect(subject.omniauth_settings).to match("OMNIAUTH_SETTINGS_FACEBOOK_APP_ID" => "wrongly_encrypted_app_id_123456",
                                                    "OMNIAUTH_SETTINGS_FACEBOOK_APP_SECRET" => "wrongly_encrypted_app_secret_123456",
-<<<<<<< HEAD
                                                    "OMNIAUTH_SETTINGS_FACEBOOK_ENABLED" => "true")
-=======
-                                                   "OMNIAUTH_SETTINGS_FACEBOOK_ENABLED" => true)
->>>>>>> 28a5c60 (Create organization, system admin and admin from YAML (#339))
       end
     end
   end
@@ -341,11 +265,7 @@ describe DecidimApp::K8s::OrganizationExporter do
     it "returns the env vars" do
       expect(subject.all_env_vars.keys).to match_array(%w(apiVersion kind metadata stringData))
       expect(subject.all_env_vars["metadata"]["name"]).to eq("#{hostname}-custom-env")
-<<<<<<< HEAD
       expect(subject.all_env_vars["stringData"].keys).to match_array(%w(ENABLE_RACK_ATTACK RAILS_ENV RAILS_SERVE_STATIC_FILES SMTP_FROM SMTP_USER_NAME SMTP_PORT SMTP_ADDRESS SMTP_PASSWORD OMNIAUTH_SETTINGS_FACEBOOK_ENABLED OMNIAUTH_SETTINGS_FACEBOOK_APP_ID OMNIAUTH_SETTINGS_FACEBOOK_APP_SECRET))
-=======
-      expect(subject.all_env_vars["stringData"].keys).to match_array(%w(RAILS_ENV RAILS_SERVE_STATIC_FILES SMTP_FROM SMTP_USER_NAME SMTP_PORT SMTP_ADDRESS SMTP_PASSWORD OMNIAUTH_SETTINGS_FACEBOOK_ENABLED OMNIAUTH_SETTINGS_FACEBOOK_APP_ID OMNIAUTH_SETTINGS_FACEBOOK_APP_SECRET))
->>>>>>> 28a5c60 (Create organization, system admin and admin from YAML (#339))
     end
   end
 end

@@ -1,12 +1,5 @@
 # frozen_string_literal: true
 
-<<<<<<< HEAD
-require "uri"
-require "net/http"
-require "decidim_app/k8s/secondary_hosts_checker"
-
-=======
->>>>>>> 28a5c60 (Create organization, system admin and admin from YAML (#339))
 module DecidimApp
   module K8s
     class OrganizationExporter
@@ -22,7 +15,6 @@ module DecidimApp
                                       SCALEWAY_ID
                                       SCALEWAY_TOKEN
                                       SCALEWAY_BUCKET_NAME
-<<<<<<< HEAD
                                       SECRET_KEY_BASE
                                       ENABLE_RACK_ATTACK).freeze
 
@@ -30,9 +22,6 @@ module DecidimApp
         "ENABLE_RACK_ATTACK" => 0
       }.freeze
 
-=======
-                                      SECRET_KEY_BASE).freeze
->>>>>>> 28a5c60 (Create organization, system admin and admin from YAML (#339))
       ORGANIZATION_COLUMNS = %w(id
                                 default_locale
                                 available_locales
@@ -64,13 +53,8 @@ module DecidimApp
       end
 
       def dumping_database
-<<<<<<< HEAD
-        @logger.info("dumping database #{@database_name} to #{organization_export_path}/postgres/#{resource_name}--de.dump")
-        system("pg_dump -Fc #{@database_name} > #{organization_export_path}/postgres/#{resource_name}--de.dump")
-=======
         @logger.info("dumping database #{@database_name} to #{organization_export_path}/postgres/#{resource_name}--#{@organization.host}--de.dump")
         system("pg_dump -Fc #{@database_name} > #{organization_export_path}/postgres/#{resource_name}--#{@organization.host}--de.dump")
->>>>>>> 28a5c60 (Create organization, system admin and admin from YAML (#339))
       end
 
       def exporting_configuration
@@ -102,22 +86,15 @@ module DecidimApp
           metadata: {
             name: "#{resource_name}-custom-env"
           },
-<<<<<<< HEAD
           stringData: env_vars.merge(smtp_settings).merge(omniauth_settings)
-=======
-          stringData: env_vars.merge!(smtp_settings).merge!(omniauth_settings)
->>>>>>> 28a5c60 (Create organization, system admin and admin from YAML (#339))
         }.deep_stringify_keys
       end
 
       def env_vars
         @env_vars ||= Dotenv.parse(".env")
                             .reject { |key, _value| FORBIDDEN_ENVIRONMENT_KEYS.include?(key) }
-<<<<<<< HEAD
                             .merge(DEFAULT_ENVIRONMENT_VARIABLES)
                             .transform_values(&:to_s)
-=======
->>>>>>> 28a5c60 (Create organization, system admin and admin from YAML (#339))
       end
 
       def secret_key_base_env_var
@@ -136,7 +113,6 @@ module DecidimApp
       def omniauth_settings
         return {} unless @organization.omniauth_settings
 
-<<<<<<< HEAD
         settings = @organization.omniauth_settings
                                 .deep_dup
                                 .each_with_object({}) do |(key, value), hash|
@@ -147,8 +123,8 @@ module DecidimApp
       end
 
       def smtp_settings
-        settings = @organization.smtp_settings.deep_dup || {}
-        settings["password"] = Decidim::AttributeEncryptor.decrypt(settings["encrypted_password"]) if settings["encrypted_password"].present?
+        settings = @organization.smtp_settings.deep_dup
+        settings["password"] = Decidim::AttributeEncryptor.decrypt(settings["encrypted_password"])
         settings.delete("encrypted_password")
 
         settings = settings.transform_keys do |key|
@@ -156,25 +132,6 @@ module DecidimApp
         end
 
         settings.deep_transform_values(&:to_s)
-=======
-        @organization.omniauth_settings.each_with_object({}) do |(key, value), hash|
-          hash[key.upcase] = if Decidim::OmniauthProvider.value_defined?(value)
-                               decrypt(value)
-                             else
-                               value
-                             end
-        end
-      end
-
-      def smtp_settings
-        settings = @organization.smtp_settings.deep_dup
-        settings["password"] = Decidim::AttributeEncryptor.decrypt(settings["encrypted_password"])
-        settings.delete("encrypted_password")
-
-        settings.transform_keys do |key|
-          "SMTP_#{key.upcase}"
-        end
->>>>>>> 28a5c60 (Create organization, system admin and admin from YAML (#339))
       end
 
       def organization_columns
@@ -194,11 +151,7 @@ module DecidimApp
           spec: {
             image: @image,
             host: @organization.host,
-<<<<<<< HEAD
-            additionalHosts: DecidimApp::K8s::SecondaryHostsChecker.valid_secondary_hosts(host: @organization.host, secondary_hosts: @organization.secondary_hosts),
-=======
             additionalHosts: @organization.secondary_hosts,
->>>>>>> 28a5c60 (Create organization, system admin and admin from YAML (#339))
             organization: { id: organization_columns["id"] },
             locale: {
               default: organization_columns["default_locale"],
