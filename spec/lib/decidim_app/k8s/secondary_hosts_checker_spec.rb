@@ -8,9 +8,15 @@ describe DecidimApp::K8s::SecondaryHostsChecker do
 
   let(:host) { "example.org" }
   let(:secondary_hosts) { ["www.example.org"] }
+<<<<<<< HEAD
   let(:target) { "http://#{secondary_hosts.first}" }
   let(:response_code) { 301 }
   let(:response_headers) { { "location" => "http://#{host}" } }
+=======
+  let(:target) { "https://#{secondary_hosts.first}" }
+  let(:response_code) { 301 }
+  let(:response_headers) { { "location" => host } }
+>>>>>>> fdbb062 (K8S - Check if secondary hosts are valid (#350))
 
   before do
     # Our system checks for redirection then returns the host
@@ -23,11 +29,19 @@ describe DecidimApp::K8s::SecondaryHostsChecker do
                                     }).to_return(status: response_code, body: "", headers: response_headers)
 
     # Second request to get the host
+<<<<<<< HEAD
     stub_request(:get, "http://#{host}/").with(headers: {
                                                  "Accept" => "*/*",
                                                  "Accept-Encoding" => "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
                                                  "User-Agent" => "Ruby"
                                                }).to_return(status: 200, body: "", headers: {})
+=======
+    stub_request(:get, "https://#{host}/").with(headers: {
+                                                  "Accept" => "*/*",
+                                                  "Accept-Encoding" => "gzip;q=1.0,deflate;q=0.6,identity;q=0.3",
+                                                  "User-Agent" => "Ruby"
+                                                }).to_return(status: 200, body: "", headers: {})
+>>>>>>> fdbb062 (K8S - Check if secondary hosts are valid (#350))
   end
 
   describe ".get_redirection_target" do
@@ -36,7 +50,11 @@ describe DecidimApp::K8s::SecondaryHostsChecker do
     end
 
     context "when the host is not a redirection" do
+<<<<<<< HEAD
       let(:target) { "http://#{host}" }
+=======
+      let(:target) { "https://#{host}" }
+>>>>>>> fdbb062 (K8S - Check if secondary hosts are valid (#350))
       let(:response_headers) { {} }
       let(:response_code) { 200 }
 
@@ -46,6 +64,7 @@ describe DecidimApp::K8s::SecondaryHostsChecker do
     end
 
     context "when the host is not valid" do
+<<<<<<< HEAD
       context "when it is not a valid url" do
         it "returns nil" do
           expect(subject.get_redirection_target(123)).to eq(nil)
@@ -59,20 +78,39 @@ describe DecidimApp::K8s::SecondaryHostsChecker do
         it "returns nil" do
           expect(subject.get_redirection_target("nothing.org")).to eq(nil)
         end
+=======
+      let(:target) { "https://nothing.org" }
+      let(:response_code) { 404 }
+
+      it "returns nil" do
+        expect(subject.get_redirection_target("nothing.org")).to eq(nil)
+>>>>>>> fdbb062 (K8S - Check if secondary hosts are valid (#350))
       end
     end
 
     context "when the host is not valid because of too many redirections" do
+<<<<<<< HEAD
       let(:target) { "http://redirection.org" }
       let(:response_headers) { { "location" => "another_redirection.org" } }
 
       it "returns nil" do
         expect(subject.get_redirection_target("redirection.org", 1)).to eq(nil)
+=======
+      let(:target) { "https://redirection.org" }
+      let(:response_headers) { { "location" => "another_redirection.org" } }
+
+      it "raises an exception" do
+        expect { subject.get_redirection_target("redirection.org", 1) }.to raise_error(RuntimeError, "Secondary host another_redirection.org is not valid because of too many redirections")
+>>>>>>> fdbb062 (K8S - Check if secondary hosts are valid (#350))
       end
     end
 
     context "when the host is not valid because of a socket error" do
+<<<<<<< HEAD
       [Errno::ECONNREFUSED, SocketError, Errno::EHOSTUNREACH].each do |error|
+=======
+      [Errno::ECONNREFUSED, SocketError].each do |error|
+>>>>>>> fdbb062 (K8S - Check if secondary hosts are valid (#350))
         it "returns nil" do
           stub_request(:get, target).to_raise(error)
           expect(subject.get_redirection_target(secondary_hosts.first)).to eq(nil)
@@ -87,7 +125,11 @@ describe DecidimApp::K8s::SecondaryHostsChecker do
     end
 
     context "when host is not valid" do
+<<<<<<< HEAD
       let(:target) { "http://nothing.org" }
+=======
+      let(:target) { "https://nothing.org" }
+>>>>>>> fdbb062 (K8S - Check if secondary hosts are valid (#350))
       let(:response_code) { 404 }
 
       it "returns false" do
@@ -102,7 +144,11 @@ describe DecidimApp::K8s::SecondaryHostsChecker do
     end
 
     context "when there are invalid secondary hosts" do
+<<<<<<< HEAD
       let(:target) { "http://nothing.org" }
+=======
+      let(:target) { "https://nothing.org" }
+>>>>>>> fdbb062 (K8S - Check if secondary hosts are valid (#350))
       let(:response_code) { 404 }
 
       it "returns an empty array" do
