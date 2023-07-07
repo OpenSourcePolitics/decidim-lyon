@@ -16,6 +16,7 @@ module DecidimApp
       end
 
       def self.get_redirection_target(host, limit = 3)
+<<<<<<< HEAD
         return nil if limit.zero? # Avoid infinite loops
         return nil unless host.is_a?(URI) || host.is_a?(String)
 
@@ -23,6 +24,12 @@ module DecidimApp
         host = (url.host || url.path)
         req = Net::HTTP::Get.new("/")
         response = Net::HTTP.start(host, 80) { |http| http.request(req) }
+=======
+        raise "Secondary host #{host} is not valid because of too many redirections" if limit.zero?
+
+        req = Net::HTTP::Get.new("/")
+        response = Net::HTTP.start(host, 443, use_ssl: true) { |http| http.request(req) }
+>>>>>>> fdbb062 (K8S - Check if secondary hosts are valid (#350))
 
         case response
         when Net::HTTPSuccess
@@ -30,7 +37,11 @@ module DecidimApp
         when Net::HTTPRedirection
           get_redirection_target(response["location"], limit - 1)
         end
+<<<<<<< HEAD
       rescue SocketError, Errno::ECONNREFUSED, Errno::EHOSTUNREACH
+=======
+      rescue SocketError, Errno::ECONNREFUSED
+>>>>>>> fdbb062 (K8S - Check if secondary hosts are valid (#350))
         nil
       end
     end
