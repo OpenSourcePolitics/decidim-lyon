@@ -2,7 +2,6 @@
 
 require "spec_helper"
 
-<<<<<<< HEAD
 describe DecidimApp::RackAttack, type: :request do
   include ActiveSupport::Testing::TimeHelpers
   let(:organization) { create(:organization) }
@@ -30,12 +29,6 @@ describe DecidimApp::RackAttack, type: :request do
       it "returns false" do
         expect(described_class).not_to be_rack_enabled
       end
-=======
-describe DecidimApp::RackAttack do
-  describe "#rack_enabled?" do
-    it "returns true" do
-      expect(described_class).to be_rack_enabled
->>>>>>> 1ed0296 (Refactor Rack Attack configuration (#312))
     end
 
     context "when rails env is production" do
@@ -46,7 +39,6 @@ describe DecidimApp::RackAttack do
       it "returns true" do
         expect(described_class).to be_rack_enabled
       end
-<<<<<<< HEAD
 
       context "when ENV variable is set to '1'" do
         before do
@@ -128,17 +120,6 @@ describe DecidimApp::RackAttack do
             expect(response).to have_http_status(:ok)
           end
         end
-=======
-    end
-
-    context "when rails secret is not set" do
-      before do
-        allow(Rails.application.secrets).to receive(:dig).with(:decidim, :rack_attack, :enabled).and_return(0)
-      end
-
-      it "returns false" do
-        expect(described_class).not_to be_rack_enabled
->>>>>>> 1ed0296 (Refactor Rack Attack configuration (#312))
       end
     end
   end
