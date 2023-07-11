@@ -9,26 +9,18 @@ describe DecidimApp::K8s::Commands::Organization do
 
   let(:reference_prefix) { "JKR" }
   let(:users_registration_mode) { "enabled" }
-<<<<<<< HEAD
   let(:secondary_hosts) { %w(osp.example.org osp.decidim.example) }
-=======
->>>>>>> 28a5c60 (Create organization, system admin and admin from YAML (#339))
   let(:organization_configuration) do
     {
       name: "OSP Decidim",
       host: "decidim.example.org",
-<<<<<<< HEAD
       secondary_hosts: secondary_hosts.join("\n"),
-=======
-      secondary_hosts: "osp.example.org,osp.decidim.example",
->>>>>>> 28a5c60 (Create organization, system admin and admin from YAML (#339))
       available_locales: %w(en fr),
       default_locale: "fr",
       reference_prefix: reference_prefix,
       users_registration_mode: users_registration_mode,
       file_upload_settings: {
         allowed_file_extensions: {
-<<<<<<< HEAD
           admin: "dummy,foo,bar",
           image: "dummy,foo,bar",
           default: "dummy,foo,bar"
@@ -40,19 +32,6 @@ describe DecidimApp::K8s::Commands::Organization do
         maximum_file_size: {
           avatar: 3,
           default: 9
-=======
-          admin: %w(jpeg jpg gif png bmp pdf doc docx xls xlsx ppt pptx ppx rtf txt odt ott odf otg ods ots),
-          image: %w(jpg jpeg gif png bmp ico),
-          default: %w(jpg jpeg gif png bmp pdf rtf txt)
-        },
-        allowed_content_types: {
-          admin: %w(image/* application/vnd.oasis.opendocument application/vnd.ms-* application/msword application/vnd.ms-word application/vnd.openxmlformats-officedocument application/vnd.oasis.opendocument application/pdf application/rtf text/plain),
-          default: %w(image/* application/pdf application/rtf text/plain)
-        },
-        maximum_file_size: {
-          avatar: 5,
-          default: 10
->>>>>>> 28a5c60 (Create organization, system admin and admin from YAML (#339))
         }
       },
       smtp_settings: {
@@ -65,7 +44,6 @@ describe DecidimApp::K8s::Commands::Organization do
         port: 8080,
         authentication: "plain",
         enable_starttls_auto: true
-<<<<<<< HEAD
       },
       omniauth_settings: {
         publik: {
@@ -74,8 +52,6 @@ describe DecidimApp::K8s::Commands::Organization do
           client_secret: "12345",
           site_url: "https://example.com/"
         }
-=======
->>>>>>> 28a5c60 (Create organization, system admin and admin from YAML (#339))
       }
     }
   end
@@ -93,7 +69,6 @@ describe DecidimApp::K8s::Commands::Organization do
       expect do
         expect(subject.run).to be_a(Decidim::Organization)
       end.to change(Decidim::Organization, :count).by(1).and change(Decidim::User, :count).by(1)
-<<<<<<< HEAD
 
       organization = Decidim::Organization.last
 
@@ -104,8 +79,6 @@ describe DecidimApp::K8s::Commands::Organization do
       expect(organization.default_locale).to eq(organization_configuration[:default_locale])
       expect(organization.reference_prefix).to eq(organization_configuration[:reference_prefix])
       expect(organization.users_registration_mode).to eq(organization_configuration[:users_registration_mode])
-=======
->>>>>>> 28a5c60 (Create organization, system admin and admin from YAML (#339))
     end
 
     context "when organization is invalid" do
@@ -125,7 +98,6 @@ describe DecidimApp::K8s::Commands::Organization do
         end.to not_change(Decidim::Organization, :count).and not_change(Decidim::User, :count)
 
         expect(organization.reload.users_registration_mode).to eq(organization_configuration[:users_registration_mode])
-<<<<<<< HEAD
         expect(organization.reload.name).to eq(organization_configuration[:name])
         expect(organization.reload.host).to eq(organization_configuration[:host])
         expect(organization.reload.secondary_hosts).to eq(secondary_hosts)
@@ -168,8 +140,6 @@ describe DecidimApp::K8s::Commands::Organization do
         expect(Decidim::AttributeEncryptor.decrypt(omniauth_settings["omniauth_settings_publik_client_secret"])).to eq("12345")
         expect(Decidim::AttributeEncryptor.decrypt(omniauth_settings["omniauth_settings_publik_site_url"])).to eq("https://example.com/")
         expect(omniauth_settings["omniauth_settings_publik_enabled"]).to eq(true)
-=======
->>>>>>> 28a5c60 (Create organization, system admin and admin from YAML (#339))
       end
 
       context "when organization is invalid" do

@@ -5,7 +5,6 @@ module DecidimApp
     class Configuration
       attr_reader :organizations, :system_admin, :default_admin
 
-<<<<<<< HEAD
       TRANSFORMS_METHODS = {
         to_string_separated_by_new_line: ->(value) { value.join("\n") },
         to_string_separated_by_comma: ->(value) { value.join(",") }
@@ -20,8 +19,6 @@ module DecidimApp
         file_upload_settings_allowed_content_types_default: :to_string_separated_by_comma
       }.freeze
 
-=======
->>>>>>> 28a5c60 (Create organization, system admin and admin from YAML (#339))
       def initialize(path)
         @parsed_configuration = YAML.load_file(path).deep_symbolize_keys
         @organizations = set_organizations
@@ -46,7 +43,6 @@ module DecidimApp
       private
 
       def set_organizations
-<<<<<<< HEAD
         organizations = @parsed_configuration[:organizations].is_a?(Hash) ? [@parsed_configuration[:organizations]] : @parsed_configuration[:organizations]
 
         organizations&.map { |organization| deep_transform(organization) } || []
@@ -73,9 +69,6 @@ module DecidimApp
         return value unless TRANSFORMS[match_key]
 
         TRANSFORMS_METHODS[TRANSFORMS[match_key]].call(value)
-=======
-        @parsed_configuration[:organizations].is_a?(Hash) ? [@parsed_configuration[:organizations]] : @parsed_configuration[:organizations]
->>>>>>> 28a5c60 (Create organization, system admin and admin from YAML (#339))
       end
     end
   end
