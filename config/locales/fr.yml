@@ -185,18 +185,6 @@ fr:
           email_outro: Vérifiez la <a href="%{conflicts_path}">Liste de conflits des vérifications</a> et contactez les participants pour vérifier leurs renseignements et résoudre le problème.
           email_subject: Un utilisateur a tenté de se faire vérifier avec les données d'un utilisateur représenté
           notification_title: Le participant <a href="%{resource_path}">%{resource_title}</a> a tenté de se faire vérifier avec les données de l'utilisateur représenté <a href="%{managed_user_path}">%{managed_user_name}</a>.
-    notifications_settings:
-      show:
-        administrators: Administrateurs
-        allow_public_contact: Permettre à n'importe quoi de m'envoyer un message direct, même si je ne les suis pas.
-        direct_messages: Recevoir des messages directs de n'importe qui
-        email_on_moderations: Je veux recevoir un email chaque fois que quelque chose est signalé pour modération.
-        email_on_notification: Je souhaite recevoir un email à chaque fois que je reçois une notification.
-        everything_followed: Tout ce que je suis
-        own_activity: Ma propre activité, comme quand quelqu'un commente dans ma proposition ou me mentionne
-        receive_notifications_about: Je veux recevoir des notifications sur
-        send_notifications_by_email: Envoyer des notifications par email
-        update_notifications_settings: Enregistrer les modifications
     meetings:
       directory:
         meetings:
@@ -211,6 +199,18 @@ fr:
         update:
           invalid: Il y a eu une erreur lors de la mise à jour de la rencontre.
           success: La rencontre a été mise à jour avec succès.
+    notifications_settings:
+      show:
+        administrators: Administrateurs
+        allow_public_contact: Permettre à n'importe quoi de m'envoyer un message direct, même si je ne les suis pas.
+        direct_messages: Recevoir des messages directs de n'importe qui
+        email_on_moderations: Je veux recevoir un email chaque fois que quelque chose est signalé pour modération.
+        email_on_notification: Je souhaite recevoir un email à chaque fois que je reçois une notification.
+        everything_followed: Tout ce que je suis
+        own_activity: Ma propre activité, comme quand quelqu'un commente dans ma proposition ou me mentionne
+        receive_notifications_about: Je veux recevoir des notifications sur
+        send_notifications_by_email: Envoyer des notifications par email
+        update_notifications_settings: Enregistrer les modifications
     omniauth:
       france_connect:
         explanation: FranceConnect est la solution proposée par l’État pour sécuriser et simplifier la connexion à vos services en ligne.
@@ -332,13 +332,13 @@ fr:
   devise:
     failure:
       invited: Vous avez une invitation en attente, acceptez-la pour terminer la création de votre compte.
-    registrations:
-      new:
-        sign_up: Créer un compte
     passwords:
       new:
         forgot_your_password: Mot de passe oublié ?
         send_me_reset_password_instructions: Envoyez-moi les instructions de réinitialisation du mot de passe
+    registrations:
+      new:
+        sign_up: Créer un compte
     sessions:
       new:
         sign_in: S'identifier
