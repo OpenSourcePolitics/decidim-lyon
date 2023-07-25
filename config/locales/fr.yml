@@ -8,27 +8,48 @@ fr:
         postal_code: Code postal
       participatory_process:
         private_space: Espace privé
+      proposal:
+        address: Adresse précise (facultatif)
+    errors:
+      models:
+        proposal:
+          attributes:
+            attachment:
+              needs_to_be_reattached: Doit être ré-attaché
+  budgets:
+    projects_helper:
+      current_rule_description:
+        minimum_projects_rule:
+          description: Description
+        projects_rule:
+          description: Description
+        projects_rule_maximum_only:
+          description: Description
+        vote_threshold_percent_rule:
+          description: Description
+      current_rule_explanation:
+        minimum_projects_rule:
+          instruction: Instruction
+        projects_rule:
+          instruction: Instruction
+        projects_rule_maximum_only:
+          instruction: Instruction
+        vote_threshold_percent_rule:
+          instruction: Instruction
   decidim:
+    accessibility:
+      skip_button: Passer au contenu principal
     admin:
       participatory_space_private_users:
         create:
           error: Erreur
           success: Succès
-      reminders:
-        create:
-          error: Il y a eu un problème en créant le rappel.
-          success:
-            one: "%{count} utilisateur recevra le rappel"
-            other: "%{count} utilisateurs recevront le rappel"
-        new:
-          submit: Send
     amendments:
       emendation:
         announcement:
           evaluating: |-
             Cet amendement pour le %{amendable_type} %{proposal_link}
             est en cours d’évaluation.
-    anonymous_user: Utilisateur anonyme
     authorization_handlers:
       osp_authorization_handler:
         explanation: Vérifier votre identité en saisissant un numéro unique
@@ -76,6 +97,31 @@ fr:
           projects_count:
             one: 1 projet
             other: "%{count} projets"
+        index:
+          view_project: View project
+        projects_for: Projects for
+        show:
+          budget: Budget
+          view_all_projects: Voir tous les projets
+      projects_helper:
+        current_rule_description:
+          minimum_projects_rule:
+            description: Description
+          projects_rule:
+            description: Description
+          projects_rule_maximum_only:
+            description: Description
+          vote_threshold_percent_rule:
+            description: Description
+        current_rule_explanation:
+          minimum_projects_rule:
+            instruction: Instruction
+          projects_rule:
+            instruction: Instruction
+          projects_rule_maximum_only:
+            instruction: Instruction
+          vote_threshold_percent_rule:
+            instruction: Instruction
       vote_reminder_mailer:
         vote_reminder:
           email_budgets: 'Budget où vous avez un vote non terminé:'
@@ -85,7 +131,26 @@ fr:
           email_subject:
             one: Vous n'avez pas finalisé votre vote
             other: Vous n'avez pas finalisé vos votes
+    components:
+      budgets:
+        settings:
+          global:
+            geocoding_enabled: Geocoding enabled
     devise:
+      registrations:
+        new:
+          already_have_an_account?: Vous avez déjà un compte ?
+          newsletter: Pour recevoir tout l'actualité de la démocratie locale de la ville de Lyon, cliquez ici.
+          newsletter_title: Actualités
+          nickname_help: Cet identifiant est public et unique sur la plateforme "%{organization}" ; il permet aux autres utilisateurs de vous suivre, de vous contacter ou de vous mentionner dans leurs commentaires. Il s’affichera précédé d’un « @ » ; il ne doit pas contenir d’espace ni de caractère spécial.
+          password_help: "%{minimun_characters} caractères minimum, ne doit pas être trop commun (par exemple 123456) et doit être différent de votre pseudo et de votre email."
+          sign_in: Se connecter
+          sign_up: Créer un compte
+          subtitle: Inscrivez-vous pour participer aux discussions et pour exprimer votre soutien aux propositions de votre choix.
+          terms: les termes et conditions d'utilisation
+          tos_agreement: En vous inscrivant, vous acceptez %{link}.
+          tos_title: Conditions d'utilisation
+          username_help: Le nom est public et apparaît dans votre profil et sur vos messages. Dans le but de garantir l'anonymat, vous pouvez choisir n'importe quel nom.
       sessions:
         new:
           sign_in_disabled: Vous pouvez accéder avec un compte externe
@@ -96,6 +161,18 @@ fr:
           email_outro: Vous avez reçu cette notification parce que vous avez commencé à voter sur la concertation "%{participatory_space_title}"
           email_subject: Votre vote est toujours en attente sur la concertation %{participatory_space_title}
           notification_title: Votre vote pour le budget <a href="%{resource_path}">%{resource_title}</a> attend d'être finalisé sur la concertation %{participatory_space_title}
+      notifications_settings:
+        show:
+          administrators: Administrateurs
+          allow_public_contact: Permettre à n'importe quoi de m'envoyer un message direct, même si je ne les suis pas.
+          direct_messages: Recevoir des messages directs de n'importe qui
+          email_on_moderations: Je veux recevoir un email chaque fois que quelque chose est signalé pour modération.
+          email_on_notification: Je souhaite recevoir un email à chaque fois que je reçois une notification.
+          everything_followed: Tout ce que je suis
+          own_activity: Ma propre activité, comme quand quelqu'un commente dans ma proposition ou me mentionne
+          receive_notifications_about: Je veux recevoir des notifications sur
+          send_notifications_by_email: Envoyer des notifications par email
+          update_notifications_settings: Enregistrer les modifications
       users:
         user_officialized:
           email_intro: Le participant %{name} (%{nickname}) a été officialisé.
@@ -108,6 +185,18 @@ fr:
           email_outro: Vérifiez la <a href="%{conflicts_path}">Liste de conflits des vérifications</a> et contactez les participants pour vérifier leurs renseignements et résoudre le problème.
           email_subject: Un utilisateur a tenté de se faire vérifier avec les données d'un utilisateur représenté
           notification_title: Le participant <a href="%{resource_path}">%{resource_title}</a> a tenté de se faire vérifier avec les données de l'utilisateur représenté <a href="%{managed_user_path}">%{managed_user_name}</a>.
+    notifications_settings:
+      show:
+        administrators: Administrateurs
+        allow_public_contact: Permettre à n'importe quoi de m'envoyer un message direct, même si je ne les suis pas.
+        direct_messages: Recevoir des messages directs de n'importe qui
+        email_on_moderations: Je veux recevoir un email chaque fois que quelque chose est signalé pour modération.
+        email_on_notification: Je souhaite recevoir un email à chaque fois que je reçois une notification.
+        everything_followed: Tout ce que je suis
+        own_activity: Ma propre activité, comme quand quelqu'un commente dans ma proposition ou me mentionne
+        receive_notifications_about: Je veux recevoir des notifications sur
+        send_notifications_by_email: Envoyer des notifications par email
+        update_notifications_settings: Enregistrer les modifications
     meetings:
       directory:
         meetings:
@@ -160,6 +249,12 @@ fr:
         wizard_aside:
           back_from_collaborative_draft: Retour aux brouillons collaboratifs
           info: Vous créez un <strong>projet collaboratif</strong>.
+      create:
+        error: Il y a eu des erreurs lors de la sauvegarde de la proposition.
+        success: Proposition créée avec succès. Enregistrée comme brouillon.
+      destroy_draft:
+        error: Des erreurs sont survenues lors de la suppression du brouillon de la proposition.
+        success: Le brouillon de la proposition a bien été supprimé.
       index:
         collaborative_drafts_list: Accéder aux brouillons collaboratifs
         new_proposal: Nouvelle proposition
@@ -170,6 +265,23 @@ fr:
             authors: Auteurs
             comments: Commentaires
             contributions: Contributions
+      proposals:
+        compare:
+          no_similars_found: Bien joué ! Aucune proposition similaire n'a été trouvée
+        edit:
+          gallery_legend: "(Facultatif) Ajouter une image à la carte de proposition. <br> <em>Attention : le déposant s’engage à posséder les droits de diffusion de l’image</em>"
+      publish:
+        error: Il y a eu des erreurs lors de la publication de la proposition.
+        success: Proposition publiée avec succès.
+      update:
+        error: Des erreurs se sont produites lors de l'enregistrement de la proposition.
+        success: Proposition mise à jour avec succès.
+      update_draft:
+        error: Des erreurs sont survenues lors de l'enregistrement du brouillon de la proposition.
+        success: Le brouillon de proposition a été mis à jour.
+      withdraw:
+        errors:
+          has_supports: Cette proposition ne peut pas être retirée car elle dispose déjà de supports.
     scopes:
       global: Portée générale
       picker:
@@ -218,6 +330,11 @@ fr:
             osp_authorization_handler: Vérifier avec le formulaire de vérification de l'identité
             osp_authorization_workflow: Vérifier avec le formulaire de vérification de l'identité
   devise:
+    failure:
+      invited: Vous avez une invitation en attente, acceptez-la pour terminer la création de votre compte.
+    registrations:
+      new:
+        sign_up: Créer un compte
     passwords:
       new:
         forgot_your_password: Mot de passe oublié ?
@@ -247,6 +364,10 @@ fr:
     decidim:
       footer:
         made_with_open_source: Site réalisé par <a target="_blank" href="https://opensourcepolitics.eu">Open Source Politics</a> grâce au <a target="_blank" href="https://github.com/decidim/decidim">logiciel libre Decidim</a>.
+      user_menu:
+        account: Mon compte
+      user_profile:
+        notifications_settings: Paramètres des notifications
   rack_attack:
     too_many_requests:
       message: Il semblerait que vous fassiez trop de requetes sur notre serveur, votre connexion a ete ralentie.
