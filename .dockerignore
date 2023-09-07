@@ -9,7 +9,6 @@ node_modules
 public/uploads
 deploy
 .rubocop*
-.overloads
 .erb-lint.yml
 .env-example
 .env

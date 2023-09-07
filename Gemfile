@@ -2,56 +2,61 @@
 
 source "https://rubygems.org"
 
-DECIDIM_VERSION = "release/0.26-stable"
+DECIDIM_VERSION = "0.26"
+DECIDIM_BRANCH = "release/#{DECIDIM_VERSION}-stable"
 
 ruby RUBY_VERSION
 
-gem "decidim", git: "https://github.com/decidim/decidim.git", branch: DECIDIM_VERSION
+# Many gems depend on environment variables, so we load them as soon as possible
+gem "dotenv-rails", require: "dotenv/rails-now"
 
-gem "decidim-decidim_awesome", "0.8.3"
-gem "decidim-homepage_interactive_map", git: "https://github.com/OpenSourcePolitics/decidim-module-homepage_interactive_map.git", branch: "release/0.26-stable"
-gem "decidim-term_customizer", git: "https://github.com/mainio/decidim-module-term_customizer.git", branch: "release/0.26-stable"
+# Core gems
+gem "decidim", "~> #{DECIDIM_VERSION}.0"
+
+# External Decidim gems
+gem "decidim-cache_cleaner"
+gem "decidim-decidim_awesome"
+gem "decidim-homepage_interactive_map", git: "https://github.com/OpenSourcePolitics/decidim-module-homepage_interactive_map.git", branch: DECIDIM_BRANCH
+gem "decidim-spam_detection"
+gem "decidim-term_customizer", git: "https://github.com/armandfardeau/decidim-module-term_customizer.git", branch: "fix/precompile-on-docker-0.26"
+
+# Omniauth gems
 gem "omniauth-publik", git: "https://github.com/OpenSourcePolitics/omniauth-publik"
 
-gem "bootsnap", "~> 1.4"
-
-gem "dotenv-rails"
-
-gem "puma", "~> 5.3.1"
-gem "uglifier", "~> 4.1"
-
-gem "faker", "~> 2.14"
-
-gem "ruby-progressbar"
-
-gem "letter_opener_web", "~> 1.3"
-
-gem "sprockets", "~> 3.7"
-
+# Default
 gem "activejob-uniqueness", require: "active_job/uniqueness/sidekiq_patch"
+gem "aws-sdk-s3", require: false
+gem "bootsnap", "~> 1.4"
+gem "faker", "~> 2.14"
 gem "fog-aws"
+gem "foundation_rails_helper", git: "https://github.com/sgruhier/foundation_rails_helper.git"
+gem "nokogiri", "1.13.4"
+gem "omniauth-rails_csrf_protection", "~> 1.0"
+gem "puma", ">= 5.5.1"
+gem "rack-attack", "~> 6.6"
 gem "sys-filesystem"
 
-group :development, :test do
-  gem "byebug", "~> 11.0", platform: :mri
-  gem "climate_control", "~> 1.2"
-  gem "decidim-dev", git: "https://github.com/decidim/decidim.git", branch: DECIDIM_VERSION
-end
-
 group :development do
+  gem "letter_opener_web", "~> 1.3"
   gem "listen", "~> 3.1"
   gem "rubocop-faker"
   gem "spring", "~> 2.0"
   gem "spring-watcher-listen", "~> 2.0"
-  gem "web-console", "~> 3.5"
+  gem "web-console", "4.0.4"
+end
+
+group :development, :test do
+  gem "brakeman", "~> 5.1"
+  gem "byebug", "~> 11.0", platform: :mri
+  gem "climate_control", "~> 1.2"
+  gem "decidim-dev", "~> #{DECIDIM_VERSION}.0"
+  gem "parallel_tests"
 end
 
 group :production do
   gem "dalli"
   gem "health_check", "~> 3.1"
   gem "lograge"
-  gem "newrelic_rpm"
-  gem "passenger"
   gem "sendgrid-ruby"
   gem "sentry-rails"
   gem "sentry-ruby"
