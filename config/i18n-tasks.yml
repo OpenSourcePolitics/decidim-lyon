@@ -119,3 +119,45 @@ ignore_unused:
   - budgets.projects_helper.current_rule_description.*
   - budgets.projects_helper.current_rule_explanation.*
   - decidim.components.budgets.settings.global.geocoding_enabled
+  - decidim.budgets.actions.*
+  - decidim.budgets.admin.budgets.index.*
+  - decidim.budgets.admin.models.budget.name
+  - decidim.budgets.admin.reminders.orders.*
+  - decidim.budgets.models.budget.fields.*
+  - decidim.budgets.vote_reminder_mailer.vote_reminder.*
+  - decidim.devise.sessions.new.sign_in_disabled
+  - decidim.events.notifications_settings.show.*
+  - decidim.events.users.user_officialized.*
+  - decidim.events.verifications.verify_with_managed_user.*
+  - decidim.events.verifications.verify_with_managed_user.notification_title
+  - decidim.meetings.directory.meetings.index.all
+  - decidim.meetings.meeting.not_allowed
+  - decidim.meetings.meetings.create.*
+  - decidim.meetings.meetings.update.*
+  - decidim.omniauth.france_connect.*
+  - decidim.proposals.collaborative_drafts.collaborative_draft.publish.*
+  - decidim.proposals.collaborative_drafts.collaborative_draft.withdraw.*
+  - decidim.proposals.collaborative_drafts.create.*
+  - decidim.proposals.collaborative_drafts.new.*
+  - decidim.proposals.collaborative_drafts.show.*
+  - decidim.proposals.collaborative_drafts.update.*
+  - decidim.proposals.collaborative_drafts.wizard_aside.*
+  - decidim.proposals.index.collaborative_drafts_list
+  - decidim.proposals.index.new_proposal
+  - decidim.proposals.index.view_proposal
+  - decidim.proposals.models.collaborative_draft.fields.*
+  - decidim.scopes.global
+  - decidim.scopes.picker.*
+  - decidim.shared.login_modal.*
+  - decidim.system.organizations.omniauth_settings.france_connect.*
+  - decidim.system.organizations.omniauth_settings.france_connect_profile.*
+  - decidim.system.organizations.omniauth_settings.france_connect_uid.*
+  - decidim.system.organizations.omniauth_settings.publik.*
+  - decidim.verifications.authorizations.create.error
+  - decidim.verifications.authorizations.create.success
+  - devise.passwords.new.forgot_your_password
+  - devise.passwords.new.send_me_reset_password_instructions
+  - devise.sessions.new.sign_in
+  - devise.shared.links.forgot_your_password
+  - devise.shared.links.sign_in_with_france_connect
+  - layouts.decidim.footer.made_with_open_source

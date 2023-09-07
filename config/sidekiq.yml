@@ -10,16 +10,17 @@
   - exports
   - translations
 
-:schedule:
-  CalculateAllMetrics:
-    cron: '0 0 0 * * *' # Run at midnight
-    class: CalculateAllMetricsJob
-    queue: scheduled
-  PreloadOpenData:
-    cron: '0 0 1 * * *' # Run at 01:00
-    class: PreloadOpenDataJob
-    queue: scheduled
-  Backup:
-    cron: '0 0 4 * * *' # Run at 04:00
-    class: BackupJob
-    queue: backups
+:scheduler:
+  :schedule:
+    CalculateAllMetrics:
+      cron: '0 0 0 * * *' # Run at midnight
+      class: CalculateAllMetricsJob
+      queue: scheduled
+    PreloadOpenData:
+      cron: '0 0 1 * * *' # Run at 01:00
+      class: PreloadOpenDataJob
+      queue: scheduled
+    Backup:
+      cron: '0 0 4 * * *' # Run at 04:00
+      class: BackupJob
+      queue: backups
