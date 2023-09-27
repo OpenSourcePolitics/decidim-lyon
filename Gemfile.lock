@@ -17,6 +17,14 @@ GIT
       omniauth-oauth2 (>= 1.7.2, < 2.0)
 
 GIT
+  remote: https://github.com/alecslupu-pfa/decidim-module-slider
+  revision: 63e29e03b2bc300f4941a079ecb993cab006e254
+  branch: main
+  specs:
+    decidim-slider (0.0.3)
+      decidim-core (~> 0.26.0)
+
+GIT
   remote: https://github.com/armandfardeau/decidim-module-term_customizer.git
   revision: 63170f69b51bb7e7f60f20856e944ae1357f4dc7
   branch: fix/precompile-on-docker-0.26
@@ -548,7 +556,6 @@ GEM
     mime-types-data (3.2022.0105)
     mini_magick (4.11.0)
     mini_mime (1.1.2)
-    mini_portile2 (2.8.0)
     minitest (5.16.3)
     mixlib-cli (2.1.8)
     mixlib-config (3.0.27)
@@ -560,8 +567,7 @@ GEM
     multi_xml (0.6.0)
     mustache (1.1.1)
     nio4r (2.5.8)
-    nokogiri (1.13.4)
-      mini_portile2 (~> 2.8.0)
+    nokogiri (1.13.4-arm64-darwin)
       racc (~> 1.4)
     nokogiri (1.13.4-x86_64-darwin)
       racc (~> 1.4)
@@ -876,7 +882,7 @@ GEM
     zeitwerk (2.6.0)
 
 PLATFORMS
-  ruby
+  arm64-darwin-22
   x86_64-darwin-21
   x86_64-linux
 
@@ -893,6 +899,7 @@ DEPENDENCIES
   decidim-decidim_awesome
   decidim-dev (~> 0.26.0)
   decidim-homepage_interactive_map!
+  decidim-slider!
   decidim-spam_detection
   decidim-term_customizer!
   dotenv-rails
