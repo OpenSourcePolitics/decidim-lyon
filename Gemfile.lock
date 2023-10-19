@@ -25,9 +25,9 @@ GIT
       decidim-core (~> 0.26.0)
 
 GIT
-  remote: https://github.com/armandfardeau/decidim-module-term_customizer.git
-  revision: 63170f69b51bb7e7f60f20856e944ae1357f4dc7
-  branch: fix/precompile-on-docker-0.26
+  remote: https://github.com/quentinchampenois/decidim-module-term_customizer.git
+  revision: e2fd83add45121d032a301c2d3f586a7ac3f699e
+  branch: fix/caching_0.26
   specs:
     decidim-term_customizer (0.26.0)
       decidim-admin (~> 0.26.0)
