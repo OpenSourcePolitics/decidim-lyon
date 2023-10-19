@@ -12,13 +12,12 @@ gem "dotenv-rails", require: "dotenv/rails-now"
 
 # Core gems
 gem "decidim", "~> #{DECIDIM_VERSION}.0"
-
 # External Decidim gems
 gem "decidim-cache_cleaner"
 gem "decidim-decidim_awesome"
 gem "decidim-homepage_interactive_map", git: "https://github.com/OpenSourcePolitics/decidim-module-homepage_interactive_map.git", branch: DECIDIM_BRANCH
 gem "decidim-spam_detection"
-gem "decidim-term_customizer", git: "https://github.com/armandfardeau/decidim-module-term_customizer.git", branch: "fix/precompile-on-docker-0.26"
+gem "decidim-term_customizer", git: "https://github.com/quentinchampenois/decidim-module-term_customizer.git", branch: "fix/caching_0.26"
 
 # Omniauth gems
 gem "decidim-slider", git: "https://github.com/alecslupu-pfa/decidim-module-slider", branch: "main"

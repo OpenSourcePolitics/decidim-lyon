@@ -21,7 +21,7 @@ module Decidim
       end
 
       def title
-        decidim_html_escape(present(model).title)
+        present(model).title(html_escape: true)
       end
 
       def body
@@ -127,8 +127,8 @@ module Decidim
 
       def cache_hash
         hash = []
-        hash << "decidim/proposals/proposal_m"
         hash << I18n.locale.to_s
+        hash << I18n.t(state, scope: "decidim.proposals.answers", default: :not_answered)
         hash << model.cache_key_with_version
         hash << model.proposal_votes_count
         hash << model.endorsements_count
