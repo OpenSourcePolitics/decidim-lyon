@@ -25,9 +25,9 @@ GIT
       decidim-core (~> 0.26.0)
 
 GIT
-  remote: https://github.com/quentinchampenois/decidim-module-term_customizer.git
-  revision: e2fd83add45121d032a301c2d3f586a7ac3f699e
-  branch: fix/caching_0.26
+  remote: https://github.com/opensourcepolitics/decidim-module-term_customizer.git
+  revision: f5208f3cad23cb68e502e77cb0d2d3d441d09e40
+  branch: fix/multi-threading-compliant-0.26
   specs:
     decidim-term_customizer (0.26.0)
       decidim-admin (~> 0.26.0)
