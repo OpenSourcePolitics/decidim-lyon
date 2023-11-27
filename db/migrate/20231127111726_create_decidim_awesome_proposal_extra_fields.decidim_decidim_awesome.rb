@@ -1,4 +1,5 @@
 # frozen_string_literal: true
+
 # This migration comes from decidim_decidim_awesome (originally 20231006113841)
 
 class CreateDecidimAwesomeProposalExtraFields < ActiveRecord::Migration[6.0]
