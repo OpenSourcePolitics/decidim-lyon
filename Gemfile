@@ -15,7 +15,7 @@ gem "decidim", "~> #{DECIDIM_VERSION}.0"
 
 # External Decidim gems
 gem "decidim-cache_cleaner"
-gem "decidim-decidim_awesome"
+gem "decidim-decidim_awesome", "0.8.3"
 gem "decidim-homepage_interactive_map", git: "https://github.com/OpenSourcePolitics/decidim-module-homepage_interactive_map.git", branch: DECIDIM_BRANCH
 gem "decidim-spam_detection"
 gem "decidim-term_customizer", git: "https://github.com/opensourcepolitics/decidim-module-term_customizer.git", branch: "fix/multi-threading-compliant-0.26"
