@@ -12,6 +12,7 @@ gem "dotenv-rails", require: "dotenv/rails-now"
 
 # Core gems
 gem "decidim", "~> #{DECIDIM_VERSION}.0"
+
 # External Decidim gems
 gem "decidim-cache_cleaner"
 gem "decidim-decidim_awesome"
