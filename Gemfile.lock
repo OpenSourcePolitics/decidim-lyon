@@ -19,14 +19,6 @@ GIT
       omniauth-oauth2 (>= 1.7.2, < 2.0)
 
 GIT
-  remote: https://github.com/alecslupu-pfa/decidim-module-slider
-  revision: 63e29e03b2bc300f4941a079ecb993cab006e254
-  branch: main
-  specs:
-    decidim-slider (0.0.3)
-      decidim-core (~> 0.26.0)
-
-GIT
   remote: https://github.com/opensourcepolitics/decidim-module-term_customizer.git
   revision: f5208f3cad23cb68e502e77cb0d2d3d441d09e40
   branch: fix/multi-threading-compliant-0.26
@@ -922,7 +914,6 @@ DEPENDENCIES
   decidim-decidim_awesome (= 0.8.3)
   decidim-dev (~> 0.26.0)
   decidim-homepage_interactive_map!
-  decidim-slider!
   decidim-spam_detection
   decidim-term_customizer!
   dotenv-rails
