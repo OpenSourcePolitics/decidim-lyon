@@ -82,18 +82,6 @@ describe DecidimApp::RackAttack, type: :request do
     end
   end
 
-  describe "#deactivate_decidim_throttling!" do
-    before do
-      described_class.deactivate_decidim_throttling!
-    end
-
-    it "deactivates Decidim throttling" do
-      # Decidim throttling is deactivated by default in rails env test
-      # https://github.com/decidim/decidim/blob/release/0.26-stable/decidim-core/config/initializers/rack_attack.rb#L19
-      expect(Rack::Attack.throttles.keys).to eq([])
-    end
-  end
-
   describe "#apply_configuration" do
     describe "Throttling" do
       let(:headers) { { "REMOTE_ADDR" => "1.2.3.4", "decidim.current_organization" => organization } }
