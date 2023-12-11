@@ -37,6 +37,18 @@ module Decidim
 
                 it { is_expected.to eq("/") }
 
+                context "and first_login_authorization is falsey" do
+                  before do
+                    ENV["SKIP_FIRST_LOGIN_AUTHORIZATION"] = "false"
+                  end
+
+                  after do
+                    ENV.delete("SKIP_FIRST_LOGIN_AUTHORIZATION")
+                  end
+
+                  it { is_expected.to eq("/authorizations/first_login") }
+                end
+
                 context "when there's a pending redirection" do
                   before do
                     controller.store_location_for(user, account_path)
