@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2023_11_27_111726) do
+ActiveRecord::Schema.define(version: 2024_01_04_141153) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "ltree"
@@ -1259,6 +1259,23 @@ ActiveRecord::Schema.define(version: 2023_11_27_111726) do
     t.index ["decidim_proposal_id"], name: "decidim_proposals_proposal_note_proposal"
   end
 
+  create_table "decidim_proposals_proposal_states", force: :cascade do |t|
+    t.jsonb "title"
+    t.jsonb "description"
+    t.jsonb "announcement_title"
+    t.string "token", null: false
+    t.boolean "system", default: false, null: false
+    t.bigint "decidim_component_id", null: false
+    t.integer "proposals_count", default: 0, null: false
+    t.boolean "default", default: false, null: false
+    t.boolean "answerable", default: false, null: false
+    t.boolean "notifiable", default: false, null: false
+    t.boolean "gamified", default: false, null: false
+    t.json "include_in_stats", default: {}, null: false
+    t.string "css_class"
+    t.index ["decidim_component_id"], name: "index_decidim_proposals_proposal_states_on_decidim_component_id"
+  end
+
   create_table "decidim_proposals_proposal_votes", id: :serial, force: :cascade do |t|
     t.integer "decidim_proposal_id", null: false
     t.integer "decidim_author_id", null: false
@@ -1300,6 +1317,7 @@ ActiveRecord::Schema.define(version: 2023_11_27_111726) do
     t.jsonb "body"
     t.integer "comments_count", default: 0, null: false
     t.integer "follows_count", default: 0, null: false
+    t.integer "decidim_proposals_proposal_state_id", null: false
     t.index "md5((body)::text)", name: "decidim_proposals_proposal_body_search"
     t.index "md5((title)::text)", name: "decidim_proposals_proposal_title_search"
     t.index ["created_at"], name: "index_decidim_proposals_proposals_on_created_at"
@@ -1735,6 +1753,7 @@ ActiveRecord::Schema.define(version: 2023_11_27_111726) do
   add_foreign_key "decidim_participatory_process_steps", "decidim_participatory_processes"
   add_foreign_key "decidim_participatory_processes", "decidim_organizations"
   add_foreign_key "decidim_participatory_processes", "decidim_scope_types"
+  add_foreign_key "decidim_proposals_proposals", "decidim_proposals_proposal_states"
   add_foreign_key "decidim_scope_types", "decidim_organizations"
   add_foreign_key "decidim_scopes", "decidim_organizations"
   add_foreign_key "decidim_scopes", "decidim_scope_types", column: "scope_type_id"

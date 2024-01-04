@@ -10,8 +10,9 @@ module DependencyResolverExtends
   # Gemfile, e.g. when the Decidim gems are installed through git.
   #
   # @param name [String] The name of the gem to find.
-  # @return [Bundler::LazySpecification, nil] The specification for the gem
-  #   or nil if the gem is not listed in the locked gems.
+  # @return [Gem::Specification, nil] The specification for the gem
+  #   or nil if the gem is not listed in the locked gems or nil when the
+  #   returned spec is not installed in the current gem environment.
   def spec(name)
     sp = Bundler.definition.locked_gems.specs.find { |s| s.name == name }
 

@@ -5,6 +5,7 @@ require_relative "boot"
 require "decidim/rails"
 # Add the frameworks used by your app that are not loaded by Decidim.
 require "action_cable/engine"
+
 # require "action_mailbox/engine"
 # require "action_text/engine"
 require_relative "../lib/active_storage/downloadable"
@@ -46,7 +47,6 @@ module DevelopmentApp
 
     config.after_initialize do
       require "extends/controllers/decidim/devise/sessions_controller_extends"
-      require "extends/lib/decidim/dependency_resolver_extends"
 
       Decidim::GraphiQL::Rails.config.tap do |config|
         config.initial_query = "{\n  deployment {\n    version\n    branch\n    remote\n    upToDate\n    currentCommit\n    latestCommit\n    locallyModified\n  }\n}".html_safe
