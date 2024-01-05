@@ -37,7 +37,7 @@ describe "Proposals", type: :system do
 
       context "with creation enabled" do
         let!(:component) do
-          create(:proposal_component,
+          create(:extended_proposal_component,
                  :with_creation_enabled,
                  manifest: manifest,
                  participatory_space: participatory_process,
@@ -92,7 +92,7 @@ describe "Proposals", type: :system do
 
         context "when geocoding is enabled", :serves_map, :serves_geocoding_autocomplete do
           let!(:component) do
-            create(:proposal_component,
+            create(:extended_proposal_component,
                    :with_creation_enabled,
                    manifest: manifest,
                    participatory_space: participatory_process,
@@ -152,7 +152,7 @@ describe "Proposals", type: :system do
 
         context "when component has extra hashtags defined" do
           let(:component) do
-            create(:proposal_component,
+            create(:extended_proposal_component,
                    :with_extra_hashtags,
                    suggested_hashtags: component_suggested_hashtags,
                    automatic_hashtags: component_automatic_hashtags,
@@ -216,7 +216,7 @@ describe "Proposals", type: :system do
 
           context "when geocoding is enabled", :serves_map, :serves_geocoding_autocomplete do
             let!(:component) do
-              create(:proposal_component,
+              create(:extended_proposal_component,
                      :with_creation_enabled,
                      manifest: manifest,
                      participatory_space: participatory_process,
@@ -279,7 +279,7 @@ describe "Proposals", type: :system do
 
         context "when attachments are allowed" do
           let!(:component) do
-            create(:proposal_component,
+            create(:extended_proposal_component,
                    :with_creation_enabled,
                    :with_attachments_allowed,
                    manifest: manifest,
@@ -319,7 +319,7 @@ describe "Proposals", type: :system do
 
       context "when the proposal limit is 1" do
         let!(:component) do
-          create(:proposal_component,
+          create(:extended_proposal_component,
                  :with_creation_enabled,
                  :with_proposal_limit,
                  manifest: manifest,

@@ -121,7 +121,7 @@ module Decidim::Budgets
     context "with proposals" do
       subject { described_class.from_model(project).with_context(context) }
 
-      let(:proposals_component) { create :component, manifest_name: :proposals, participatory_space: participatory_process }
+      let(:proposals_component) { create :extended_proposal_component, manifest_name: :proposals, participatory_space: participatory_process }
       let!(:proposal) { create :proposal, component: proposals_component }
 
       let(:project) do
