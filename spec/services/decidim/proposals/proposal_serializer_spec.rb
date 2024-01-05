@@ -9,7 +9,7 @@ module Decidim
         described_class.new(proposal)
       end
 
-      let!(:proposal) { create(:proposal, :accepted) }
+      let!(:proposal) { create(:proposal, :accepted, component: proposals_component) }
       let!(:category) { create(:category, participatory_space: component.participatory_space) }
       let!(:scope) { create(:scope, organization: component.participatory_space.organization) }
       let(:participatory_process) { component.participatory_space }
@@ -18,7 +18,7 @@ module Decidim
       let!(:meetings_component) { create(:component, manifest_name: "meetings", participatory_space: participatory_process) }
       let(:meetings) { create_list(:meeting, 2, component: meetings_component) }
 
-      let!(:proposals_component) { create(:component, manifest_name: "proposals", participatory_space: participatory_process) }
+      let!(:proposals_component) { create(:extended_proposal_component, manifest_name: "proposals", participatory_space: participatory_process) }
       let(:other_proposals) { create_list(:proposal, 2, component: proposals_component) }
 
       let(:expected_answer) do
@@ -142,7 +142,7 @@ module Decidim
         end
 
         context "with proposal having an answer" do
-          let!(:proposal) { create(:proposal, :with_answer) }
+          let!(:proposal) { create(:proposal, :with_answer, component: proposals_component) }
 
           it "serializes the answer" do
             expect(serialized).to include(answer: expected_answer)

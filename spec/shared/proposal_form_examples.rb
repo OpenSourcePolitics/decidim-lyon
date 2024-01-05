@@ -5,7 +5,7 @@ shared_examples "a proposal form" do |options|
 
   let(:organization) { create(:organization, available_locales: [:en]) }
   let(:participatory_space) { create(:participatory_process, :with_steps, organization: organization) }
-  let(:component) { create(:proposal_component, participatory_space: participatory_space) }
+  let(:component) { create(:extended_proposal_component, participatory_space: participatory_space) }
   let(:title) do
     if options[:i18n] == false
       "More sidewalks and less roads!"
@@ -144,7 +144,7 @@ shared_examples "a proposal form" do |options|
   end
 
   context "when geocoding is enabled" do
-    let(:component) { create(:proposal_component, :with_geocoding_enabled, participatory_space: participatory_space) }
+    let(:component) { create(:extended_proposal_component, :with_geocoding_enabled, participatory_space: participatory_space) }
 
     context "when the has address checkbox is checked" do
       context "when the address is not present" do
@@ -181,7 +181,7 @@ shared_examples "a proposal form" do |options|
       end
 
       context "when the proposal is unchanged" do
-        let(:previous_proposal) { create(:proposal, address: address) }
+        let(:previous_proposal) { create(:proposal, address: address, component: component) }
 
         let(:title) do
           if options[:skip_etiquette_validation]
@@ -289,7 +289,7 @@ shared_examples "a proposal form" do |options|
 
     let(:component) do
       create(
-        :proposal_component,
+        :extended_proposal_component,
         :with_extra_hashtags,
         participatory_space: participatory_space,
         suggested_hashtags: component_suggested_hashtags,
@@ -336,7 +336,7 @@ shared_examples "a proposal form with meeting as author" do |options|
 
   let(:organization) { create(:organization, available_locales: [:en]) }
   let(:participatory_space) { create(:participatory_process, :with_steps, organization: organization) }
-  let(:component) { create(:proposal_component, participatory_space: participatory_space) }
+  let(:component) { create(:extended_proposal_component, participatory_space: participatory_space) }
   let(:title) { { en: "More sidewalks and less roads!" } }
   let(:body) { { en: "Everything would be better" } }
   let(:created_in_meeting) { true }

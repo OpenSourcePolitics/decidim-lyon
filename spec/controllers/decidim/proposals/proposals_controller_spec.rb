@@ -24,7 +24,7 @@ module Decidim
 
       describe "GET index" do
         context "when participatory texts are disabled" do
-          let(:component) { create(:proposal_component, :with_geocoding_enabled) }
+          let(:component) { create(:extended_proposal_component, :with_geocoding_enabled) }
 
           it "sorts proposals by search defaults" do
             get :index
@@ -72,7 +72,7 @@ module Decidim
         end
 
         context "when participatory texts are enabled" do
-          let(:component) { create(:proposal_component, :with_participatory_texts_enabled) }
+          let(:component) { create(:extended_proposal_component, :with_participatory_texts_enabled) }
 
           it "sorts proposals by position" do
             get :index
@@ -97,7 +97,7 @@ module Decidim
       end
 
       describe "GET new" do
-        let(:component) { create(:proposal_component, :with_creation_enabled) }
+        let(:component) { create(:extended_proposal_component, :with_creation_enabled) }
 
         before { sign_in user }
 
@@ -134,7 +134,7 @@ module Decidim
         end
 
         context "when creation is enabled" do
-          let(:component) { create(:proposal_component, :with_creation_enabled) }
+          let(:component) { create(:extended_proposal_component, :with_creation_enabled) }
           let(:proposal_params) do
             {
               component_id: component.id,
@@ -153,7 +153,7 @@ module Decidim
       end
 
       describe "PATCH update" do
-        let(:component) { create(:proposal_component, :with_creation_enabled, :with_attachments_allowed) }
+        let(:component) { create(:extended_proposal_component, :with_creation_enabled, :with_attachments_allowed) }
         let(:proposal) { create(:proposal, component: component, users: [user]) }
         let(:proposal_params) do
           {
@@ -203,7 +203,7 @@ module Decidim
       end
 
       describe "withdraw a proposal" do
-        let(:component) { create(:proposal_component, :with_creation_enabled) }
+        let(:component) { create(:extended_proposal_component, :with_creation_enabled) }
 
         before { sign_in user }
 
@@ -253,7 +253,7 @@ module Decidim
       end
 
       describe "GET show" do
-        let!(:component) { create(:proposal_component, :with_amendments_enabled) }
+        let!(:component) { create(:extended_proposal_component, :with_amendments_enabled) }
         let!(:amendable) { create(:proposal, component: component) }
         let!(:emendation) { create(:proposal, component: component) }
         let!(:amendment) { create(:amendment, amendable: amendable, emendation: emendation) }
