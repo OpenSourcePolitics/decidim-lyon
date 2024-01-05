@@ -19,7 +19,7 @@ module Decidim::Budgets
     let(:latitude) { 40.1234 }
     let(:longitude) { 2.1234 }
     let(:proposal_component) do
-      create(:component, manifest_name: :proposals, participatory_space: participatory_process)
+      create(:extended_proposal_component, manifest_name: :proposals, participatory_space: participatory_process)
     end
     let(:proposals) do
       create_list(
