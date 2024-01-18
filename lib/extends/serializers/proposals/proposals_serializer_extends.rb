@@ -19,7 +19,7 @@ module ProposalSerializerExtends
       },
       component: { id: component.id },
       title: proposal.title,
-      body: proposal.body,
+      body: convert_to_plain_text(proposal.body),
       address: proposal.address,
       latitude: proposal.latitude,
       longitude: proposal.longitude,

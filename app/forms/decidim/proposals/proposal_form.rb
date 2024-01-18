@@ -6,6 +6,7 @@ module Decidim
     class ProposalForm < Decidim::Proposals::ProposalWizardCreateStepForm
       include Decidim::TranslatableAttributes
       include Decidim::AttachmentAttributes
+      include Decidim::HasUploadValidations
 
       mimic :proposal
 
@@ -37,6 +38,12 @@ module Decidim
         # The scope attribute is with different key (decidim_scope_id), so it
         # has to be manually mapped.
         self.scope_id = model.scope.id if model.scope
+
+        # Proposals have the "photos" field reserved for the proposal card image
+        # so we don't want to show all photos there. Instead, only show the
+        # first photo.
+        self.photos = [model.photo].compact.select { |p| p.weight.zero? }
+        self.documents = model.attachments - photos
       end
 
       # Finds the Category from the category_id.
@@ -50,14 +57,14 @@ module Decidim
       #
       # Returns a Decidim::Scope
       def scope
-        @scope ||= @scope_id ? current_component.scopes.find_by(id: @scope_id) : current_component.scope
+        @scope ||= @attributes["scope_id"].value ? current_component.scopes.find_by(id: @attributes["scope_id"].value) : current_component.scope
       end
 
       # Scope identifier
       #
       # Returns the scope identifier related to the proposal
       def scope_id
-        @scope_id || scope&.id
+        super || scope&.id
       end
 
       def geocoding_enabled?
@@ -77,7 +84,7 @@ module Decidim
       end
 
       def suggested_hashtags
-        downcased_suggested_hashtags = Array(@suggested_hashtags&.map(&:downcase)).to_set
+        downcased_suggested_hashtags = super.map(&:downcase).to_set
         component_suggested_hashtags.select { |hashtag| downcased_suggested_hashtags.member?(hashtag.downcase) }
       end
 
@@ -95,16 +102,16 @@ module Decidim
 
       private
 
-      # This method will add an error to the `attachment` field only if there's
-      # any error in any other field. This is needed because when the form has
-      # an error, the attachment is lost, so we need a way to inform the user of
+      # This method will add an error to the `add_photos` and/or "add_documents" fields
+      # only if there's any error in any other field. This is needed because when the
+      # form has an error, the attachment is lost, so we need a way to inform the user of
       # this problem.
       def notify_missing_attachment_if_errored
         errors.add(:attachment, :needs_to_be_reattached) if errors.any? && attachment.present?
       end
 
       def ordered_hashtag_list(string)
-        string.to_s.split.reject(&:blank?).uniq.sort_by(&:parameterize)
+        string.to_s.split.compact_blank.uniq.sort_by(&:parameterize)
       end
     end
   end

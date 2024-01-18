@@ -97,31 +97,6 @@ fr:
           projects_count:
             one: 1 projet
             other: "%{count} projets"
-        index:
-          view_project: View project
-        projects_for: Projects for
-        show:
-          budget: Budget
-          view_all_projects: Voir tous les projets
-      projects_helper:
-        current_rule_description:
-          minimum_projects_rule:
-            description: Description
-          projects_rule:
-            description: Description
-          projects_rule_maximum_only:
-            description: Description
-          vote_threshold_percent_rule:
-            description: Description
-        current_rule_explanation:
-          minimum_projects_rule:
-            instruction: Instruction
-          projects_rule:
-            instruction: Instruction
-          projects_rule_maximum_only:
-            instruction: Instruction
-          vote_threshold_percent_rule:
-            instruction: Instruction
       vote_reminder_mailer:
         vote_reminder:
           email_budgets: 'Budget où vous avez un vote non terminé:'
@@ -167,11 +142,9 @@ fr:
           allow_public_contact: Permettre à n'importe quoi de m'envoyer un message direct, même si je ne les suis pas.
           direct_messages: Recevoir des messages directs de n'importe qui
           email_on_moderations: Je veux recevoir un email chaque fois que quelque chose est signalé pour modération.
-          email_on_notification: Je souhaite recevoir un email à chaque fois que je reçois une notification.
           everything_followed: Tout ce que je suis
           own_activity: Ma propre activité, comme quand quelqu'un commente dans ma proposition ou me mentionne
           receive_notifications_about: Je veux recevoir des notifications sur
-          send_notifications_by_email: Envoyer des notifications par email
           update_notifications_settings: Enregistrer les modifications
       users:
         user_officialized:
@@ -203,13 +176,17 @@ fr:
       show:
         administrators: Administrateurs
         allow_public_contact: Permettre à n'importe quoi de m'envoyer un message direct, même si je ne les suis pas.
+        allow_push_notifications: Recevez des notifications push pour savoir ce qui se passe lorsque vous n'êtes pas sur la plateforme. Vous pouvez les désactiver à tout moment.
         direct_messages: Recevoir des messages directs de n'importe qui
         email_on_moderations: Je veux recevoir un email chaque fois que quelque chose est signalé pour modération.
-        email_on_notification: Je souhaite recevoir un email à chaque fois que je reçois une notification.
         everything_followed: Tout ce que je suis
+        newsletter_notifications: Je souhaite recevoir une newsletter sur l'actualité de la plateforme
+        newsletters: Newsletters
+        notifications_sending_frequency: À quelle fréquence voulez-vous recevoir les notifications par e-mail ?
         own_activity: Ma propre activité, comme quand quelqu'un commente dans ma proposition ou me mentionne
+        push_notifications: Notifications push
+        push_notifications_reminder: Pour recevoir des notifications de la plateforme, vous devez d'abord les autoriser dans les paramètres de votre navigateur.
         receive_notifications_about: Je veux recevoir des notifications sur
-        send_notifications_by_email: Envoyer des notifications par email
         update_notifications_settings: Enregistrer les modifications
     omniauth:
       france_connect:
@@ -249,12 +226,6 @@ fr:
         wizard_aside:
           back_from_collaborative_draft: Retour aux brouillons collaboratifs
           info: Vous créez un <strong>projet collaboratif</strong>.
-      create:
-        error: Il y a eu des erreurs lors de la sauvegarde de la proposition.
-        success: Proposition créée avec succès. Enregistrée comme brouillon.
-      destroy_draft:
-        error: Des erreurs sont survenues lors de la suppression du brouillon de la proposition.
-        success: Le brouillon de la proposition a bien été supprimé.
       index:
         collaborative_drafts_list: Accéder aux brouillons collaboratifs
         new_proposal: Nouvelle proposition
@@ -266,22 +237,11 @@ fr:
             comments: Commentaires
             contributions: Contributions
       proposals:
-        compare:
-          no_similars_found: Bien joué ! Aucune proposition similaire n'a été trouvée
         edit:
+          add_image: Ajouter une image
+          edit_documents: Modifier les documents
+          edit_image: Modifier l'image
           gallery_legend: "(Facultatif) Ajouter une image à la carte de proposition. <br> <em>Attention : le déposant s’engage à posséder les droits de diffusion de l’image</em>"
-      publish:
-        error: Il y a eu des erreurs lors de la publication de la proposition.
-        success: Proposition publiée avec succès.
-      update:
-        error: Des erreurs se sont produites lors de l'enregistrement de la proposition.
-        success: Proposition mise à jour avec succès.
-      update_draft:
-        error: Des erreurs sont survenues lors de l'enregistrement du brouillon de la proposition.
-        success: Le brouillon de proposition a été mis à jour.
-      withdraw:
-        errors:
-          has_supports: Cette proposition ne peut pas être retirée car elle dispose déjà de supports.
     scopes:
       global: Portée générale
       picker:
