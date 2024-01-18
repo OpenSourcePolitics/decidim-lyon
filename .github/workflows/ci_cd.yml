@@ -5,7 +5,7 @@ env:
   CI: "true"
   SIMPLECOV: "true"
   RSPEC_FORMAT: "documentation"
-  RUBY_VERSION: 2.7.5
+  RUBY_VERSION: 3.0.2
   RAILS_ENV: test
   NODE_VERSION: 16.9.1
   RUBYOPT: '-W:no-deprecated'
@@ -88,6 +88,7 @@ jobs:
           key: asset-cache-${{ runner.os }}-${{ steps.cache-hash.outputs.hash }}
       - run: mkdir -p ./spec/tmp/screenshots
         name: Create the screenshots folder
+      - uses: nanasess/setup-chromedriver@v2
       - run:  bundle exec rake "test:run[exclude, spec/system/**/*_spec.rb, ${{ matrix.slice }}]"
         name: RSpec
       - run: ./.github/upload_coverage.sh decidim-app $GITHUB_EVENT_PATH
@@ -152,7 +153,6 @@ jobs:
           key: asset-cache-${{ runner.os }}-${{ steps.cache-hash.outputs.hash }}
       - run: mkdir -p ./spec/tmp/screenshots
         name: Create the screenshots folder
-      # TODO: Use latest version
       - uses: nanasess/setup-chromedriver@v2
       - run:  bundle exec rake "test:run[include, spec/system/**/*_spec.rb, ${{ matrix.slice }}]"
         name: RSpec
