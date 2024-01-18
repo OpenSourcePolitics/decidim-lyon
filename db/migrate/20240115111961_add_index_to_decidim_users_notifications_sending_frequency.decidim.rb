@@ -4,6 +4,6 @@
 
 class AddIndexToDecidimUsersNotificationsSendingFrequency < ActiveRecord::Migration[6.0]
   def change
-    add_index :decidim_users, :notifications_sending_frequency
+    add_index :decidim_users, :notifications_sending_frequency unless index_exists?(:decidim_users, :notifications_sending_frequency)
   end
 end
