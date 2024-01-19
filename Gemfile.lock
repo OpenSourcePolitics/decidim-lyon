@@ -30,7 +30,7 @@ GIT
 
 GIT
   remote: https://github.com/opensourcepolitics/decidim-module-term_customizer.git
-  revision: c0ccbdcf16d9d9d02ae507388e852f2a04b03a69
+  revision: 8a6b73e58fbdd7f38daf983a310d37c510ec9baf
   branch: fix/multi-threading-compliant
   specs:
     decidim-term_customizer (0.27.0)
