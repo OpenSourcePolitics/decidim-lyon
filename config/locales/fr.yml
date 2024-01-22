@@ -180,8 +180,6 @@ fr:
         direct_messages: Recevoir des messages directs de n'importe qui
         email_on_moderations: Je veux recevoir un email chaque fois que quelque chose est signalé pour modération.
         everything_followed: Tout ce que je suis
-        newsletter_notifications: Je souhaite recevoir une newsletter sur l'actualité de la plateforme
-        newsletters: Newsletters
         notifications_sending_frequency: À quelle fréquence voulez-vous recevoir les notifications par e-mail ?
         own_activity: Ma propre activité, comme quand quelqu'un commente dans ma proposition ou me mentionne
         push_notifications: Notifications push
