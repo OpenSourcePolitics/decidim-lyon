@@ -37,6 +37,22 @@ jobs:
         with:
           ruby_version: ${{ env.RUBY_VERSION }}
           node_version: ${{ env.NODE_VERSION }}
+  zeitwerk:
+    name: Check for Zeitwerk errors
+    runs-on: ubuntu-latest
+    if: "!startsWith(github.head_ref, 'chore/l10n')"
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ env.RUBY_VERSION }}
+          bundler-cache: true
+      - name: Check for Zeitwerk errors
+        run: |
+          bundle exec rails zeitwerk:check
   tests:
     strategy:
       fail-fast: false
@@ -207,7 +223,7 @@ jobs:
   build_and_push_image_dev:
     if: "github.ref == 'refs/heads/develop'"
     name: Build and push image to Registry
-    needs: [ lint, tests, system_tests, test_build ]
+    needs: [ lint, tests, zeitwerk, system_tests, test_build ]
     runs-on: ubuntu-latest
     steps:
       - uses: OpenSourcePolitics/build-and-push-images-action@master
@@ -219,7 +235,7 @@ jobs:
           tag: ${{ github.ref }}
   generate_release:
     name: Generate release
-    needs: [lint, tests, system_tests, test_build]
+    needs: [lint, tests, zeitwerk, system_tests, test_build]
     if: "github.ref == 'refs/heads/master'"
     runs-on: ubuntu-latest
     steps:
