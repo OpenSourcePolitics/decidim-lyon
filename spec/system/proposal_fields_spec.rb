@@ -3,7 +3,10 @@
 require "spec_helper"
 
 describe "Proposals", type: :system do
-  include_context "with a component"
+  include ActionView::Helpers::TextHelper
+  include_context "with a component" do
+    let!(:component) { create(:extended_proposal_component, participatory_space: participatory_process) }
+  end
   let(:manifest_name) { "proposals" }
 
   let!(:category) { create :category, participatory_space: participatory_process }
@@ -15,8 +18,7 @@ describe "Proposals", type: :system do
   let(:latitude) { 40.1234 }
   let(:longitude) { 2.1234 }
 
-  let(:proposal_title) { "More sidewalks and less roads" }
-  let(:proposal_body) { "Cities need more people, not more cars" }
+  let(:proposal_title) { translated(proposal.title) }
 
   before do
     stub_geocoding(address, [latitude, longitude])
@@ -27,328 +29,627 @@ describe "Proposals", type: :system do
     match_when_negated { |node| node.has_no_selector?(".author-data", text: name) }
   end
 
-  context "when creating a new proposal" do
-    let(:scope_picker) { select_data_picker(:proposal_scope_id) }
+  matcher :have_creation_date do |date|
+    match { |node| node.has_selector?(".author-data__extra", text: date) }
+    match_when_negated { |node| node.has_no_selector?(".author-data__extra", text: date) }
+  end
 
-    context "when the user is logged in" do
+  context "when viewing a single proposal" do
+    let!(:component) do
+      create(:extended_proposal_component,
+             manifest: manifest,
+             participatory_space: participatory_process,
+             settings: {
+               scopes_enabled: true,
+               scope_id: participatory_process.scope&.id
+             })
+    end
+
+    let!(:proposals) { create_list(:extended_proposal, 3, component: component) }
+    let!(:proposal) { proposals.first }
+
+    it_behaves_like "accessible page" do
       before do
-        login_as user, scope: :user
+        visit_component
+        click_link proposal_title
+      end
+    end
+
+    it "allows viewing a single proposal" do
+      visit_component
+
+      click_link proposal_title
+
+      expect(page).to have_content(proposal_title)
+      expect(page).to have_content(strip_tags(translated(proposal.body)).strip)
+      expect(page).to have_author(proposal.creator_author.name)
+      expect(page).to have_content(proposal.reference)
+      expect(page).to have_creation_date(I18n.l(proposal.published_at, format: :decidim_short))
+    end
+
+    context "when process is related to a child scope" do
+      let!(:proposal) { create(:extended_proposal, component: component, scope: scope) }
+      let(:participatory_process) { scoped_participatory_process }
+
+      it "does not show the scope name" do
+        visit_component
+        click_link proposal_title
+        expect(page).to have_no_content(translated(scope.name))
+      end
+    end
+
+    context "when it is an official proposal" do
+      let(:content) { generate_localized_title }
+      let!(:official_proposal) { create(:extended_proposal, :official, body: content, component: component) }
+      let!(:official_proposal_title) { translated(official_proposal.title) }
+
+      before do
+        visit_component
+        click_link official_proposal_title
       end
 
-      context "with creation enabled" do
-        let!(:component) do
-          create(:proposal_component,
-                 :with_creation_enabled,
-                 manifest: manifest,
-                 participatory_space: participatory_process,
-                 settings: { scopes_enabled: true, scope_id: participatory_process.scope&.id })
-        end
-
-        let(:proposal_draft) { create(:proposal, :draft, component: component, users: [user]) }
-
-        context "when process is not related to any scope" do
-          it "can be related to a scope" do
-            visit complete_proposal_path(component, proposal_draft)
-
-            within "form.edit_proposal" do
-              expect(page).to have_content(/Scope/i)
-            end
-          end
-        end
-
-        context "when process is related to a leaf scope" do
-          let(:participatory_process) { scoped_participatory_process }
-
-          it "cannot be related to a scope" do
-            visit complete_proposal_path(component, proposal_draft)
-
-            within "form.edit_proposal" do
-              expect(page).to have_no_content("Scope")
-            end
-          end
-        end
-
-        it "creates a new proposal", :slow do
-          visit complete_proposal_path(component, proposal_draft)
-
-          within ".edit_proposal" do
-            fill_in :proposal_title, with: "More sidewalks and less roads"
-            fill_in :proposal_body, with: "Cities need more people, not more cars"
-            select translated(category.name), from: :proposal_category_id
-            scope_pick scope_picker, scope
-
-            find("*[type=submit]").click
-          end
-
-          click_button "Publish"
-
-          expect(page).to have_content("successfully")
-          expect(page).to have_content("More sidewalks and less roads")
-          expect(page).to have_content("Cities need more people, not more cars")
-          expect(page).to have_content(translated(category.name))
-          expect(page).to have_content(translated(scope.name))
-          expect(page).to have_author(user.name)
-        end
-
-        context "when geocoding is enabled", :serves_map, :serves_geocoding_autocomplete do
-          let!(:component) do
-            create(:proposal_component,
-                   :with_creation_enabled,
-                   manifest: manifest,
-                   participatory_space: participatory_process,
-                   settings: {
-                     geocoding_enabled: true,
-                     scopes_enabled: true,
-                     scope_id: participatory_process.scope&.id
-                   })
-          end
-
-          let(:proposal_draft) { create(:proposal, :draft, users: [user], component: component, title: "More sidewalks and less roads", body: "He will not solve everything") }
-
-          it "creates a new proposal", :slow do
-            visit complete_proposal_path(component, proposal_draft)
-
-            within ".edit_proposal" do
-              expect(page).not_to have_content("Has address")
-              fill_in :proposal_title, with: "More sidewalks and less roads"
-              fill_in :proposal_body, with: "Cities need more people, not more cars"
-              fill_in_geocoding :proposal_address, with: address
-              select translated(category.name), from: :proposal_category_id
-              scope_pick scope_picker, scope
-
-              find("*[type=submit]").click
-            end
-
-            click_button "Publish"
-
-            expect(page).to have_content("successfully")
-            expect(page).to have_content("More sidewalks and less roads")
-            expect(page).to have_content("Cities need more people, not more cars")
-            expect(page).to have_content(address)
-            expect(page).to have_content(translated(category.name))
-            expect(page).to have_content(translated(scope.name))
-            expect(page).to have_author(user.name)
-          end
-
-          it_behaves_like(
-            "a record with front-end geocoding address field",
-            Decidim::Proposals::Proposal,
-            within_selector: ".edit_proposal",
-            address_field: :proposal_address
-          ) do
-            let(:geocoded_record) { proposal_draft }
-            let(:geocoded_address_value) { address }
-            let(:geocoded_address_coordinates) { [latitude, longitude] }
-
-            before do
-              # Prepare the view for submission (other than the address field)
-              visit complete_proposal_path(component, proposal_draft)
-
-              fill_in :proposal_title, with: "More sidewalks and less roads"
-              fill_in :proposal_body, with: "Cities need more people, not more cars"
-            end
-          end
-        end
-
-        context "when component has extra hashtags defined" do
-          let(:component) do
-            create(:proposal_component,
-                   :with_extra_hashtags,
-                   suggested_hashtags: component_suggested_hashtags,
-                   automatic_hashtags: component_automatic_hashtags,
-                   manifest: manifest,
-                   participatory_space: participatory_process)
-          end
-
-          let(:proposal_draft) { create(:proposal, :draft, users: [user], component: component, title: "More sidewalks and less roads", body: "He will not solve everything") }
-          let(:component_automatic_hashtags) { "AutoHashtag1 AutoHashtag2" }
-          let(:component_suggested_hashtags) { "SuggestedHashtag1 SuggestedHashtag2" }
-
-          it "offers and save extra hashtags", :slow do
-            visit complete_proposal_path(component, proposal_draft)
-
-            within ".edit_proposal" do
-              check :proposal_suggested_hashtags_suggestedhashtag1
-
-              find("*[type=submit]").click
-            end
-
-            click_button "Publish"
-
-            expect(page).to have_content("successfully")
-            expect(page).to have_content("#AutoHashtag1")
-            expect(page).to have_content("#AutoHashtag2")
-            expect(page).to have_content("#SuggestedHashtag1")
-            expect(page).not_to have_content("#SuggestedHashtag2")
-          end
-        end
-
-        context "when the user has verified organizations" do
-          let(:user_group) { create(:user_group, :verified, organization: organization) }
-          let(:user_group_proposal_draft) { create(:proposal, :draft, users: [user], component: component, title: "More sidewalks and less roads", body: "Cities need more people, not more cars") }
-
-          before do
-            create(:user_group_membership, user: user, user_group: user_group)
-          end
-
-          it "creates a new proposal as a user group", :slow do
-            visit complete_proposal_path(component, user_group_proposal_draft)
-
-            within ".edit_proposal" do
-              fill_in :proposal_title, with: "More sidewalks and less roads"
-              fill_in :proposal_body, with: "Cities need more people, not more cars"
-              select translated(category.name), from: :proposal_category_id
-              scope_pick scope_picker, scope
-              select user_group.name, from: :proposal_user_group_id
-
-              find("*[type=submit]").click
-            end
-
-            click_button "Publish"
-
-            expect(page).to have_content("successfully")
-            expect(page).to have_content("More sidewalks and less roads")
-            expect(page).to have_content("Cities need more people, not more cars")
-            expect(page).to have_content(translated(category.name))
-            expect(page).to have_content(translated(scope.name))
-            expect(page).to have_author(user_group.name)
-          end
-
-          context "when geocoding is enabled", :serves_map, :serves_geocoding_autocomplete do
-            let!(:component) do
-              create(:proposal_component,
-                     :with_creation_enabled,
-                     manifest: manifest,
-                     participatory_space: participatory_process,
-                     settings: {
-                       geocoding_enabled: true,
-                       scopes_enabled: true,
-                       scope_id: participatory_process.scope&.id
-                     })
-            end
-
-            let(:proposal_draft) { create(:proposal, :draft, users: [user], component: component, title: "More sidewalks and less roads", body: "He will not solve everything") }
-
-            it "creates a new proposal as a user group", :slow do
-              visit complete_proposal_path(component, proposal_draft)
-
-              within ".edit_proposal" do
-                fill_in :proposal_title, with: "More sidewalks and less roads"
-                fill_in :proposal_body, with: "Cities need more people, not more cars"
-                expect(page).not_to have_content("Has address")
-                fill_in :proposal_address, with: address
-                select translated(category.name), from: :proposal_category_id
-                scope_pick scope_picker, scope
-                select user_group.name, from: :proposal_user_group_id
-
-                find("*[type=submit]").click
-              end
-
-              click_button "Publish"
-
-              expect(page).to have_content("successfully")
-              expect(page).to have_content("More sidewalks and less roads")
-              expect(page).to have_content("Cities need more people, not more cars")
-              expect(page).to have_content(address)
-              expect(page).to have_content(translated(category.name))
-              expect(page).to have_content(translated(scope.name))
-              expect(page).to have_author(user_group.name)
-            end
-          end
-        end
-
-        context "when the user isn't authorized" do
-          before do
-            permissions = {
-              create: {
-                authorization_handlers: {
-                  "dummy_authorization_handler" => { "options" => {} }
-                }
-              }
-            }
-
-            component.update!(permissions: permissions)
-          end
-
-          it "shows a modal dialog" do
-            visit_component
-            click_link "New proposal"
-            expect(page).to have_content("Authorization required")
-          end
-        end
-
-        context "when attachments are allowed" do
-          let!(:component) do
-            create(:proposal_component,
-                   :with_creation_enabled,
-                   :with_attachments_allowed,
-                   manifest: manifest,
-                   participatory_space: participatory_process)
-          end
-
-          let(:proposal_draft) { create(:proposal, :draft, users: [user], component: component, title: "Proposal with attachments", body: "This is my proposal and I want to upload attachments.") }
-
-          it "creates a new proposal with attachments" do
-            visit complete_proposal_path(component, proposal_draft)
-
-            within ".edit_proposal" do
-              fill_in :proposal_title, with: "Proposal with attachments"
-              fill_in :proposal_body, with: "This is my proposal and I want to upload attachments."
-              expect(page).to have_content("(Optional) Add an image to the proposal card.\nNote: You must be owner of the image")
-              attach_file :proposal_add_photos, Decidim::Dev.asset("city.jpeg")
-              find("*[type=submit]").click
-            end
-
-            click_button "Publish"
-
-            expect(page).to have_content("successfully")
-
-            within ".section.images" do
-              expect(page).to have_selector("img[src*=\"city.jpeg\"]", count: 1)
-            end
-          end
-        end
+      it "shows the author as official" do
+        expect(page).to have_content("Official proposal")
       end
 
-      context "when creation is not enabled" do
-        it "does not show the creation button" do
-          visit_component
-          expect(page).to have_no_link("New proposal")
-        end
+      it_behaves_like "rendering safe content", ".columns.mediumlarge-8.large-9"
+    end
+
+    context "when rich text editor is enabled for participants" do
+      let!(:proposal) { create(:extended_proposal, body: content, component: component) }
+
+      before do
+        organization.update(rich_text_editor_in_public_views: true)
+        visit_component
+        click_link proposal_title
       end
 
-      context "when the proposal limit is 1" do
-        let!(:component) do
-          create(:proposal_component,
-                 :with_creation_enabled,
-                 :with_proposal_limit,
-                 manifest: manifest,
-                 participatory_space: participatory_process)
-        end
+      it_behaves_like "rendering safe content", ".columns.mediumlarge-8.large-9"
+    end
 
-        let!(:proposal_first) { create(:proposal, users: [user], component: component, title: "Creating my first and only proposal", body: "This is my only proposal's body and I'm using it unwisely.") }
+    context "when rich text editor is NOT enabled for participants" do
+      let!(:proposal) { create(:extended_proposal, body: content, component: component) }
 
-        before do
-          visit_component
-          click_link "New proposal"
-        end
+      before do
+        visit_component
+        click_link proposal_title
+      end
 
-        it "allows the creation of a single new proposal" do
-          within ".new_proposal" do
-            fill_in :proposal_title, with: "Creating my second proposal"
-            fill_in :proposal_body, with: "This is my second proposal's body and I'm using it unwisely."
+      it_behaves_like "rendering unsafe content", ".columns.mediumlarge-8.large-9"
+    end
 
-            find("*[type=submit]").click
-          end
+    context "when it is a proposal with image" do
+      let!(:component) do
+        create(:extended_proposal_component,
+               manifest: manifest,
+               participatory_space: participatory_process)
+      end
 
-          expect(page).to have_no_content("successfully")
-          expect(page).to have_css(".callout.alert", text: "limit")
+      let!(:proposal) { create(:extended_proposal, component: component) }
+      let!(:image) { create(:attachment, attached_to: proposal) }
+
+      it "shows the card image" do
+        visit_component
+        within "#proposal_#{proposal.id}" do
+          expect(page).to have_selector(".card__image")
         end
       end
     end
-  end
-end
 
-def complete_proposal_path(component, proposal)
-  "#{Decidim::EngineRouter.main_proxy(component).proposal_path(proposal)}/complete"
+    context "when it is an official meeting proposal" do
+      include_context "with rich text editor content"
+      let!(:proposal) { create(:extended_proposal, :official_meeting, body: content, component: component) }
+
+      before do
+        visit_component
+        click_link proposal_title
+      end
+
+      it "shows the author as meeting" do
+        expect(page).to have_content(translated(proposal.authors.first.title))
+      end
+
+      it_behaves_like "rendering safe content", ".columns.mediumlarge-8.large-9"
+    end
+
+    context "when a proposal has comments" do
+      let(:proposal) { create(:extended_proposal, component: component) }
+      let(:author) { create(:user, :confirmed, organization: component.organization) }
+      let!(:comments) { create_list(:comment, 3, commentable: proposal) }
+
+      it "shows the comments" do
+        visit_component
+        click_link proposal_title
+
+        comments.each do |comment|
+          expect(page).to have_content(comment.body.values.first)
+        end
+      end
+    end
+
+    context "when a proposal has video embeds" do
+      let(:cost_report) { { en: "My cost report" } }
+      let(:execution_period) { { en: "My execution period" } }
+      let(:body) { Decidim::Faker::Localized.localized { "<script>alert(\"TITLE\");</script> #{Faker::Lorem.sentences(number: 3).join("\n")}" } }
+      let(:answer) { generate_localized_title }
+
+      let!(:proposal) do
+        create(
+          :extended_proposal,
+          :accepted,
+          :official,
+          :with_answer,
+          component: component,
+          body: body,
+          answer: answer,
+          cost: 20_000,
+          cost_report: cost_report,
+          execution_period: execution_period
+        )
+      end
+
+      before do
+        component.update!(
+          step_settings: {
+            component.participatory_space.active_step.id => {
+              answers_with_costs: true
+            }
+          }
+        )
+
+        visit_component
+        click_link proposal_title
+      end
+
+      context "when is created by the admin" do
+        context "when the field is body" do
+          it_behaves_like "has embedded video in description", :body
+        end
+      end
+
+      context "when is created by the user" do
+        context "when the field is answer" do
+          it_behaves_like "has embedded video in description", :answer
+        end
+      end
+    end
+
+    context "when a proposal has costs" do
+      let!(:proposal) do
+        create(
+          :extended_proposal,
+          :accepted,
+          :with_answer,
+          component: component,
+          cost: 20_000,
+          cost_report: { en: "My cost report" },
+          execution_period: { en: "My execution period" }
+        )
+      end
+      let!(:author) { create(:user, :confirmed, organization: component.organization) }
+
+      it "shows the costs" do
+        component.update!(
+          step_settings: {
+            component.participatory_space.active_step.id => {
+              answers_with_costs: true
+            }
+          }
+        )
+
+        visit_component
+        click_link proposal_title
+
+        expect(page).to have_content("20,000.00")
+        expect(page).to have_content("MY EXECUTION PERIOD")
+        expect(page).to have_content("My cost report")
+      end
+    end
+
+    context "when a proposal has been linked in a meeting" do
+      let(:proposal) { create(:extended_proposal, component: component) }
+      let(:meeting_component) do
+        create(:component, manifest_name: :meetings, participatory_space: proposal.component.participatory_space)
+      end
+      let(:meeting) { create(:meeting, :published, component: meeting_component) }
+
+      before do
+        meeting.link_resources([proposal], "proposals_from_meeting")
+      end
+
+      it "shows related meetings" do
+        visit_component
+        click_link proposal_title
+
+        expect(page).to have_i18n_content(meeting.title)
+      end
+    end
+
+    context "when a proposal has been linked in a result" do
+      let(:proposal) { create(:extended_proposal, component: component) }
+      let(:accountability_component) do
+        create(:component, manifest_name: :accountability, participatory_space: proposal.component.participatory_space)
+      end
+      let(:result) { create(:result, component: accountability_component) }
+
+      before do
+        result.link_resources([proposal], "included_proposals")
+      end
+
+      it "shows related resources" do
+        visit_component
+        click_link proposal_title
+
+        expect(page).to have_i18n_content(result.title)
+      end
+    end
+
+    context "when a proposal is in evaluation" do
+      let!(:proposal) { create(:extended_proposal, :with_answer, :evaluating, component: component) }
+
+      it "shows a badge and an answer" do
+        visit_component
+        click_link proposal_title
+
+        expect(page).to have_content("Evaluating")
+
+        within ".callout.warning" do
+          expect(page).to have_content("This proposal is being evaluated")
+          expect(page).to have_i18n_content(proposal.answer)
+        end
+      end
+    end
+
+    context "when a proposal has been rejected" do
+      let!(:proposal) { create(:extended_proposal, :with_answer, :rejected, component: component) }
+
+      it "shows the rejection reason" do
+        visit_component
+        uncheck "Accepted"
+        uncheck "Evaluating"
+        uncheck "Not answered"
+        page.find_link(proposal_title, wait: 30)
+        click_link proposal_title
+
+        expect(page).to have_content("Rejected")
+
+        within ".callout.alert" do
+          expect(page).to have_content("This proposal has been rejected")
+          expect(page).to have_i18n_content(proposal.answer)
+        end
+      end
+    end
+
+    context "when a proposal has been accepted" do
+      let!(:proposal) { create(:extended_proposal, :with_answer, :accepted, component: component) }
+
+      it "shows the acceptance reason" do
+        visit_component
+        click_link proposal_title
+
+        expect(page).to have_content("Accepted")
+
+        within ".callout.success" do
+          expect(page).to have_content("This proposal has been accepted")
+          expect(page).to have_i18n_content(proposal.answer)
+        end
+      end
+    end
+
+    context "when the proposal answer has not been published" do
+      let!(:proposal) { create(:extended_proposal, :accepted_not_published, component: component) }
+
+      it "shows the acceptance reason" do
+        visit_component
+        click_link proposal_title
+
+        expect(page).not_to have_content("Accepted")
+        expect(page).not_to have_content("This proposal has been accepted")
+        expect(page).not_to have_i18n_content(proposal.answer)
+      end
+    end
+
+    context "when the proposals'a author account has been deleted" do
+      let(:proposal) { proposals.first }
+
+      before do
+        Decidim::DestroyAccount.call(proposal.creator_author, Decidim::DeleteAccountForm.from_params({}))
+      end
+
+      it "the user is displayed as a deleted user" do
+        visit_component
+
+        click_link proposal_title
+
+        expect(page).to have_content("Participant deleted")
+      end
+    end
+  end
+
+  context "when a proposal has been linked in a project" do
+    let(:component) do
+      create(:extended_proposal_component,
+             manifest: manifest,
+             participatory_space: participatory_process)
+    end
+    let(:proposal) { create(:extended_proposal, component: component) }
+    let(:budget_component) do
+      create(:component, manifest_name: :budgets, participatory_space: proposal.component.participatory_space)
+    end
+    let(:project) { create(:project, component: budget_component) }
+
+    before do
+      project.link_resources([proposal], "included_proposals")
+    end
+
+    it "shows related projects" do
+      visit_component
+      click_link proposal_title
+
+      expect(page).to have_i18n_content(project.title)
+    end
+  end
+
+  context "when listing proposals in a participatory process" do
+    shared_examples_for "a random proposal ordering" do
+      let!(:lucky_proposal) { create(:extended_proposal, component: component) }
+      let!(:unlucky_proposal) { create(:extended_proposal, component: component) }
+      let!(:lucky_proposal_title) { translated(lucky_proposal.title) }
+      let!(:unlucky_proposal_title) { translated(unlucky_proposal.title) }
+
+      it "lists the proposals ordered randomly by default" do
+        visit_component
+
+        expect(page).to have_selector("a", text: "Random")
+        expect(page).to have_selector(".card--proposal", count: 2)
+        expect(page).to have_selector(".card--proposal", text: lucky_proposal_title)
+        expect(page).to have_selector(".card--proposal", text: unlucky_proposal_title)
+        expect(page).to have_author(lucky_proposal.creator_author.name)
+      end
+    end
+
+    it_behaves_like "accessible page" do
+      before { visit_component }
+    end
+
+    it "lists all the proposals" do
+      create(:extended_proposal_component,
+             manifest: manifest,
+             participatory_space: participatory_process)
+
+      create_list(:extended_proposal, 3, component: component)
+
+      visit_component
+      expect(page).to have_css(".card--proposal", count: 3)
+    end
+
+    describe "editable content" do
+      it_behaves_like "editable content for admins" do
+        let(:target_path) { main_component_path(component) }
+      end
+    end
+
+    context "when comments have been moderated" do
+      let(:proposal) { create(:extended_proposal, component: component) }
+      let(:author) { create(:user, :confirmed, organization: component.organization) }
+      let!(:comments) { create_list(:comment, 3, commentable: proposal) }
+      let!(:moderation) { create :moderation, reportable: comments.first, hidden_at: 1.day.ago }
+
+      it "displays unhidden comments count" do
+        visit_component
+
+        within("#proposal_#{proposal.id}") do
+          within(".card-data__item:last-child") do
+            expect(page).to have_content(2)
+          end
+        end
+      end
+    end
+
+    describe "default ordering" do
+      it_behaves_like "a random proposal ordering"
+    end
+
+    context "when voting phase is over" do
+      let!(:component) do
+        create(:extended_proposal_component,
+               :with_votes_blocked,
+               manifest: manifest,
+               participatory_space: participatory_process)
+      end
+
+      let!(:most_voted_proposal) do
+        proposal = create(:extended_proposal, component: component)
+        create_list(:proposal_vote, 3, proposal: proposal)
+        proposal
+      end
+      let!(:most_voted_proposal_title) { translated(most_voted_proposal.title) }
+
+      let!(:less_voted_proposal) { create(:extended_proposal, component: component) }
+      let!(:less_voted_proposal_title) { translated(less_voted_proposal.title) }
+
+      before { visit_component }
+
+      it "lists the proposals ordered by votes by default" do
+        expect(page).to have_selector("a", text: "Most supported")
+        expect(page).to have_selector("#proposals .card-grid .column:first-child", text: most_voted_proposal_title)
+        expect(page).to have_selector("#proposals .card-grid .column:last-child", text: less_voted_proposal_title)
+      end
+
+      it "shows a disabled vote button for each proposal, but no links to full proposals" do
+        expect(page).to have_button("Supports disabled", disabled: true, count: 2)
+        expect(page).to have_no_link("View proposal")
+      end
+    end
+
+    context "when voting is disabled" do
+      let!(:component) do
+        create(:extended_proposal_component,
+               :with_votes_disabled,
+               manifest: manifest,
+               participatory_space: participatory_process)
+      end
+
+      describe "order" do
+        it_behaves_like "a random proposal ordering"
+      end
+
+      it "shows only links to full proposals" do
+        create_list(:extended_proposal, 2, component: component)
+
+        visit_component
+
+        expect(page).to have_no_button("Supports disabled", disabled: true)
+        expect(page).to have_no_button("Vote")
+        expect(page).to have_link("View proposal", count: 2)
+      end
+    end
+
+    context "when there are a lot of proposals" do
+      before do
+        create_list(:extended_proposal, Decidim::Paginable::OPTIONS.first + 5, component: component)
+      end
+
+      it "paginates them" do
+        visit_component
+
+        expect(page).to have_css(".card--proposal", count: Decidim::Paginable::OPTIONS.first)
+
+        click_link "Next"
+
+        expect(page).to have_selector(".pagination .current", text: "2")
+
+        expect(page).to have_css(".card--proposal", count: 5)
+      end
+    end
+
+    shared_examples "ordering proposals by selected option" do |selected_option|
+      let(:first_proposal_title) { translated(first_proposal.title) }
+      let(:last_proposal_title) { translated(last_proposal.title) }
+      before do
+        visit_component
+        within ".order-by" do
+          expect(page).to have_selector("ul[data-dropdown-menu$=dropdown-menu]", text: "Random")
+          page.find("a", text: "Random").click
+          click_link(selected_option)
+        end
+      end
+
+      it "lists the proposals ordered by selected option" do
+        expect(page).to have_selector("#proposals .card-grid .column:first-child", text: first_proposal_title)
+        expect(page).to have_selector("#proposals .card-grid .column:last-child", text: last_proposal_title)
+      end
+    end
+
+    context "when ordering by 'most_voted'" do
+      let!(:component) do
+        create(:extended_proposal_component,
+               :with_votes_enabled,
+               manifest: manifest,
+               participatory_space: participatory_process)
+      end
+      let!(:most_voted_proposal) { create(:extended_proposal, component: component) }
+      let!(:votes) { create_list(:proposal_vote, 3, proposal: most_voted_proposal) }
+      let!(:less_voted_proposal) { create(:extended_proposal, component: component) }
+
+      it_behaves_like "ordering proposals by selected option", "Most supported" do
+        let(:first_proposal) { most_voted_proposal }
+        let(:last_proposal) { less_voted_proposal }
+      end
+    end
+
+    context "when ordering by 'recent'" do
+      let!(:older_proposal) { create(:extended_proposal, component: component, created_at: 1.month.ago) }
+      let!(:recent_proposal) { create(:extended_proposal, component: component) }
+
+      it_behaves_like "ordering proposals by selected option", "Recent" do
+        let(:first_proposal) { recent_proposal }
+        let(:last_proposal) { older_proposal }
+      end
+    end
+
+    context "when ordering by 'most_followed'" do
+      let!(:most_followed_proposal) { create(:extended_proposal, component: component) }
+      let!(:follows) { create_list(:follow, 3, followable: most_followed_proposal) }
+      let!(:less_followed_proposal) { create(:extended_proposal, component: component) }
+
+      it_behaves_like "ordering proposals by selected option", "Most followed" do
+        let(:first_proposal) { most_followed_proposal }
+        let(:last_proposal) { less_followed_proposal }
+      end
+    end
+
+    context "when ordering by 'most_commented'" do
+      let!(:most_commented_proposal) { create(:extended_proposal, component: component, created_at: 1.month.ago) }
+      let!(:comments) { create_list(:comment, 3, commentable: most_commented_proposal) }
+      let!(:less_commented_proposal) { create(:extended_proposal, component: component) }
+
+      it_behaves_like "ordering proposals by selected option", "Most commented" do
+        let(:first_proposal) { most_commented_proposal }
+        let(:last_proposal) { less_commented_proposal }
+      end
+    end
+
+    context "when ordering by 'most_endorsed'" do
+      let!(:most_endorsed_proposal) { create(:extended_proposal, component: component, created_at: 1.month.ago) }
+      let!(:endorsements) do
+        3.times.collect do
+          create(:endorsement, resource: most_endorsed_proposal, author: build(:user, organization: organization))
+        end
+      end
+      let!(:less_endorsed_proposal) { create(:extended_proposal, component: component) }
+
+      it_behaves_like "ordering proposals by selected option", "Most endorsed" do
+        let(:first_proposal) { most_endorsed_proposal }
+        let(:last_proposal) { less_endorsed_proposal }
+      end
+    end
+
+    context "when ordering by 'with_more_authors'" do
+      let!(:most_authored_proposal) { create(:extended_proposal, component: component, created_at: 1.month.ago) }
+      let!(:coauthorships) { create_list(:coauthorship, 3, coauthorable: most_authored_proposal) }
+      let!(:less_authored_proposal) { create(:extended_proposal, component: component) }
+
+      it_behaves_like "ordering proposals by selected option", "With more authors" do
+        let(:first_proposal) { most_authored_proposal }
+        let(:last_proposal) { less_authored_proposal }
+      end
+    end
+
+    context "when searching proposals" do
+      let!(:proposals) do
+        [
+          create(:extended_proposal, title: "Lorem ipsum dolor sit amet", component: component),
+          create(:extended_proposal, title: "Donec vitae convallis augue", component: component),
+          create(:extended_proposal, title: "Pellentesque habitant morbi", component: component)
+        ]
+      end
+
+      before do
+        visit_component
+      end
+
+      it "finds the correct proposal" do
+        within "form.new_filter" do
+          find("input[name='filter[search_text_cont]']", match: :first).set("lorem")
+          find("*[type=submit]").click
+        end
+
+        expect(page).to have_content("Lorem ipsum dolor sit amet")
+      end
+    end
+
+    context "when paginating" do
+      let!(:collection) { create_list :extended_proposal, collection_size, component: component }
+      let!(:resource_selector) { ".card--proposal" }
+
+      it_behaves_like "a paginated resource"
+    end
+
+    context "when component is not commentable" do
+      let!(:resources) { create_list(:extended_proposal, 3, component: component) }
+
+      it_behaves_like "an uncommentable component"
+    end
+  end
 end

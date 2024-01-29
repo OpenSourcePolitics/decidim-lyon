@@ -24,7 +24,7 @@ module Decidim::Budgets
     end
     let(:proposals) do
       create_list(
-        :proposal,
+        :extended_proposal,
         3,
         component: proposal_component
       )

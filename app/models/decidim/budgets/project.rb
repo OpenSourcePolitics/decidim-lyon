@@ -18,6 +18,7 @@ module Decidim
       include Decidim::Randomable
       include Decidim::Searchable
       include Decidim::TranslatableResource
+      include Decidim::FilterableResource
 
       translatable_fields :title, :description
 
@@ -35,6 +36,8 @@ module Decidim
 
       geocoded_by :address
 
+      scope_search_multi :with_any_status, [:selected, :not_selected]
+
       searchable_fields(
         scope_id: :decidim_scope_id,
         participatory_space: { component: :participatory_space },
@@ -49,7 +52,7 @@ module Decidim
         # array. This is why we search for match ",2," instead to get the actual
         # position for ID 2.
         concat_ids = connection.quote(",#{ids.join(",")},")
-        order(Arel.sql("position(concat(',', id::text, ',') in #{concat_ids})"))
+        order(Arel.sql("position(concat(',', decidim_budgets_projects.id::text, ',') in #{concat_ids})"))
       end
 
       def self.log_presenter_class_for(_log)
@@ -100,10 +103,9 @@ module Decidim
         Arel.sql(%{cast("decidim_budgets_projects"."id" as text)})
       end
 
-      # Allow ransacker to search for a key in a hstore column (`title`.`en`)
-      ransacker :title do |parent|
-        Arel::Nodes::InfixOperation.new("->>", parent.table[:title], Arel::Nodes.build_quoted(I18n.locale.to_s))
-      end
+      # Create i18n ransackers for :title and :description.
+      # Create the :search_text ransacker alias for searching from both of these.
+      ransacker_i18n_multi :search_text, [:title, :description]
 
       ransacker :selected do
         Arel.sql(%{("decidim_budgets_projects"."selected_at")::text})
@@ -120,6 +122,10 @@ module Decidim
         )
         SQL
         Arel.sql(query)
+      end
+
+      def self.ransackable_scopes(_auth_object = nil)
+        [:with_any_status, :with_any_scope, :with_any_category]
       end
     end
   end

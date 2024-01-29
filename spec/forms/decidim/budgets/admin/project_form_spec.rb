@@ -122,7 +122,7 @@ module Decidim::Budgets
       subject { described_class.from_model(project).with_context(context) }
 
       let(:proposals_component) { create :component, manifest_name: :proposals, participatory_space: participatory_process }
-      let!(:proposal) { create :proposal, component: proposals_component }
+      let!(:proposal) { create :extended_proposal, component: proposals_component }
 
       let(:project) do
         create(
@@ -191,13 +191,13 @@ module Decidim::Budgets
       context "when the scope does not exist" do
         let(:scope_id) { 3456 }
 
-        it { is_expected.to eq(nil) }
+        it { is_expected.to be_nil }
       end
 
       context "when the scope is from another organization" do
         let(:scope_id) { create(:scope).id }
 
-        it { is_expected.to eq(nil) }
+        it { is_expected.to be_nil }
       end
 
       context "when the participatory space has a scope" do

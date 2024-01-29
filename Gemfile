@@ -2,8 +2,8 @@
 
 source "https://rubygems.org"
 
-DECIDIM_VERSION = "0.26"
-DECIDIM_BRANCH = "release/#{DECIDIM_VERSION}-stable"
+DECIDIM_VERSION = "0.27"
+DECIDIM_BRANCH = "release/#{DECIDIM_VERSION}-stable".freeze
 
 ruby RUBY_VERSION
 
@@ -15,13 +15,14 @@ gem "decidim", "~> #{DECIDIM_VERSION}.0"
 
 # External Decidim gems
 gem "decidim-cache_cleaner"
-gem "decidim-decidim_awesome", "0.8.3"
+gem "decidim-decidim_awesome", "~> 0.9.1"
 gem "decidim-homepage_interactive_map", git: "https://github.com/OpenSourcePolitics/decidim-module-homepage_interactive_map.git", branch: DECIDIM_BRANCH
-gem "decidim-spam_detection"
-gem "decidim-term_customizer", git: "https://github.com/opensourcepolitics/decidim-module-term_customizer.git", branch: "fix/multi-threading-compliant-0.26"
+gem "decidim-spam_detection", "4.0.0"
+gem "decidim-term_customizer", git: "https://github.com/opensourcepolitics/decidim-module-term_customizer.git", branch: "fix/multi-threading-compliant"
+# gem "decidim-slider", git: "https://github.com/alecslupu-pfa/decidim-module-slider", branch: "main"
+gem "decidim-custom_proposal_states", git: "https://github.com/alecslupu-pfa/decidim-module-custom_proposal_states", branch: DECIDIM_BRANCH
 
 # Omniauth gems
-gem "decidim-slider", git: "https://github.com/alecslupu-pfa/decidim-module-slider", branch: "main"
 gem "omniauth-publik", git: "https://github.com/OpenSourcePolitics/omniauth-publik"
 
 # Default

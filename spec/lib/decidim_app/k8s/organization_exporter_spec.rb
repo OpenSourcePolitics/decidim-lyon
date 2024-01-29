@@ -177,7 +177,8 @@ describe DecidimApp::K8s::OrganizationExporter do
                                                      "allowed_file_extensions" => {
                                                        "admin" => %w(jpg jpeg gif png bmp pdf doc docx xls xlsx ppt pptx ppx rtf txt odt ott odf otg ods ots),
                                                        "default" => %w(jpg jpeg gif png bmp pdf rtf txt),
-                                                       "image" => %w(jpg jpeg gif png bmp ico)
+                                                       "favicon" => %w(png),
+                                                       "image" => %w(jpg jpeg gif png bmp)
                                                      },
                                                      "maximum_file_size" => {
                                                        "avatar" => 5, "default" => 10

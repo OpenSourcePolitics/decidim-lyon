@@ -2,11 +2,11 @@
   "presets": [
     [
       "@babel/preset-env", {
-        "forceAllTransforms": true,
-        "useBuiltIns": "entry",
-        "corejs": 3,
-        "modules": false
-      }
+      "forceAllTransforms": true,
+      "useBuiltIns": "entry",
+      "corejs": 3,
+      "modules": false
+    }
     ],
     ["@babel/preset-react"]
   ],
@@ -20,11 +20,6 @@
         "corejs": false
       }
     ],
-    [
-      "@babel/plugin-transform-regenerator",
-      {
-        "async": false
-      }
-    ]
+    ["@babel/plugin-transform-regenerator", { "async": false }]
   ]
 }
