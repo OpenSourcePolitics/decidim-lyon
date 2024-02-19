@@ -1,4 +1,14 @@
 GIT
+  remote: https://github.com/OpenSourcePolitics/decidim-module-custom_proposal_states
+  revision: 4a4dd1569889e9927825f1273e1f8b50916e207d
+  branch: fix/deface-enabled
+  specs:
+    decidim-custom_proposal_states (0.27.5)
+      decidim-core (~> 0.27)
+      decidim-proposals (~> 0.27)
+      deface (>= 1.9)
+
+GIT
   remote: https://github.com/OpenSourcePolitics/decidim-module-homepage_interactive_map.git
   revision: dd685166fdf953a11bd6a9e0dac56feca3bd0708
   branch: release/0.27-stable
@@ -17,16 +27,6 @@ GIT
     omniauth-publik (0.1.1)
       omniauth (~> 2.0)
       omniauth-oauth2 (>= 1.7.2, < 2.0)
-
-GIT
-  remote: https://github.com/alecslupu-pfa/decidim-module-custom_proposal_states
-  revision: 81c6c8a57c57453ff9203b531ce6e16fa44c8169
-  branch: release/0.27-stable
-  specs:
-    decidim-custom_proposal_states (0.27.5)
-      decidim-core (~> 0.27)
-      decidim-proposals (~> 0.27)
-      deface (>= 1.9)
 
 GIT
   remote: https://github.com/opensourcepolitics/decidim-module-term_customizer.git
@@ -990,4 +990,4 @@ RUBY VERSION
    ruby 3.0.6p216
 
 BUNDLED WITH
-   2.2.33
+   2.4.9

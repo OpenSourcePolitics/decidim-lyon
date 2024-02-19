@@ -20,7 +20,7 @@ gem "decidim-homepage_interactive_map", git: "https://github.com/OpenSourcePolit
 gem "decidim-spam_detection", "4.0.0"
 gem "decidim-term_customizer", git: "https://github.com/opensourcepolitics/decidim-module-term_customizer.git", branch: "fix/multi-threading-compliant"
 # gem "decidim-slider", git: "https://github.com/alecslupu-pfa/decidim-module-slider", branch: "main"
-gem "decidim-custom_proposal_states", git: "https://github.com/alecslupu-pfa/decidim-module-custom_proposal_states", branch: DECIDIM_BRANCH
+gem "decidim-custom_proposal_states", git: "https://github.com/OpenSourcePolitics/decidim-module-custom_proposal_states", branch: "fix/deface-enabled"
 
 # Omniauth gems
 gem "omniauth-publik", git: "https://github.com/OpenSourcePolitics/omniauth-publik"
