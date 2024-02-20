@@ -83,3 +83,4 @@ git-status.txt
 /yarn-error.log
 yarn-debug.log*
 .yarn-integrity
+app/compiled_views/

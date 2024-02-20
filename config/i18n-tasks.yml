@@ -100,6 +100,7 @@ ignore_missing:
  - activemodel.attributes.proposal.address
  - devise.shared.links.sign_in_with_provider
  - decidim.devise.shared.omniauth_buttons.or
+ - decidim.proposals.admin.proposals.bulk-actions.statuses
 
 # Consider these keys used:
 ignore_unused:
@@ -161,4 +162,5 @@ ignore_unused:
   - devise.shared.links.forgot_your_password
   - devise.shared.links.sign_in_with_france_connect
   - layouts.decidim.footer.made_with_open_source
+  - decidim.proposals.admin.proposals.bulk-actions.statuses
   - decidim.participatory_processes.show.local_area

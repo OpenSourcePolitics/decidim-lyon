@@ -198,6 +198,10 @@ fr:
       show:
         local_area: Espace d'organisation
     proposals:
+      admin:
+        proposals:
+          bulk-actions:
+            statuses: Nouveaux status
       collaborative_drafts:
         collaborative_draft:
           publish:
