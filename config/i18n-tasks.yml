@@ -101,6 +101,7 @@ ignore_missing:
  - devise.shared.links.sign_in_with_provider
  - decidim.devise.shared.omniauth_buttons.or
  - decidim.proposals.admin.proposals.bulk-actions.statuses
+ - layouts.decidim.process_header_steps.{step,view_steps}
 
 # Consider these keys used:
 ignore_unused:
