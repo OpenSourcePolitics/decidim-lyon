@@ -1,7 +1,7 @@
 GIT
   remote: https://github.com/OpenSourcePolitics/decidim-module-custom_proposal_states
-  revision: 4a4dd1569889e9927825f1273e1f8b50916e207d
-  branch: fix/deface-enabled
+  revision: d34f06f13150098e88d54a0bf0b208d6b9bd0b2a
+  branch: release/0.27-stable
   specs:
     decidim-custom_proposal_states (0.27.5)
       decidim-core (~> 0.27)
