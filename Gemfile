@@ -15,7 +15,7 @@ gem "decidim", "~> #{DECIDIM_VERSION}.0"
 
 # External Decidim gems
 gem "decidim-cache_cleaner"
-gem "decidim-custom_proposal_states", git: "https://github.com/OpenSourcePolitics/decidim-module-custom_proposal_states", branch: DECIDIM_BRANCH
+gem "decidim-custom_proposal_states", git: "https://github.com/OpenSourcePolitics/decidim-module-custom_proposal_states", branch: "fix/email_encoding"
 gem "decidim-decidim_awesome", "~> 0.9.1"
 gem "decidim-homepage_interactive_map", git: "https://github.com/OpenSourcePolitics/decidim-module-homepage_interactive_map.git", branch: DECIDIM_BRANCH
 gem "decidim-slider", git: "https://github.com/OpenSourcePolitics/decidim-module-slider", branch: "rc/0.27"
@@ -32,14 +32,17 @@ gem "bootsnap", "~> 1.4"
 gem "faker", "~> 2.14"
 gem "fog-aws"
 gem "foundation_rails_helper", git: "https://github.com/sgruhier/foundation_rails_helper.git"
+gem "letter_opener_web", "~> 1.3"
 gem "nokogiri", "1.13.4"
 gem "omniauth-rails_csrf_protection", "~> 1.0"
 gem "puma", ">= 5.5.1"
 gem "rack-attack", "~> 6.6"
+gem "sidekiq", "~> 6.0"
+gem "sidekiq_alive", "~> 2.2"
+gem "sidekiq-scheduler", "~> 5.0"
 gem "sys-filesystem"
 
 group :development do
-  gem "letter_opener_web", "~> 1.3"
   gem "listen", "~> 3.1"
   gem "rubocop-faker"
   gem "spring", "~> 2.0"
@@ -63,7 +66,4 @@ group :production do
   gem "sentry-rails"
   gem "sentry-ruby"
   gem "sentry-sidekiq"
-  gem "sidekiq", "~> 6.0"
-  gem "sidekiq_alive", "~> 2.2"
-  gem "sidekiq-scheduler", "~> 5.0"
 end
