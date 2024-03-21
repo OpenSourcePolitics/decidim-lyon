@@ -8,6 +8,9 @@
   - events
   - scheduled
   - exports
+  - active_storage_analysis
+  - active_storage_purge
+  - user_report
   - translations
 
 :scheduler:
