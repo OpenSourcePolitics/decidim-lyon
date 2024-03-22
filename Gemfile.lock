@@ -1,6 +1,6 @@
 GIT
   remote: https://github.com/OpenSourcePolitics/decidim-module-custom_proposal_states
-  revision: 4f55fc721eb8fe0c211894d48aece32383da18a8
+  revision: d7058419d785c87910092d5fbb4bc5f6e4f299e4
   branch: fix/email_encoding
   specs:
     decidim-custom_proposal_states (0.27.5)
