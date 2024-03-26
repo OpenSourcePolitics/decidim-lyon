@@ -15,7 +15,7 @@ gem "decidim", "~> #{DECIDIM_VERSION}.0"
 
 # External Decidim gems
 gem "decidim-cache_cleaner"
-gem "decidim-custom_proposal_states", git: "https://github.com/OpenSourcePolitics/decidim-module-custom_proposal_states", branch: "fix/email_encoding"
+gem "decidim-custom_proposal_states", git: "https://github.com/OpenSourcePolitics/decidim-module-custom_proposal_states", branch: DECIDIM_BRANCH
 gem "decidim-decidim_awesome", "~> 0.9.1"
 gem "decidim-homepage_interactive_map", git: "https://github.com/OpenSourcePolitics/decidim-module-homepage_interactive_map.git", branch: DECIDIM_BRANCH
 gem "decidim-slider", git: "https://github.com/OpenSourcePolitics/decidim-module-slider", branch: "rc/0.27"
