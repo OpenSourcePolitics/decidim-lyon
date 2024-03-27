@@ -1,14 +1,4 @@
 GIT
-  remote: https://github.com/OpenSourcePolitics/decidim-module-custom_proposal_states
-  revision: d34f06f13150098e88d54a0bf0b208d6b9bd0b2a
-  branch: release/0.27-stable
-  specs:
-    decidim-custom_proposal_states (0.27.5)
-      decidim-core (~> 0.27)
-      decidim-proposals (~> 0.27)
-      deface (>= 1.9)
-
-GIT
   remote: https://github.com/OpenSourcePolitics/decidim-module-homepage_interactive_map.git
   revision: dd685166fdf953a11bd6a9e0dac56feca3bd0708
   branch: release/0.27-stable
@@ -35,6 +25,16 @@ GIT
     omniauth-publik (0.1.1)
       omniauth (~> 2.0)
       omniauth-oauth2 (>= 1.7.2, < 2.0)
+
+GIT
+  remote: https://github.com/alecslupu-pfa/decidim-module-custom_proposal_states
+  revision: 4e8f8e9a92a8967ae42b2793dd39c00f57f4e2aa
+  branch: release/0.27-stable
+  specs:
+    decidim-custom_proposal_states (0.27.5)
+      decidim-core (~> 0.27)
+      decidim-proposals (~> 0.27)
+      deface (>= 1.9)
 
 GIT
   remote: https://github.com/opensourcepolitics/decidim-module-term_customizer.git
@@ -624,6 +624,8 @@ GEM
     net-smtp (0.5.0)
       net-protocol
     nio4r (2.7.1)
+    nokogiri (1.13.4-arm64-darwin)
+      racc (~> 1.4)
     nokogiri (1.13.4-x86_64-linux)
       racc (~> 1.4)
     oauth (1.1.0)
@@ -947,6 +949,7 @@ GEM
     zeitwerk (2.6.13)
 
 PLATFORMS
+  arm64-darwin-22
   x86_64-linux
 
 DEPENDENCIES
