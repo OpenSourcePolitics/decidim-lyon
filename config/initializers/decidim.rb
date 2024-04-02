@@ -7,7 +7,7 @@ Decidim.configure do |config|
   config.mailer_sender = "OSP Agora <ne-pas-repondre@opensourcepolitics.eu>"
 
   config.default_locale = ENV.fetch("DEFAULT_LOCALE", "en").to_sym
-  config.available_locales = ENV.fetch("AVAILABLE_LOCALES", "en,fr").split(",").map(&:to_sym)
+  config.available_locales = ENV.fetch("AVAILABLE_LOCALES", "en,fr,ca,es").split(",").map(&:to_sym)
 
   # Timeout session
   config.expire_session_after = ENV.fetch("DECIDIM_SESSION_TIMEOUT", 180).to_i.minutes
