@@ -6,6 +6,6 @@ class NotificationsDigestMailJob < ApplicationJob
   queue_as :scheduled
 
   def perform(frequency)
-    Decidim::NotificationsDigest.notifications_digest(frequency)
+    Decidim::NotificationsDigest.notifications_digest(frequency.to_sym)
   end
 end
