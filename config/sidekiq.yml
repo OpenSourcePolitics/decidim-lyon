@@ -1,4 +1,5 @@
 :concurrency: 5
+:max_retries: 5
 :queues:
   - default
   - backups
@@ -27,3 +28,13 @@
       cron: '0 0 4 * * *' # Run at 04:00
       class: BackupJob
       queue: backups
+    SendNotificationMailDaily:
+      cron: '0 0 7 * * *' # Run at 07:00AM every days
+      class: NotificationsDigestMailJob
+      queue: mailers
+      args: :daily
+    SendNotificationMailWeekly:
+      cron: '0 0 8 * * 2' # Run at 08:00AM on Tuesday
+      class: NotificationsDigestMailJob
+      queue: mailers
+      args: :weekly
