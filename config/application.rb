@@ -48,6 +48,10 @@ module DevelopmentApp
     config.after_initialize do
       require "extends/controllers/decidim/devise/sessions_controller_extends"
       require "extends/lib/decidim/dependency_resolver_extends"
+      require "extends/commands/decidim/meetings/admin/update_meeting_extends"
+      require "extends/commands/decidim/meetings/admin/create_meeting_extends"
+      require "extends/commands/decidim/meetings/update_meeting_extends"
+      require "extends/commands/decidim/meetings/create_meeting_extends"
 
       Decidim::GraphiQL::Rails.config.tap do |config|
         config.initial_query = "{\n  deployment {\n    version\n    branch\n    remote\n    upToDate\n    currentCommit\n    latestCommit\n    locallyModified\n  }\n}".html_safe
