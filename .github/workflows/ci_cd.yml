@@ -5,13 +5,13 @@ env:
   CI: "true"
   SIMPLECOV: "true"
   RSPEC_FORMAT: "documentation"
-  RUBY_VERSION: 2.7.5
+  RUBY_VERSION: 3.0.6
   RAILS_ENV: test
   NODE_VERSION: 16.9.1
   RUBYOPT: '-W:no-deprecated'
   # Set locales available for i18n tasks
-  ENFORCED_LOCALES: "en,fr"
-  AVAILABLE_LOCALES: "en,fr"
+  ENFORCED_LOCALES: "en,fr,ca,es"
+  AVAILABLE_LOCALES: "en,fr,ca,es"
 
 jobs:
   todo:
@@ -37,6 +37,22 @@ jobs:
         with:
           ruby_version: ${{ env.RUBY_VERSION }}
           node_version: ${{ env.NODE_VERSION }}
+  zeitwerk:
+    name: Check for Zeitwerk errors
+    runs-on: ubuntu-latest
+    if: "!startsWith(github.head_ref, 'chore/l10n')"
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 1
+      - uses: ruby/setup-ruby@v1
+        with:
+          ruby-version: ${{ env.RUBY_VERSION }}
+          bundler-cache: true
+      - name: Check for Zeitwerk errors
+        run: |
+          bundle exec rails zeitwerk:check
   tests:
     strategy:
       fail-fast: false
@@ -88,6 +104,7 @@ jobs:
           key: asset-cache-${{ runner.os }}-${{ steps.cache-hash.outputs.hash }}
       - run: mkdir -p ./spec/tmp/screenshots
         name: Create the screenshots folder
+      - uses: nanasess/setup-chromedriver@v2
       - run:  bundle exec rake "test:run[exclude, spec/system/**/*_spec.rb, ${{ matrix.slice }}]"
         name: RSpec
       - run: ./.github/upload_coverage.sh decidim-app $GITHUB_EVENT_PATH
@@ -104,6 +121,7 @@ jobs:
           path: ./tmp/assets_manifest.json
   system_tests:
     strategy:
+      fail-fast: false
       matrix:
         slice: [ "0-4", "1-4", "2-4", "3-4" ]
     name: System tests
@@ -152,7 +170,6 @@ jobs:
           key: asset-cache-${{ runner.os }}-${{ steps.cache-hash.outputs.hash }}
       - run: mkdir -p ./spec/tmp/screenshots
         name: Create the screenshots folder
-      # TODO: Use latest version
       - uses: nanasess/setup-chromedriver@v2
       - run:  bundle exec rake "test:run[include, spec/system/**/*_spec.rb, ${{ matrix.slice }}]"
         name: RSpec
@@ -197,10 +214,12 @@ jobs:
           database_username: ${{ env.DATABASE_USERNAME }}
           database_password: ${{ env.DATABASE_PASSWORD }}
           database_host: ${{ env.DATABASE_HOST }}
+          # We don't want to upload the image to the registry if the build fails, but we don't care when on a PR for speed reasons
+          push: ${{ github.ref != 'refs/heads/develop' || github.ref != 'refs/heads/master' }}
   build_and_push_image_dev:
-    name: Build and push image to Registry
     if: "github.ref == 'refs/heads/develop'"
-    needs: [lint, tests, system_tests, test_build]
+    name: Build and push image to Registry
+    needs: [ lint, tests, zeitwerk, system_tests, test_build ]
     runs-on: ubuntu-latest
     steps:
       - uses: OpenSourcePolitics/build-and-push-images-action@master
@@ -209,10 +228,10 @@ jobs:
           namespace: ${{ vars.REGISTRY_NAMESPACE }}
           password: ${{ secrets.TOKEN }}
           image_name: ${{ vars.IMAGE_NAME }}
-          tag: "develop"
+          tag: ${{ github.ref }}
   generate_release:
     name: Generate release
-    needs: [lint, tests, system_tests, test_build]
+    needs: [lint, tests, zeitwerk, system_tests, test_build]
     if: "github.ref == 'refs/heads/master'"
     runs-on: ubuntu-latest
     steps:

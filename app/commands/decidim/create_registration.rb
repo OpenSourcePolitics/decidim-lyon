@@ -2,7 +2,7 @@
 
 module Decidim
   # A command with all the business logic to create a user through the sign up form.
-  class CreateRegistration < Rectify::Command
+  class CreateRegistration < Decidim::Command
     # Public: Initializes the command.
     #
     # form - A form object with the params.
@@ -34,6 +34,7 @@ module Decidim
 
     attr_reader :form
 
+    # CUSTO
     def create_user
       @user = User.create!(
         email: form.email,
@@ -41,9 +42,9 @@ module Decidim
         nickname: form.nickname,
         password: form.password,
         password_confirmation: form.password_confirmation,
+        password_updated_at: Time.current,
         organization: form.current_organization,
         tos_agreement: form.tos_agreement,
-        email_on_notification: true,
         accepted_tos_version: form.current_organization.tos_version,
         locale: form.current_locale
       )

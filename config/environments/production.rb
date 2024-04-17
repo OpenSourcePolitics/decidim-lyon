@@ -56,7 +56,8 @@ Rails.application.configure do
 
   # Use the lowest log level to ensure availability of diagnostic information
   # when problems arise.
-  config.log_level = :info
+  # The available log levels are: :debug, :info, :warn, :error, :fatal, and :unknown
+  config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "warn").to_sym
 
   # Prepend all log lines with the following tags.
   config.log_tags = [:request_id]
@@ -150,4 +151,6 @@ Rails.application.configure do
       exclude: ->(request) { /health_check|sidekiq_alive/.match?(request.path) }
     }
   }
+
+  config.deface.enabled = ENV.fetch("DEFACE_ENABLED", nil) == "true"
 end

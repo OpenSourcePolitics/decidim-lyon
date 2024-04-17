@@ -7,7 +7,7 @@ Decidim.configure do |config|
   config.mailer_sender = "OSP Agora <ne-pas-repondre@opensourcepolitics.eu>"
 
   config.default_locale = ENV.fetch("DEFAULT_LOCALE", "en").to_sym
-  config.available_locales = ENV.fetch("AVAILABLE_LOCALES", "en,fr").split(",").map(&:to_sym)
+  config.available_locales = ENV.fetch("AVAILABLE_LOCALES", "en,fr,ca,es").split(",").map(&:to_sym)
 
   # Timeout session
   config.expire_session_after = ENV.fetch("DECIDIM_SESSION_TIMEOUT", 180).to_i.minutes
@@ -91,7 +91,7 @@ Decidim.configure do |config|
     }
   end
 
-  config.base_uploads_path = "#{ENV["HEROKU_APP_NAME"]}/" if ENV["HEROKU_APP_NAME"].present?
+  config.base_uploads_path = "#{ENV.fetch("HEROKU_APP_NAME", nil)}/" if ENV["HEROKU_APP_NAME"].present?
 end
 
 Rails.application.config.i18n.available_locales = Decidim.available_locales

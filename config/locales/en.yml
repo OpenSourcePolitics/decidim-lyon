@@ -93,31 +93,6 @@ en:
       projects:
         count:
           projects_count: Projects count
-        index:
-          view_project: View project
-        projects_for: Projects for
-        show:
-          budget: Budget
-          view_all_projects: View all projects
-      projects_helper:
-        current_rule_description:
-          minimum_projects_rule:
-            description: Description
-          projects_rule:
-            description: Description
-          projects_rule_maximum_only:
-            description: Description
-          vote_threshold_percent_rule:
-            description: Description
-        current_rule_explanation:
-          minimum_projects_rule:
-            instruction: Instruction
-          projects_rule:
-            instruction: Instruction
-          projects_rule_maximum_only:
-            instruction: Instruction
-          vote_threshold_percent_rule:
-            instruction: Instruction
       vote_reminder_mailer:
         vote_reminder:
           email_budgets: 'Budget où vous avez un vote non terminé:'
@@ -163,11 +138,9 @@ en:
           allow_public_contact: Permettre à n'importe quoi de m'envoyer un message direct, même si je ne les suis pas.
           direct_messages: Recevoir des messages directs de n'importe qui
           email_on_moderations: Je veux recevoir un email chaque fois que quelque chose est signalé pour modération.
-          email_on_notification: Je souhaite recevoir un email à chaque fois que je reçois une notification.
           everything_followed: Tout ce que je suis
           own_activity: Ma propre activité, comme quand quelqu'un commente dans ma proposition ou me mentionne
           receive_notifications_about: Je veux recevoir des notifications sur
-          send_notifications_by_email: Envoyer des notifications par email
           update_notifications_settings: Enregistrer les modifications
       users:
         user_officialized:
@@ -199,13 +172,15 @@ en:
       show:
         administrators: Administrators
         allow_public_contact: Allow public contact
+        allow_push_notifications: Get push notifications to find out what is going on when you are not on the platform. You can turn them off anytime.
         direct_messages: Direct messages
         email_on_moderations: Email on moderations
-        email_on_notification: Email on notification
         everything_followed: Everything followed
+        notifications_sending_frequency: How often do you want to receive the notifications email?
         own_activity: Own activity
+        push_notifications: Push notifications
+        push_notifications_reminder: To get notifications from the platform, you will need to allow them in your browser settings first.
         receive_notifications_about: Receive notifications about
-        send_notifications_by_email: Send notifications by email
         update_notifications_settings: Update notifications settings
     omniauth:
       france_connect:
@@ -215,6 +190,9 @@ en:
           text: Qu'est-ce-que FranceConnect ?
         forgot_password:
           ok_text: Attention, ce mot de passe est celui de votre compte local et en aucun cas celui du compte que vous utilisez au travers de FranceConnect. Il vous servira uniquement lorsque vous vous connecterez avec votre adresse mail plutôt que via FranceConnect.
+    participatory_processes:
+      show:
+        local_area: Local area
     proposals:
       collaborative_drafts:
         collaborative_draft:
@@ -242,12 +220,6 @@ en:
         wizard_aside:
           back_from_collaborative_draft: Retour aux brouillons collaboratifs
           info: Vous créez un <strong>projet collaboratif</strong>.
-      create:
-        error: There was a problem saving the proposal.
-        success: Proposal successfully created. Saved as a Draft.
-      destroy_draft:
-        error: There was a problem deleting the collaborative draft.
-        success: Proposal draft was successfully deleted.
       index:
         collaborative_drafts_list: Accéder aux brouillons collaboratifs
         new_proposal: Nouvelle proposition
@@ -259,22 +231,11 @@ en:
             comments: Commentaires
             contributions: Contributions
       proposals:
-        compare:
-          no_similars_found: Well done! No similar proposals found
         edit:
+          add_image: Add image
+          edit_documents: Edit documents
+          edit_image: Edit image
           gallery_legend: "(Optional) Add an image to the proposal card. <br> <b><em>Note: You must be owner of the image</em></b>"
-      publish:
-        error: There was a problem publishing the proposal.
-        success: Proposal successfully published.
-      update:
-        error: There was a problem saving the proposal.
-        success: Proposal successfully updated.
-      update_draft:
-        error: There was a problem saving the collaborative draft.
-        success: Proposal draft successfully updated.
-      withdraw:
-        errors:
-          has_supports: This proposal can not be withdrawn because it already has supports.
     scopes:
       global: Portée générale
       picker:

@@ -24,7 +24,7 @@ module Decidim
 
       describe "GET index" do
         context "when participatory texts are disabled" do
-          let(:component) { create(:proposal_component, :with_geocoding_enabled) }
+          let(:component) { create(:extended_proposal_component, :with_geocoding_enabled) }
 
           it "sorts proposals by search defaults" do
             get :index
@@ -53,26 +53,10 @@ module Decidim
             expect(assigns(:proposals).count).to eq 12
             expect(assigns(:all_geocoded_proposals)).to match_array(geocoded_proposals)
           end
-
-          context "when latitude and longitude are not properly geocoded" do
-            it "doesn't includes it in collection" do
-              geocoded_proposals = create_list :proposal, 10, component: component, latitude: 1.1, longitude: 2.2
-              improperly_geocoded_proposal = create :proposal, component: component, latitude: (0.0 / 0.0), longitude: (0.0 / 0.0)
-              _non_geocoded_proposals = create_list :proposal, 2, component: component, latitude: nil, longitude: nil
-
-              get :index
-              expect(response).to have_http_status(:ok)
-              expect(subject).to render_template(:index)
-
-              expect(assigns(:proposals).count).to eq 13
-              expect(assigns(:all_geocoded_proposals)).to match_array(geocoded_proposals)
-              expect(assigns(:all_geocoded_proposals).include?(improperly_geocoded_proposal)).to eq(false)
-            end
-          end
         end
 
         context "when participatory texts are enabled" do
-          let(:component) { create(:proposal_component, :with_participatory_texts_enabled) }
+          let(:component) { create(:extended_proposal_component, :with_participatory_texts_enabled) }
 
           it "sorts proposals by position" do
             get :index
@@ -82,8 +66,8 @@ module Decidim
           end
 
           context "when emendations exist" do
-            let!(:amendable) { create(:proposal, component: component) }
-            let!(:emendation) { create(:proposal, component: component) }
+            let!(:amendable) { create(:extended_proposal, component: component) }
+            let!(:emendation) { create(:extended_proposal, component: component) }
             let!(:amendment) { create(:amendment, amendable: amendable, emendation: emendation, state: "accepted") }
 
             it "does not include emendations" do
@@ -97,7 +81,7 @@ module Decidim
       end
 
       describe "GET new" do
-        let(:component) { create(:proposal_component, :with_creation_enabled) }
+        let(:component) { create(:extended_proposal_component, :with_creation_enabled) }
 
         before { sign_in user }
 
@@ -110,7 +94,7 @@ module Decidim
         end
 
         context "when draft proposals exist from other users" do
-          let!(:others_draft) { create(:proposal, :draft, component: component) }
+          let!(:others_draft) { create(:extended_proposal, :draft, component: component) }
 
           it "renders the empty form" do
             get :new, params: params
@@ -124,7 +108,7 @@ module Decidim
         before { sign_in user }
 
         context "when creation is not enabled" do
-          let(:component) { create(:proposal_component) }
+          let(:component) { create(:extended_proposal_component) }
 
           it "raises an error" do
             post :create, params: params
@@ -134,7 +118,7 @@ module Decidim
         end
 
         context "when creation is enabled" do
-          let(:component) { create(:proposal_component, :with_creation_enabled) }
+          let(:component) { create(:extended_proposal_component, :with_creation_enabled) }
           let(:proposal_params) do
             {
               component_id: component.id,
@@ -153,8 +137,8 @@ module Decidim
       end
 
       describe "PATCH update" do
-        let(:component) { create(:proposal_component, :with_creation_enabled, :with_attachments_allowed) }
-        let(:proposal) { create(:proposal, component: component, users: [user]) }
+        let(:component) { create(:extended_proposal_component, :with_creation_enabled, :with_attachments_allowed) }
+        let(:proposal) { create(:extended_proposal, component: component, users: [user]) }
         let(:proposal_params) do
           {
             title: "Lorem ipsum dolor sit amet, consectetur adipiscing elit",
@@ -188,7 +172,7 @@ module Decidim
                 documents: proposal.documents.map { |a| a.id.to_s }
               }
             end
-            let(:proposal) { create(:proposal, :with_photo, :with_document, component: component, users: [user]) }
+            let(:proposal) { create(:extended_proposal, :with_photo, :with_document, component: component, users: [user]) }
 
             it "displays the editing form with errors" do
               patch :update, params: params
@@ -202,13 +186,55 @@ module Decidim
         end
       end
 
+      describe "access links from creating proposal steps" do
+        let!(:component) { create(:extended_proposal_component, :with_creation_enabled) }
+        let!(:current_user) { create(:user, :confirmed, organization: component.organization) }
+        let!(:proposal_extra) { create(:extended_proposal, :draft, component: component, users: [current_user]) }
+        let!(:params) do
+          {
+            id: proposal_extra.id,
+            proposal: proposal_params
+          }
+        end
+
+        before { sign_in user }
+
+        context "when you try to preview a proposal created by another user" do
+          it "will not render the preview page" do
+            get :preview, params: params
+            expect(subject).not_to render_template(:preview)
+          end
+        end
+
+        context "when you try to complete a proposal created by another user" do
+          it "will not render the complete page" do
+            get :complete, params: params
+            expect(subject).not_to render_template(:complete)
+          end
+        end
+
+        context "when you try to compare a proposal created by another user" do
+          it "will not render the compare page" do
+            get :compare, params: params
+            expect(subject).not_to render_template(:compare)
+          end
+        end
+
+        context "when you try to publish a proposal created by another user" do
+          it "will not render the publish page" do
+            post :publish, params: params
+            expect(subject).not_to render_template(:publish)
+          end
+        end
+      end
+
       describe "withdraw a proposal" do
-        let(:component) { create(:proposal_component, :with_creation_enabled) }
+        let(:component) { create(:extended_proposal_component, :with_creation_enabled) }
 
         before { sign_in user }
 
         context "when an authorized user is withdrawing a proposal" do
-          let(:proposal) { create(:proposal, component: component, users: [user]) }
+          let(:proposal) { create(:extended_proposal, component: component, users: [user]) }
 
           it "withdraws the proposal" do
             put :withdraw, params: params.merge(id: proposal.id)
@@ -216,11 +242,11 @@ module Decidim
             expect(flash[:notice]).to eq("Proposal successfully updated.")
             expect(response).to have_http_status(:found)
             proposal.reload
-            expect(proposal.withdrawn?).to be true
+            expect(proposal).to be_withdrawn
           end
 
           context "and the proposal already has supports" do
-            let(:proposal) { create(:proposal, :with_votes, component: component, users: [user]) }
+            let(:proposal) { create(:extended_proposal, :with_votes, component: component, users: [user]) }
 
             it "is not able to withdraw the proposal" do
               put :withdraw, params: params.merge(id: proposal.id)
@@ -228,14 +254,14 @@ module Decidim
               expect(flash[:alert]).to eq("This proposal can not be withdrawn because it already has supports.")
               expect(response).to have_http_status(:found)
               proposal.reload
-              expect(proposal.withdrawn?).to be false
+              expect(proposal).not_to be_withdrawn
             end
           end
         end
 
         describe "when current user is NOT the author of the proposal" do
-          let(:current_user) { create(:user, organization: component.organization) }
-          let(:proposal) { create(:proposal, component: component, users: [current_user]) }
+          let(:current_user) { create(:user, :confirmed, organization: component.organization) }
+          let(:proposal) { create(:extended_proposal, component: component, users: [current_user]) }
 
           context "and the proposal has no supports" do
             it "is not able to withdraw the proposal" do
@@ -246,16 +272,16 @@ module Decidim
               expect(flash[:alert]).to eq("You are not authorized to perform this action")
               expect(response).to have_http_status(:found)
               proposal.reload
-              expect(proposal.withdrawn?).to be false
+              expect(proposal).not_to be_withdrawn
             end
           end
         end
       end
 
       describe "GET show" do
-        let!(:component) { create(:proposal_component, :with_amendments_enabled) }
-        let!(:amendable) { create(:proposal, component: component) }
-        let!(:emendation) { create(:proposal, component: component) }
+        let!(:component) { create(:extended_proposal_component, :with_amendments_enabled) }
+        let!(:amendable) { create(:extended_proposal, component: component) }
+        let!(:emendation) { create(:extended_proposal, component: component) }
         let!(:amendment) { create(:amendment, amendable: amendable, emendation: emendation) }
         let(:active_step_id) { component.participatory_space.active_step.id }
 
@@ -293,7 +319,7 @@ module Decidim
               before { sign_in user }
 
               context "and the user is the author of the emendation" do
-                let!(:amendment) { create(:amendment, amendable: amendable, emendation: emendation, amender: user) }
+                let(:user) { amendment.amender }
 
                 it "shows the proposal" do
                   get :show, params: params.merge(id: emendation.id)

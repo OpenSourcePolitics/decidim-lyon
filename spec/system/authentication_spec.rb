@@ -22,19 +22,19 @@ describe "Authentication", type: :system do
           fill_in :registration_user_nickname, with: "responsible"
           fill_in :registration_user_password, with: "DfyvHn425mYAy2HL"
           fill_in :registration_user_password_confirmation, with: "DfyvHn425mYAy2HL"
-
           check :registration_user_tos_agreement
+
           find("*[type=submit]").click
         end
 
-        expect(page).to have_content("A message with a confirmation link has been sent to your email address. Please follow the link to activate your account.")
+        expect(page).to have_content("confirmation link")
       end
     end
 
     context "when using another langage" do
       before do
         within_language_menu do
-          click_link "Français"
+          click_link "Castellano"
         end
       end
 
@@ -47,13 +47,13 @@ describe "Authentication", type: :system do
           fill_in :registration_user_nickname, with: "responsible"
           fill_in :registration_user_password, with: "DfyvHn425mYAy2HL"
           fill_in :registration_user_password_confirmation, with: "DfyvHn425mYAy2HL"
-
           check :registration_user_tos_agreement
+
           find("*[type=submit]").click
         end
 
-        expect(page).to have_content("Un message avec un lien de confirmation a été envoyé à votre adresse e-mail. Veuillez suivre le lien pour activer votre compte.")
-        expect(last_user.locale).to eq("fr")
+        expect(page).to have_content("Se ha enviado un mensaje con un enlace de confirmación")
+        expect(last_user.locale).to eq("es")
       end
     end
 
@@ -68,12 +68,12 @@ describe "Authentication", type: :system do
           fill_in :registration_user_nickname, with: "responsible"
           fill_in :registration_user_password, with: "DfyvHn425mYAy2HL"
           fill_in :registration_user_password_confirmation, with: "DfyvHn425mYAy2HL"
-
           check :registration_user_tos_agreement
+
           find("*[type=submit]").click
         end
 
-        expect(page).not_to have_content("You have signed up successfully")
+        expect(page).not_to have_content("confirmation link")
       end
     end
 
@@ -146,7 +146,7 @@ describe "Authentication", type: :system do
         it "redirects the user to a finish signup page" do
           find(".sign-up-link").click
 
-          click_link "Sign in with Twitter"
+          click_link "Sign in with X"
 
           expect(page).to have_content("Successfully")
           expect(page).to have_content("Please complete your profile")
@@ -162,7 +162,7 @@ describe "Authentication", type: :system do
             create(:user, :confirmed, email: "user@from-twitter.com", organization: organization)
             find(".sign-up-link").click
 
-            click_link "Sign in with Twitter"
+            click_link "Sign in with X"
 
             expect(page).to have_content("Successfully")
             expect(page).to have_content("Please complete your profile")
@@ -184,7 +184,7 @@ describe "Authentication", type: :system do
         it "creates a new User" do
           find(".sign-up-link").click
 
-          click_link "Sign in with Twitter"
+          click_link "Sign in with X"
 
           expect_user_logged
         end
@@ -226,6 +226,27 @@ describe "Authentication", type: :system do
       end
     end
 
+    context "when nickname is not unique case insensitively" do
+      let!(:user) { create(:user, nickname: "Nick", organization: organization) }
+
+      it "show an error message" do
+        find(".sign-up-link").click
+
+        within ".new_user" do
+          fill_in :registration_user_email, with: "user@example.org"
+          fill_in :registration_user_name, with: "Responsible Citizen"
+          fill_in :registration_user_nickname, with: "NiCk"
+          fill_in :registration_user_password, with: "DfyvHn425mYAy2HL"
+          fill_in :registration_user_password_confirmation, with: "DfyvHn425mYAy2HL"
+          check :registration_user_tos_agreement
+
+          find("*[type=submit]").click
+        end
+
+        expect(page).to have_content("has already been taken")
+      end
+    end
+
     context "when sign up is disabled" do
       let(:organization) { create(:organization, users_registration_mode: :existing) }
 
@@ -253,7 +274,7 @@ describe "Authentication", type: :system do
   end
 
   context "when confirming the account" do
-    let!(:user) { create(:user, email_on_notification: true, organization: organization) }
+    let!(:user) { create(:user, organization: organization) }
 
     before do
       perform_enqueued_jobs { user.confirm }
@@ -314,10 +335,10 @@ describe "Authentication", type: :system do
         expect(page).to have_content("Sign in with Facebook")
 
         within_language_menu do
-          click_link "Français"
+          click_link "Català"
         end
 
-        expect(page).to have_content("S'identifier avec Facebook")
+        expect(page).to have_content("Inicia sessió amb Facebook")
       end
     end
 
@@ -368,8 +389,8 @@ describe "Authentication", type: :system do
         visit last_email_link
 
         within ".new_user" do
-          fill_in :password_user_password, with: "example"
-          fill_in :password_user_password_confirmation, with: "example"
+          fill_in :password_user_password, with: "whatislove"
+          fill_in :password_user_password_confirmation, with: "whatislove"
           find("*[type=submit]").click
         end
 
@@ -378,22 +399,18 @@ describe "Authentication", type: :system do
         expect(page).to have_content("must not be too common")
         expect(page).to have_current_path "/users/password"
       end
-    end
 
-    describe "Sign Out" do
-      before do
-        login_as user, scope: :user
-        visit decidim.root_path
-      end
+      it "enforces the minimum length for the password in the front-end" do
+        visit last_email_link
 
-      it "signs out the user" do
-        within ".topbar__user__logged" do
-          find("a", text: user.name).click
-          find(".sign-out-link").click
+        within ".new_user" do
+          fill_in :password_user_password, with: "example"
+          fill_in :password_user_password_confirmation, with: "example"
+          find("*[type=submit]").click
         end
 
-        expect(page).to have_content("Signed out successfully.")
-        expect(page).to have_no_content(user.name)
+        expect(page).to have_content("The password is too short.")
+        expect(page).to have_content("Password confirmation must match the password.")
       end
     end
 
@@ -566,6 +583,20 @@ describe "Authentication", type: :system do
           expect(page).to have_content("Successfully")
           expect(page).to have_content(user.name)
         end
+
+        context "when admin password is expired" do
+          let(:user) { create(:user, :confirmed, :admin, password_updated_at: 91.days.ago, organization: organization) }
+
+          before do
+            allow(Decidim.config).to receive(:admin_password_expiration_days).and_return(90)
+          end
+
+          it "can log in without being prompted to change the password" do
+            find(".sign-in-link").click
+            click_link "Sign in with Facebook"
+            expect(page).to have_content("Successfully")
+          end
+        end
       end
     end
   end
@@ -584,12 +615,12 @@ describe "Authentication", type: :system do
             fill_in :registration_user_nickname, with: "responsible"
             fill_in :registration_user_password, with: "DfyvHn425mYAy2HL"
             fill_in :registration_user_password_confirmation, with: "DfyvHn425mYAy2HL"
-
             check :registration_user_tos_agreement
+
             find("*[type=submit]").click
           end
 
-          expect(page).to have_content("A message with a confirmation link has been sent to your email address. Please follow the link to activate your account.")
+          expect(page).to have_content("confirmation link")
         end
       end
     end

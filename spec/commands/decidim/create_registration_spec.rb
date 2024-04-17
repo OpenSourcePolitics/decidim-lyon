@@ -61,14 +61,19 @@ module Decidim
               clear_enqueued_jobs
             end
 
+            RSpec::Matchers.define_negated_matcher :not_change, :change
+
             it "receives the invitation email again" do
+              expect { command.call }.not_to change(User, :count)
+
               expect do
                 command.call
                 user.reload
-              end.to change(User, :count).by(0)
-                                         .and broadcast(:invalid)
+              end.to not_change(User, :count)
+                .and broadcast(:invalid)
                 .and change(user.reload, :invitation_token)
-              expect(ActionMailer::DeliveryJob).to have_been_enqueued.on_queue("mailers")
+
+              expect(ActionMailer::MailDeliveryJob).to have_been_enqueued.on_queue("mailers").twice
             end
           end
         end
@@ -85,14 +90,30 @@ module Decidim
               email: form.email,
               password: form.password,
               password_confirmation: form.password_confirmation,
+              password_updated_at: an_instance_of(ActiveSupport::TimeWithZone),
               tos_agreement: form.tos_agreement,
-              email_on_notification: true,
               organization: organization,
               accepted_tos_version: organization.tos_version,
               locale: form.current_locale
             ).and_call_original
 
             expect { command.call }.to change(User, :count).by(1)
+          end
+
+          it "sets the password_updated_at to the current time" do
+            expect { command.call }.to broadcast(:ok)
+            expect(User.last.password_updated_at).to be_between(2.seconds.ago, Time.current)
+          end
+
+          describe "when user keeps the newsletter unchecked" do
+            let(:newsletter) { "0" }
+
+            it "creates a user with no newsletter notifications" do
+              expect do
+                command.call
+                expect(User.last.newsletter_notifications_at).to be_nil
+              end.to change(User, :count).by(1)
+            end
           end
         end
       end

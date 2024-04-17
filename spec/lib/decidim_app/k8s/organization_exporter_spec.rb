@@ -167,7 +167,7 @@ describe DecidimApp::K8s::OrganizationExporter do
     it "returns the organization columns" do
       expect(subject.organization_columns).to eq({
                                                    "available_authorizations" => [],
-                                                   "available_locales" => %w(en fr),
+                                                   "available_locales" => %w(en fr ca es),
                                                    "default_locale" => "en",
                                                    "file_upload_settings" => {
                                                      "allowed_content_types" => {
@@ -177,7 +177,8 @@ describe DecidimApp::K8s::OrganizationExporter do
                                                      "allowed_file_extensions" => {
                                                        "admin" => %w(jpg jpeg gif png bmp pdf doc docx xls xlsx ppt pptx ppx rtf txt odt ott odf otg ods ots),
                                                        "default" => %w(jpg jpeg gif png bmp pdf rtf txt),
-                                                       "image" => %w(jpg jpeg gif png bmp ico)
+                                                       "favicon" => %w(png),
+                                                       "image" => %w(jpg jpeg gif png bmp)
                                                      },
                                                      "maximum_file_size" => {
                                                        "avatar" => 5, "default" => 10

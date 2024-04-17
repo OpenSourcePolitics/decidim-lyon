@@ -16,8 +16,8 @@ HealthCheck.setup do |config|
   # sensitive information
   config.include_error_in_response_body = false
 
-  # Log level (success or failure message with error details is sent to rails log unless this is set to nil)
-  config.log_level = "info"
+  # The available log levels are: :debug, :info, :warn, :error, :fatal, and :unknown
+  config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "warn").to_sym
 
   # Timeout in seconds used when checking smtp server
   config.smtp_timeout = 30.0
