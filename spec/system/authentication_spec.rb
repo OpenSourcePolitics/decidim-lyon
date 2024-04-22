@@ -48,7 +48,7 @@ describe "Authentication", type: :system do
           find("*[type=submit]").click
         end
 
-        expect(page).to have_content("Se ha enviado un mensaje con un enlace de confirmación")
+        expect(page).to have_content("Un mensaje con un código ha sido enviado a su dirección de correo electrónico.")
         expect(last_user.locale).to eq("es")
       end
     end
