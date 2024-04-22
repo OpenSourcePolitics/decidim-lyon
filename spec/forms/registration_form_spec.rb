@@ -23,7 +23,6 @@ module Decidim
     let(:attributes) do
       {
         name: name,
-        nickname: nickname,
         email: email,
         password: password,
         password_confirmation: password_confirmation,
@@ -53,12 +52,6 @@ module Decidim
       it { is_expected.to be_invalid }
     end
 
-    context "when the nickname is not present" do
-      let(:nickname) { nil }
-
-      it { is_expected.to be_invalid }
-    end
-
     context "when the email is not present" do
       let(:email) { nil }
 
@@ -75,24 +68,6 @@ module Decidim
 
         it { is_expected.to be_invalid }
       end
-    end
-
-    context "when the nickname already exists" do
-      let!(:user) { create(:user, organization: organization, nickname: nickname) }
-
-      it { is_expected.to be_invalid }
-
-      context "and is pending to accept the invitation" do
-        let!(:user) { create(:user, organization: organization, nickname: nickname, invitation_token: "foo", invitation_accepted_at: nil) }
-
-        it { is_expected.to be_valid }
-      end
-    end
-
-    context "when the nickname is too long" do
-      let(:nickname) { "verylongnicknamethatcreatesanerror" }
-
-      it { is_expected.to be_invalid }
     end
 
     context "when the password is not present" do
@@ -123,6 +98,45 @@ module Decidim
       let(:tos_agreement) { "0" }
 
       it { is_expected.to be_invalid }
+    end
+
+    context "when hide_nickname is active" do
+      it { is_expected.to be_valid }
+
+      it "generates a nickname" do
+        expect(subject.nickname).to eq("user")
+      end
+    end
+
+    context "when hide_nickname is inactive" do
+      before do
+        allow(Decidim::FriendlySignup).to receive(:hide_nickname).and_return(false)
+      end
+
+      it { is_expected.to be_invalid }
+
+      it "does not generate a nickname" do
+        expect(subject.nickname).to be_blank
+      end
+
+      context "when everything is OK" do
+        let(:attributes) do
+          {
+            name: name,
+            nickname: nickname,
+            email: email,
+            password: password,
+            password_confirmation: password_confirmation,
+            tos_agreement: tos_agreement
+          }
+        end
+
+        it { is_expected.to be_valid }
+
+        it "uses params nickname" do
+          expect(subject.nickname).to eq("justme")
+        end
+      end
     end
   end
 end
