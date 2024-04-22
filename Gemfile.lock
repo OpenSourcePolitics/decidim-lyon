@@ -1,4 +1,11 @@
 GIT
+  remote: https://github.com/OpenSourcePolitics/decidim-module-friendly_signup.git
+  revision: 9bc2c4928185b9e775b3bad3921f9ae00b49acca
+  specs:
+    decidim-friendly_signup (0.4.5)
+      decidim-core (~> 0.27)
+
+GIT
   remote: https://github.com/OpenSourcePolitics/decidim-module-homepage_interactive_map.git
   revision: dd685166fdf953a11bd6a9e0dac56feca3bd0708
   branch: release/0.27-stable
@@ -965,6 +972,7 @@ DEPENDENCIES
   decidim-custom_proposal_states!
   decidim-decidim_awesome (~> 0.9.1)
   decidim-dev (~> 0.27.0)
+  decidim-friendly_signup!
   decidim-homepage_interactive_map!
   decidim-slider!
   decidim-spam_detection (= 4.0.0)
