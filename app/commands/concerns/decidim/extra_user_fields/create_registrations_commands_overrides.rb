@@ -44,7 +44,6 @@ module Decidim
         )
       end
 
-
       def extended_data
         @extended_data ||= (@user&.extended_data || {}).merge(
           country: form.country,
