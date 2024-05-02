@@ -1,4 +1,14 @@
 GIT
+  remote: https://github.com/OpenSourcePolitics/decidim-module-extra_user_fields.git
+  revision: 25f5a7843a38a5f9360f9bd42eb7e246d997bc7b
+  branch: release/0.27-stable
+  specs:
+    decidim-extra_user_fields (0.27.2)
+      country_select (~> 9.0)
+      decidim-core (>= 0.27.0, < 0.28)
+      deface (~> 1.5)
+
+GIT
   remote: https://github.com/OpenSourcePolitics/decidim-module-friendly_signup.git
   revision: 9bc2c4928185b9e775b3bad3921f9ae00b49acca
   specs:
@@ -226,6 +236,10 @@ GEM
     commonmarker (0.23.10)
     concurrent-ruby (1.2.3)
     connection_pool (2.4.1)
+    countries (6.0.0)
+      unaccent (~> 0.3)
+    country_select (9.0.0)
+      countries (> 5.0, < 7.0)
     crack (1.0.0)
       bigdecimal
       rexml
@@ -906,6 +920,7 @@ GEM
     tzinfo (2.0.6)
       concurrent-ruby (~> 1.0)
     uber (0.1.0)
+    unaccent (0.4.0)
     unicode-display_width (2.5.0)
     uri (0.13.0)
     valid_email2 (2.3.1)
@@ -972,6 +987,7 @@ DEPENDENCIES
   decidim-custom_proposal_states!
   decidim-decidim_awesome (~> 0.9.1)
   decidim-dev (~> 0.27.0)
+  decidim-extra_user_fields!
   decidim-friendly_signup!
   decidim-homepage_interactive_map!
   decidim-slider!

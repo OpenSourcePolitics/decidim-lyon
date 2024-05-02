@@ -15,6 +15,26 @@ module Decidim
         let(:password_confirmation) { password }
         let(:tos_agreement) { "1" }
         let(:current_locale) { "fr" }
+        let(:country) { "Argentina" }
+        let(:date_of_birth) { "01/01/2000" }
+        let(:gender) { "Other" }
+        let(:location) { "Paris" }
+        let(:phone_number) { "0123456789" }
+        let(:postal_code) { "75001" }
+        let(:underage) { false }
+        let(:statutory_representative_email) { nil }
+        let(:extended_data) do
+          {
+            country: country,
+            date_of_birth: date_of_birth,
+            gender: gender,
+            location: location,
+            phone_number: phone_number,
+            postal_code: postal_code,
+            underage: underage,
+            statutory_representative_email: statutory_representative_email
+          }
+        end
 
         let(:form_params) do
           {
@@ -24,7 +44,15 @@ module Decidim
               "email" => email,
               "password" => password,
               "password_confirmation" => password_confirmation,
-              "tos_agreement" => tos_agreement
+              "tos_agreement" => tos_agreement,
+              "country" => country,
+              "postal_code" => postal_code,
+              "date_of_birth" => date_of_birth,
+              "gender" => gender,
+              "phone_number" => phone_number,
+              "location" => location,
+              "underage" => underage,
+              "statutory_representative_email" => statutory_representative_email
             }
           }
         end
@@ -94,7 +122,17 @@ module Decidim
               tos_agreement: form.tos_agreement,
               organization: organization,
               accepted_tos_version: organization.tos_version,
-              locale: form.current_locale
+              locale: form.current_locale,
+              extended_data: {
+                country: country,
+                date_of_birth: Date.parse(date_of_birth),
+                gender: gender,
+                location: location,
+                phone_number: phone_number,
+                postal_code: postal_code,
+                underage: underage,
+                statutory_representative_email: statutory_representative_email
+              }
             ).and_call_original
 
             expect { command.call }.to change(User, :count).by(1)
@@ -113,6 +151,33 @@ module Decidim
                 command.call
                 expect(User.last.newsletter_notifications_at).to be_nil
               end.to change(User, :count).by(1)
+            end
+          end
+
+          describe "when the user is underage and sends a valid email" do
+            let(:underage) { true }
+            let(:statutory_representative_email) { "user@example.fr" }
+
+            it "creates a user with the statutory representative email and sends email" do
+              expect do
+                expect(Decidim::ExtraUserFields::StatutoryRepresentativeMailer).to receive(:inform).with(instance_of(Decidim::User)).and_call_original
+
+                command.call
+
+                user = User.last
+                expect(user.extended_data["statutory_representative_email"]).to eq(statutory_representative_email)
+              end.to change(User, :count).by(1)
+            end
+          end
+
+          describe "when the user is underage and tries to duplicate email" do
+            let(:underage) { true }
+            let(:statutory_representative_email) { email }
+
+            it "broadcasts invalid" do
+              expect(Decidim::ExtraUserFields::StatutoryRepresentativeMailer).not_to receive(:inform).with(instance_of(Decidim::User)).and_call_original
+
+              expect { command.call }.to broadcast(:invalid)
             end
           end
         end
