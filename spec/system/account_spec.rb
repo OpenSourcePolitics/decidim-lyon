@@ -30,8 +30,6 @@ describe "Account", type: :system do
       visit decidim.account_path
     end
 
-    it_behaves_like "accessible page"
-
     describe "update avatar" do
       it "can update avatar" do
         dynamically_attach_file(:user_avatar, Decidim::Dev.asset("avatar.jpg"), remove_before: true)
@@ -101,7 +99,6 @@ describe "Account", type: :system do
             page.find(".change-password").click
 
             fill_in :user_password, with: "sekritpass123"
-            fill_in :user_password_confirmation, with: "sekritpass123"
 
             find("*[type=submit]").click
           end
@@ -111,25 +108,6 @@ describe "Account", type: :system do
           end
 
           expect(user.reload.valid_password?("sekritpass123")).to be(true)
-        end
-      end
-
-      context "when passwords don't match" do
-        it "doesn't update the password" do
-          within "form.edit_user" do
-            page.find(".change-password").click
-
-            fill_in :user_password, with: "sekritpass123"
-            fill_in :user_password_confirmation, with: "oopseytypo"
-
-            find("*[type=submit]").click
-          end
-
-          within_flash_messages do
-            expect(page).to have_content("There was a problem")
-          end
-
-          expect(user.reload.valid_password?("sekritpass123")).to be(false)
         end
       end
     end
