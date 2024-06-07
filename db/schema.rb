@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_04_26_120518) do
+ActiveRecord::Schema.define(version: 2024_06_07_060510) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "ltree"
@@ -492,6 +492,8 @@ ActiveRecord::Schema.define(version: 2024_04_26_120518) do
     t.string "decidim_participatory_space_type"
     t.integer "decidim_participatory_space_id"
     t.datetime "deleted_at"
+    t.integer "up_votes_count", default: 0, null: false
+    t.integer "down_votes_count", default: 0, null: false
     t.index ["comments_count"], name: "index_decidim_comments_comments_on_comments_count"
     t.index ["created_at"], name: "index_decidim_comments_comments_on_created_at"
     t.index ["decidim_author_id", "decidim_author_type"], name: "index_decidim_comments_comments_on_decidim_author"
@@ -1362,6 +1364,8 @@ ActiveRecord::Schema.define(version: 2024_04_26_120518) do
     t.integer "comments_count", default: 0, null: false
     t.integer "follows_count", default: 0, null: false
     t.integer "decidim_proposals_proposal_state_id", null: false
+    t.datetime "deleted_at"
+    t.integer "valuation_assignments_count", default: 0
     t.index "md5((body)::text)", name: "decidim_proposals_proposal_body_search"
     t.index "md5((title)::text)", name: "decidim_proposals_proposal_title_search"
     t.index ["answered_at"], name: "index_decidim_proposals_proposals_on_answered_at"
@@ -1369,6 +1373,7 @@ ActiveRecord::Schema.define(version: 2024_04_26_120518) do
     t.index ["created_at"], name: "index_decidim_proposals_proposals_on_created_at"
     t.index ["decidim_component_id"], name: "index_decidim_proposals_proposals_on_decidim_component_id"
     t.index ["decidim_scope_id"], name: "index_decidim_proposals_proposals_on_decidim_scope_id"
+    t.index ["deleted_at"], name: "index_decidim_proposals_proposals_on_deleted_at"
     t.index ["follows_count"], name: "index_decidim_proposals_proposals_on_follows_count"
     t.index ["proposal_votes_count"], name: "index_decidim_proposals_proposals_on_proposal_votes_count"
     t.index ["published_at"], name: "index_decidim_proposals_proposals_on_published_at"
