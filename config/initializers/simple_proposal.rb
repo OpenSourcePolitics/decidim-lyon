@@ -1,3 +1,4 @@
+# frozen_string_literal: true
 
 return unless defined?(Decidim::SimpleProposal)
 

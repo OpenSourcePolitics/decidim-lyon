@@ -104,6 +104,7 @@ module Decidim
       def component_suggested_hashtags
         @component_suggested_hashtags ||= ordered_hashtag_list(current_component.current_settings.suggested_hashtags)
       end
+
       def categories_enabled?
         categories&.any?
       end
