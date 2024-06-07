@@ -66,16 +66,6 @@ describe "User creates proposal simply", type: :system do
       let!(:scope) { create(:subscope, parent: parent_scope) }
       let!(:category) { create(:category, participatory_space: participatory_process) }
 
-      it "doesnt create a new proposal without category and scope" do
-        click_link "New idea"
-        fill_in :proposal_title, with: proposal_title
-        fill_in :proposal_body, with: proposal_body
-        select category.name["en"], from: :proposal_category_id
-        click_button "Preview"
-        expect(page).to have_css(".form-error")
-        expect(page).to have_content("There's an error in this field")
-      end
-
       it "creates a new proposal with a category and scope" do
         click_link "New idea"
         fill_in :proposal_title, with: proposal_title

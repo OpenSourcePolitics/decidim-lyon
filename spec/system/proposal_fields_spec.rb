@@ -470,7 +470,6 @@ describe "Proposals", type: :system do
 
       before { visit_component }
 
-
       it "shows a disabled vote button for each proposal, but no links to full proposals" do
         expect(page).to have_button("Supports disabled", disabled: true, count: 2)
         expect(page).to have_no_link("View proposal")
