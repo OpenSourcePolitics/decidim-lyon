@@ -11,7 +11,7 @@ describe "User edits proposals", type: :system do
   let!(:user) { create :user, :confirmed, organization: organization }
   let(:settings) { nil }
   let(:component) do
-    create(:proposal_component,
+    create(:extended_proposal_component,
            :with_creation_enabled,
            :with_attachments_allowed,
            manifest: manifest,
