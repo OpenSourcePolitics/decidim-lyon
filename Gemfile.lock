@@ -993,7 +993,7 @@ DEPENDENCIES
   byebug (~> 11.0)
   climate_control (~> 1.2)
   dalli
-  decidim (= 0.27.5)
+  decidim (~> 0.27.0)
   decidim-cache_cleaner
   decidim-custom_proposal_states!
   decidim-decidim_awesome (~> 0.9.1)
