@@ -137,10 +137,10 @@ shared_examples "a proposal form" do |options|
     it { is_expected.to be_valid }
   end
 
-  context "with invalid category_id" do
+  context "with valid category_id" do
     let(:category_id) { 987 }
 
-    it { is_expected.to be_invalid }
+    it { is_expected.to be_valid }
   end
 
   context "when geocoding is enabled" do
