@@ -47,7 +47,7 @@ module Decidim
         # Proposals have the "photos" field reserved for the proposal card image
         # so we don't want to show all photos there. Instead, only show the
         # first photo.
-        self.photos = [model.photos.first].compact.select { |p| p.weight.zero? }
+        self.photos = [model.photo].compact.select { |p| p.weight.zero? }
         self.documents = model.attachments - photos
       end
 
