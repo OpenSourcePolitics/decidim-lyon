@@ -26,6 +26,7 @@ gem "decidim-simple_proposal", git: "https://github.com/opensourcepolitics/decid
 gem "decidim-slider", git: "https://github.com/OpenSourcePolitics/decidim-module-slider", branch: "rc/0.27"
 gem "decidim-spam_detection", "4.0.0"
 gem "decidim-term_customizer", git: "https://github.com/opensourcepolitics/decidim-module-term_customizer.git", branch: "fix/multi-threading-compliant"
+gem "decidim-budgets_paper_ballots", git: "https://github.com/digidemlab/decidim-module-budgets_paper_ballots"
 
 # Omniauth gems
 gem "omniauth-publik", git: "https://github.com/OpenSourcePolitics/omniauth-publik"
