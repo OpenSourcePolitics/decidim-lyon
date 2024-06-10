@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_04_26_120518) do
+ActiveRecord::Schema.define(version: 2024_06_05_102503) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "ltree"
@@ -372,6 +372,7 @@ ActiveRecord::Schema.define(version: 2024_04_26_120518) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "decidim_scope_id"
+    t.string "main_image"
     t.index ["decidim_component_id"], name: "index_decidim_budgets_budgets_on_decidim_component_id"
     t.index ["decidim_scope_id"], name: "index_decidim_budgets_budgets_on_decidim_scope_id"
   end
@@ -414,6 +415,18 @@ ActiveRecord::Schema.define(version: 2024_04_26_120518) do
     t.index ["decidim_scope_id"], name: "index_decidim_budgets_projects_on_decidim_scope_id"
     t.index ["follows_count"], name: "index_decidim_budgets_projects_on_follows_count"
     t.index ["selected_at"], name: "index_decidim_budgets_projects_on_selected_at"
+  end
+
+  create_table "decidim_budgets_user_data", force: :cascade do |t|
+    t.jsonb "metadata"
+    t.boolean "affirm_statements_are_correct", default: false
+    t.bigint "decidim_component_id", null: false
+    t.bigint "decidim_user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["decidim_component_id", "decidim_user_id"], name: "decidim_budgets_user_data_unique_user_and_component", unique: true
+    t.index ["decidim_component_id"], name: "index_decidim_budgets_user_data_on_decidim_component_id"
+    t.index ["decidim_user_id"], name: "index_decidim_budgets_user_data_on_decidim_user_id"
   end
 
   create_table "decidim_calendar_external_events", force: :cascade do |t|
