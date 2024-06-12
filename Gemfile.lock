@@ -62,6 +62,14 @@ GIT
       deface (>= 1.9)
 
 GIT
+  remote: https://github.com/digidemlab/decidim-module-budgets_paper_ballots
+  revision: 750d20ecc670859df85393c01a72902e20509562
+  specs:
+    decidim-budgets_paper_ballots (0.26.0)
+      decidim-budgets (>= 0.26.0)
+      decidim-core (>= 0.26.0)
+
+GIT
   remote: https://github.com/opensourcepolitics/decidim-module-simple_proposal.git
   revision: e5813b139832a50a692aaa4ca5c412aa3938b1c1
   branch: release/0.27-stable
@@ -1006,6 +1014,7 @@ DEPENDENCIES
   dalli
   decidim (~> 0.27.0)
   decidim-budgets_booth!
+  decidim-budgets_paper_ballots!
   decidim-cache_cleaner
   decidim-custom_proposal_states!
   decidim-decidim_awesome (~> 0.9.1)

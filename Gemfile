@@ -16,6 +16,7 @@ gem "decidim", "~> #{DECIDIM_VERSION}.0"
 # External Decidim gems
 gem "decidim-budgets_booth", github: "OpenSourcePolitics/decidim-module-ptp"
 
+gem "decidim-budgets_paper_ballots", git: "https://github.com/digidemlab/decidim-module-budgets_paper_ballots"
 gem "decidim-cache_cleaner"
 gem "decidim-custom_proposal_states", git: "https://github.com/alecslupu-pfa/decidim-module-custom_proposal_states", branch: DECIDIM_BRANCH
 gem "decidim-decidim_awesome", "~> 0.9.1"
