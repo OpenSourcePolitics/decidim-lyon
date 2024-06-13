@@ -1,4 +1,12 @@
 GIT
+  remote: https://github.com/OpenSourcePolitics/decidim-module-budgets_importer.git
+  revision: eec557bf67a3cd0e00a1c6bdcc8aa56e4908b635
+  branch: main
+  specs:
+    decidim-budgets_importer (2.0.0)
+      decidim-core (~> 0.27)
+
+GIT
   remote: https://github.com/OpenSourcePolitics/decidim-module-extra_user_fields.git
   revision: 25f5a7843a38a5f9360f9bd42eb7e246d997bc7b
   branch: release/0.27-stable
@@ -985,6 +993,7 @@ GEM
 
 PLATFORMS
   arm64-darwin-22
+  arm64-darwin-23
   x86_64-linux
 
 DEPENDENCIES
@@ -997,6 +1006,7 @@ DEPENDENCIES
   dalli
   decidim (~> 0.27.0)
   decidim-budgets_booth!
+  decidim-budgets_importer!
   decidim-cache_cleaner
   decidim-custom_proposal_states!
   decidim-decidim_awesome (~> 0.9.1)
