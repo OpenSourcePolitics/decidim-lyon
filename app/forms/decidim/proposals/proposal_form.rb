@@ -7,10 +7,10 @@ module Decidim
       include Decidim::TranslatableAttributes
       include Decidim::AttachmentAttributes
       include Decidim::HasUploadValidations
-
       mimic :proposal
 
       attribute :address, String
+      attribute :has_address, Boolean
       attribute :latitude, Float
       attribute :longitude, Float
       attribute :category_id, Integer
@@ -24,8 +24,11 @@ module Decidim
       validates :address, geocoding: true, if: ->(form) { has_address? && !form.geocoded? }
       validates :category, presence: true, if: ->(form) { form.category_id.present? }
       validates :scope, presence: true, if: ->(form) { form.scope_id.present? }
+
       validates :scope_id, scope_belongs_to_component: true, if: ->(form) { form.scope_id.present? }
       validate :notify_missing_attachment_if_errored
+      validate :check_category, if: ->(form) { form.require_category? }
+      validate :check_scope, if: ->(form) { form.require_scope? }
 
       delegate :categories, to: :current_component
 
@@ -38,6 +41,8 @@ module Decidim
         # The scope attribute is with different key (decidim_scope_id), so it
         # has to be manually mapped.
         self.scope_id = model.scope.id if model.scope
+
+        self.has_address = true if model.address.present?
 
         # Proposals have the "photos" field reserved for the proposal card image
         # so we don't want to show all photos there. Instead, only show the
@@ -100,6 +105,22 @@ module Decidim
         @component_suggested_hashtags ||= ordered_hashtag_list(current_component.current_settings.suggested_hashtags)
       end
 
+      def categories_enabled?
+        categories&.any?
+      end
+
+      def scopes_enabled?
+        current_component.scopes_enabled? && current_component.has_subscopes?
+      end
+
+      def require_category?
+        current_component.settings.require_category && categories_enabled?
+      end
+
+      def require_scope?
+        current_component.settings.require_scope && scopes_enabled?
+      end
+
       private
 
       # This method will add an error to the `add_photos` and/or "add_documents" fields
@@ -112,6 +133,14 @@ module Decidim
 
       def ordered_hashtag_list(string)
         string.to_s.split.compact_blank.uniq.sort_by(&:parameterize)
+      end
+
+      def check_category
+        errors.add(:category, :blank) if category_id.blank? && require_category?
+      end
+
+      def check_scope
+        errors.add(:scope, :blank) if scope_id.blank? && require_scope?
       end
     end
   end
