@@ -104,6 +104,13 @@ ignore_missing:
  - decidim.proposals.admin.proposals.bulk-actions.statuses
  - layouts.decidim.process_header_steps.{step,view_steps}
  - decidim.shared.extended_navigation_bar.{more,unfold}
+ - decidim.budgets.admin.projects.index.*
+ - decidim.budgets.admin.models.project.name
+ - decidim.budgets.actions.*
+ - decidim.budgets.models.project.fields.*
+ - decidim.admin.actions.import
+ - decidim.budgets_importer.actions.import
+ - index.confirmed_orders_count
 
 # Consider these keys used:
 ignore_unused:
