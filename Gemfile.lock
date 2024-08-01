@@ -79,7 +79,7 @@ GIT
 
 GIT
   remote: https://github.com/opensourcepolitics/decidim-module-simple_proposal.git
-  revision: e5813b139832a50a692aaa4ca5c412aa3938b1c1
+  revision: 2c3c9a1abd5612b93a5fbce896a33b1a0f34931e
   branch: release/0.27-stable
   specs:
     decidim-simple_proposal (0.27.0)
