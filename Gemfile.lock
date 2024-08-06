@@ -999,7 +999,7 @@ GEM
     websocket-driver (0.7.6)
       websocket-extensions (>= 0.1.0)
     websocket-extensions (0.1.5)
-    wicked_pdf (2.8.0)
+    wicked_pdf (2.6.3)
       activesupport
     wisper (2.0.1)
     wisper-rspec (1.1.0)
@@ -1063,6 +1063,7 @@ DEPENDENCIES
   spring-watcher-listen (~> 2.0)
   sys-filesystem
   web-console (= 4.0.4)
+  wicked_pdf (= 2.6.3)
 
 RUBY VERSION
    ruby 3.0.6p216
