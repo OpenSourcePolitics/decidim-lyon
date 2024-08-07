@@ -48,6 +48,7 @@ gem "sidekiq", "~> 6.0"
 gem "sidekiq_alive", "~> 2.2"
 gem "sidekiq-scheduler", "~> 5.0"
 gem "sys-filesystem"
+gem "wicked_pdf", "2.6.3"
 
 group :development do
   gem "listen", "~> 3.1"
