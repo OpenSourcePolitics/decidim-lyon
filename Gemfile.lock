@@ -37,6 +37,17 @@ GIT
       deface (>= 1.9)
 
 GIT
+  remote: https://github.com/decidim-ice/decidim-module-decidim_awesome
+  revision: 9c4ceefcab7818c426f5fe615ecc5742cbba47a3
+  branch: backport/private-fields-0.27
+  specs:
+    decidim-decidim_awesome (0.10.3)
+      decidim-admin (>= 0.26.0, < 0.28)
+      decidim-core (>= 0.26.0, < 0.28)
+      deface (>= 1.5)
+      sassc (~> 2.3)
+
+GIT
   remote: https://github.com/opensourcepolitics/decidim-module-term_customizer.git
   revision: 8a6b73e58fbdd7f38daf983a310d37c510ec9baf
   branch: fix/multi-threading-compliant
@@ -335,10 +346,6 @@ GEM
     decidim-debates (0.27.5)
       decidim-comments (= 0.27.5)
       decidim-core (= 0.27.5)
-    decidim-decidim_awesome (0.9.3)
-      decidim-admin (>= 0.26.0, < 0.28)
-      decidim-core (>= 0.26.0, < 0.28)
-      sassc (~> 2.3)
     decidim-dev (0.27.5)
       axe-core-rspec (~> 4.1.0)
       byebug (~> 11.0)
@@ -963,7 +970,7 @@ DEPENDENCIES
   decidim (~> 0.27.0)
   decidim-cache_cleaner
   decidim-custom_proposal_states!
-  decidim-decidim_awesome (~> 0.9.1)
+  decidim-decidim_awesome!
   decidim-dev (~> 0.27.0)
   decidim-homepage_interactive_map!
   decidim-slider!
@@ -1000,4 +1007,4 @@ RUBY VERSION
    ruby 3.0.6p216
 
 BUNDLED WITH
-   2.4.9
+   2.4.22
