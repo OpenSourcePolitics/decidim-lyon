@@ -70,6 +70,17 @@ GIT
       deface (>= 1.9)
 
 GIT
+  remote: https://github.com/decidim-ice/decidim-module-decidim_awesome
+  revision: adfcf0b311ff375016548c1f99c9a91043dd1676
+  branch: release/0.27-stable
+  specs:
+    decidim-decidim_awesome (0.10.3)
+      decidim-admin (>= 0.26.0, < 0.28)
+      decidim-core (>= 0.26.0, < 0.28)
+      deface (>= 1.5)
+      sassc (~> 2.3)
+
+GIT
   remote: https://github.com/digidemlab/decidim-module-budgets_paper_ballots
   revision: 750d20ecc670859df85393c01a72902e20509562
   specs:
@@ -390,10 +401,6 @@ GEM
     decidim-debates (0.27.5)
       decidim-comments (= 0.27.5)
       decidim-core (= 0.27.5)
-    decidim-decidim_awesome (0.9.3)
-      decidim-admin (>= 0.26.0, < 0.28)
-      decidim-core (>= 0.26.0, < 0.28)
-      sassc (~> 2.3)
     decidim-dev (0.27.5)
       axe-core-rspec (~> 4.1.0)
       byebug (~> 11.0)
@@ -1028,7 +1035,7 @@ DEPENDENCIES
   decidim-budgets_paper_ballots!
   decidim-cache_cleaner
   decidim-custom_proposal_states!
-  decidim-decidim_awesome (~> 0.9.1)
+  decidim-decidim_awesome!
   decidim-dev (~> 0.27.0)
   decidim-extra_user_fields!
   decidim-friendly_signup!
@@ -1069,4 +1076,4 @@ RUBY VERSION
    ruby 3.0.6p216
 
 BUNDLED WITH
-   2.4.9
+   2.4.22
