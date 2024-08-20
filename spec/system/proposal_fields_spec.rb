@@ -89,7 +89,7 @@ describe "Proposals", type: :system do
       end
 
       it "shows the author as official" do
-        expect(page).to have_content("Official proposal")
+        expect(page).to have_content("Official idea")
       end
 
       it_behaves_like "rendering safe content", ".columns.mediumlarge-8.large-9"
@@ -294,7 +294,7 @@ describe "Proposals", type: :system do
         expect(page).to have_content("Evaluating")
 
         within ".callout.warning" do
-          expect(page).to have_content("This proposal is being evaluated")
+          expect(page).to have_content("This idea is being evaluated")
           expect(page).to have_i18n_content(proposal.answer)
         end
       end
@@ -305,16 +305,16 @@ describe "Proposals", type: :system do
 
       it "shows the rejection reason" do
         visit_component
-        uncheck "Accepted"
+        uncheck "Proceeds to voting"
         uncheck "Evaluating"
         uncheck "Not answered"
         page.find_link(proposal_title, wait: 30)
         click_link proposal_title
 
-        expect(page).to have_content("Rejected")
+        expect(page).to have_content("Does not proceed to voting")
 
         within ".callout.alert" do
-          expect(page).to have_content("This proposal has been rejected")
+          expect(page).to have_content("This idea does not proceed to voting")
           expect(page).to have_i18n_content(proposal.answer)
         end
       end
@@ -327,10 +327,10 @@ describe "Proposals", type: :system do
         visit_component
         click_link proposal_title
 
-        expect(page).to have_content("Accepted")
+        expect(page).to have_content("Proceeds to voting")
 
         within ".callout.success" do
-          expect(page).to have_content("This proposal has been accepted")
+          expect(page).to have_content("This idea proceeds to voting")
           expect(page).to have_i18n_content(proposal.answer)
         end
       end
@@ -343,8 +343,8 @@ describe "Proposals", type: :system do
         visit_component
         click_link proposal_title
 
-        expect(page).not_to have_content("Accepted")
-        expect(page).not_to have_content("This proposal has been accepted")
+        expect(page).not_to have_content("Proceeds to voting")
+        expect(page).not_to have_content("This idea proceeds to voting")
         expect(page).not_to have_i18n_content(proposal.answer)
       end
     end
@@ -400,7 +400,7 @@ describe "Proposals", type: :system do
       it "lists the proposals ordered randomly by default" do
         visit_component
 
-        expect(page).to have_selector("a", text: "Random")
+        expect(page).to have_selector("a", text: "Recent")
         expect(page).to have_selector(".card--proposal", count: 2)
         expect(page).to have_selector(".card--proposal", text: lucky_proposal_title)
         expect(page).to have_selector(".card--proposal", text: unlucky_proposal_title)
@@ -470,12 +470,6 @@ describe "Proposals", type: :system do
 
       before { visit_component }
 
-      it "lists the proposals ordered by votes by default" do
-        expect(page).to have_selector("a", text: "Most supported")
-        expect(page).to have_selector("#proposals .card-grid .column:first-child", text: most_voted_proposal_title)
-        expect(page).to have_selector("#proposals .card-grid .column:last-child", text: less_voted_proposal_title)
-      end
-
       it "shows a disabled vote button for each proposal, but no links to full proposals" do
         expect(page).to have_button("Supports disabled", disabled: true, count: 2)
         expect(page).to have_no_link("View proposal")
@@ -501,7 +495,7 @@ describe "Proposals", type: :system do
 
         expect(page).to have_no_button("Supports disabled", disabled: true)
         expect(page).to have_no_button("Vote")
-        expect(page).to have_link("View proposal", count: 2)
+        expect(page).to have_link("View idea", count: 2)
       end
     end
 
@@ -529,8 +523,8 @@ describe "Proposals", type: :system do
       before do
         visit_component
         within ".order-by" do
-          expect(page).to have_selector("ul[data-dropdown-menu$=dropdown-menu]", text: "Random")
-          page.find("a", text: "Random").click
+          expect(page).to have_selector("ul[data-dropdown-menu$=dropdown-menu]", text: "Recent")
+          page.find("a", text: "Recent").click
           click_link(selected_option)
         end
       end
@@ -555,16 +549,6 @@ describe "Proposals", type: :system do
       it_behaves_like "ordering proposals by selected option", "Most supported" do
         let(:first_proposal) { most_voted_proposal }
         let(:last_proposal) { less_voted_proposal }
-      end
-    end
-
-    context "when ordering by 'recent'" do
-      let!(:older_proposal) { create(:extended_proposal, component: component, created_at: 1.month.ago) }
-      let!(:recent_proposal) { create(:extended_proposal, component: component) }
-
-      it_behaves_like "ordering proposals by selected option", "Recent" do
-        let(:first_proposal) { recent_proposal }
-        let(:last_proposal) { older_proposal }
       end
     end
 

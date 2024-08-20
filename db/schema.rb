@@ -375,6 +375,7 @@ ActiveRecord::Schema.define(version: 2024_08_19_170611) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "decidim_scope_id"
+    t.string "main_image"
     t.index ["decidim_component_id"], name: "index_decidim_budgets_budgets_on_decidim_component_id"
     t.index ["decidim_scope_id"], name: "index_decidim_budgets_budgets_on_decidim_scope_id"
   end
@@ -397,6 +398,14 @@ ActiveRecord::Schema.define(version: 2024_08_19_170611) do
     t.index ["decidim_user_id"], name: "index_decidim_budgets_orders_on_decidim_user_id"
   end
 
+  create_table "decidim_budgets_paper_ballot_results", force: :cascade do |t|
+    t.integer "votes", null: false
+    t.bigint "decidim_project_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["decidim_project_id"], name: "index_decidim_paper_ballot_on_project"
+  end
+
   create_table "decidim_budgets_projects", id: :serial, force: :cascade do |t|
     t.jsonb "title"
     t.jsonb "description"
@@ -417,6 +426,18 @@ ActiveRecord::Schema.define(version: 2024_08_19_170611) do
     t.index ["decidim_scope_id"], name: "index_decidim_budgets_projects_on_decidim_scope_id"
     t.index ["follows_count"], name: "index_decidim_budgets_projects_on_follows_count"
     t.index ["selected_at"], name: "index_decidim_budgets_projects_on_selected_at"
+  end
+
+  create_table "decidim_budgets_user_data", force: :cascade do |t|
+    t.jsonb "metadata"
+    t.boolean "affirm_statements_are_correct", default: false
+    t.bigint "decidim_component_id", null: false
+    t.bigint "decidim_user_id", null: false
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["decidim_component_id", "decidim_user_id"], name: "decidim_budgets_user_data_unique_user_and_component", unique: true
+    t.index ["decidim_component_id"], name: "index_decidim_budgets_user_data_on_decidim_component_id"
+    t.index ["decidim_user_id"], name: "index_decidim_budgets_user_data_on_decidim_user_id"
   end
 
   create_table "decidim_calendar_external_events", force: :cascade do |t|
@@ -1105,6 +1126,7 @@ ActiveRecord::Schema.define(version: 2024_08_19_170611) do
     t.string "machine_translation_display_priority", default: "original", null: false
     t.string "external_domain_whitelist", default: [], array: true
     t.boolean "enable_participatory_space_filters", default: true
+    t.jsonb "extra_user_fields", default: {"enabled"=>false}
     t.index ["host"], name: "index_decidim_organizations_on_host", unique: true
     t.index ["name"], name: "index_decidim_organizations_on_name", unique: true
     t.index ["secondary_hosts"], name: "index_decidim_organizations_on_secondary_hosts"
@@ -1364,6 +1386,7 @@ ActiveRecord::Schema.define(version: 2024_08_19_170611) do
     t.integer "comments_count", default: 0, null: false
     t.integer "follows_count", default: 0, null: false
     t.integer "decidim_proposals_proposal_state_id", null: false
+    t.datetime "deleted_at"
     t.index "md5((body)::text)", name: "decidim_proposals_proposal_body_search"
     t.index "md5((title)::text)", name: "decidim_proposals_proposal_title_search"
     t.index ["answered_at"], name: "index_decidim_proposals_proposals_on_answered_at"
@@ -1371,6 +1394,7 @@ ActiveRecord::Schema.define(version: 2024_08_19_170611) do
     t.index ["created_at"], name: "index_decidim_proposals_proposals_on_created_at"
     t.index ["decidim_component_id"], name: "index_decidim_proposals_proposals_on_decidim_component_id"
     t.index ["decidim_scope_id"], name: "index_decidim_proposals_proposals_on_decidim_scope_id"
+    t.index ["deleted_at"], name: "index_decidim_proposals_proposals_on_deleted_at"
     t.index ["follows_count"], name: "index_decidim_proposals_proposals_on_follows_count"
     t.index ["proposal_votes_count"], name: "index_decidim_proposals_proposals_on_proposal_votes_count"
     t.index ["published_at"], name: "index_decidim_proposals_proposals_on_published_at"
@@ -1857,6 +1881,7 @@ ActiveRecord::Schema.define(version: 2024_08_19_170611) do
   add_foreign_key "decidim_awesome_editor_images", "decidim_users", column: "decidim_author_id"
   add_foreign_key "decidim_budgets_budgets", "decidim_scopes"
   add_foreign_key "decidim_budgets_orders", "decidim_budgets_budgets"
+  add_foreign_key "decidim_budgets_paper_ballot_results", "decidim_budgets_projects", column: "decidim_project_id"
   add_foreign_key "decidim_budgets_projects", "decidim_budgets_budgets"
   add_foreign_key "decidim_categorizations", "decidim_categories"
   add_foreign_key "decidim_comparative_stats_endpoints", "decidim_organizations"
