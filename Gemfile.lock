@@ -90,7 +90,7 @@ GIT
 
 GIT
   remote: https://github.com/opensourcepolitics/decidim-module-simple_proposal.git
-  revision: 2c3c9a1abd5612b93a5fbce896a33b1a0f34931e
+  revision: 63f67e77aa0218eda01125e1cee3397c2d2b0d87
   branch: release/0.27-stable
   specs:
     decidim-simple_proposal (0.27.0)
@@ -536,6 +536,8 @@ GEM
     faraday-net_http (3.1.0)
       net-http
     ffi (1.17.0)
+    ffi (1.17.0-arm64-darwin)
+    ffi (1.17.0-x86_64-darwin)
     file_validators (3.0.0)
       activemodel (>= 3.2)
       mime-types (>= 1.0)
@@ -689,6 +691,8 @@ GEM
       net-protocol
     nio4r (2.7.3)
     nokogiri (1.13.4-arm64-darwin)
+      racc (~> 1.4)
+    nokogiri (1.13.4-x86_64-darwin)
       racc (~> 1.4)
     nokogiri (1.13.4-x86_64-linux)
       racc (~> 1.4)
@@ -1019,6 +1023,7 @@ PLATFORMS
   arm64-darwin-21
   arm64-darwin-22
   arm64-darwin-23
+  x86_64-darwin-23
   x86_64-linux
 
 DEPENDENCIES
@@ -1076,4 +1081,4 @@ RUBY VERSION
    ruby 3.0.6p216
 
 BUNDLED WITH
-   2.4.22
+   2.5.10
