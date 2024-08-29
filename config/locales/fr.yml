@@ -40,6 +40,8 @@ fr:
     accessibility:
       skip_button: Passer au contenu principal
     admin:
+      exports:
+        export_as: "%{name} au format %{export_format}"
       participatory_space_private_users:
         create:
           error: Erreur
@@ -198,6 +200,9 @@ fr:
         local_area: Espace d'organisation
     proposals:
       admin:
+        exports:
+          awesome_private_proposals: Propositions avec champs privés
+          proposal_comments: Commentaires
         proposals:
           bulk-actions:
             statuses: Nouveaux status
