@@ -400,7 +400,7 @@ describe "Proposals", type: :system do
       it "lists the proposals ordered randomly by default" do
         visit_component
 
-        expect(page).to have_selector("a", text: "Recent")
+        expect(page).to have_selector("a", text: "Random")
         expect(page).to have_selector(".card--proposal", count: 2)
         expect(page).to have_selector(".card--proposal", text: lucky_proposal_title)
         expect(page).to have_selector(".card--proposal", text: unlucky_proposal_title)
@@ -523,8 +523,8 @@ describe "Proposals", type: :system do
       before do
         visit_component
         within ".order-by" do
-          expect(page).to have_selector("ul[data-dropdown-menu$=dropdown-menu]", text: "Recent")
-          page.find("a", text: "Recent").click
+          expect(page).to have_selector("ul[data-dropdown-menu$=dropdown-menu]", text: "Random")
+          page.find("a", text: "Random").click
           click_link(selected_option)
         end
       end
