@@ -38,6 +38,8 @@ en:
     accessibility:
       skip_button: Skip button
     admin:
+      exports:
+        export_as: "%{name} as %{export_format}"
       participatory_space_private_users:
         create:
           error: Error
@@ -193,6 +195,10 @@ en:
       show:
         local_area: Local area
     proposals:
+      admin:
+        exports:
+          awesome_private_proposals: Proposals with private fields
+          proposal_comments: Comments
       collaborative_drafts:
         collaborative_draft:
           publish:

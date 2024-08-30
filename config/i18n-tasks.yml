@@ -129,6 +129,7 @@ ignore_unused:
   - activemodel.errors.models.proposal.attributes.attachment.needs_to_be_reattached
   - budgets.projects_helper.current_rule_description.*
   - budgets.projects_helper.current_rule_explanation.*
+  - decidim.admin.exports.export_as
   - decidim.components.budgets.settings.global.geocoding_enabled
   - decidim.budgets.actions.*
   - decidim.budgets.admin.budgets.index.*
@@ -146,6 +147,8 @@ ignore_unused:
   - decidim.meetings.meetings.create.*
   - decidim.meetings.meetings.update.*
   - decidim.omniauth.france_connect.*
+  - decidim.proposals.admin.exports.awesome_private_proposals
+  - decidim.proposals.admin.exports.proposal_comments
   - decidim.proposals.collaborative_drafts.collaborative_draft.publish.*
   - decidim.proposals.collaborative_drafts.collaborative_draft.withdraw.*
   - decidim.proposals.collaborative_drafts.create.*
