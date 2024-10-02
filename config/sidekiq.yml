@@ -9,6 +9,8 @@
   - events
   - scheduled
   - exports
+  - user_report
+  - block_user
   - active_storage_analysis
   - active_storage_purge
   - user_report
@@ -28,6 +30,10 @@
       cron: '0 0 4 * * *' # Run at 04:00
       class: BackupJob
       queue: backups
+    DetectSpamUsers:
+      cron: '0 <%= Random.rand(0..59) %> <%= Random.rand(6..8) %> * * *' # Run randomly between 06:00 and 08:59
+      class: Decidim::SpamDetection::MarkUsersJob
+      queue: scheduled
     SendNotificationMailDaily:
       cron: '0 0 7 * * *' # Run at 07:00AM every days
       class: NotificationsDigestMailJob
