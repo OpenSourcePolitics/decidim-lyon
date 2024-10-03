@@ -13,7 +13,6 @@
   - block_user
   - active_storage_analysis
   - active_storage_purge
-  - user_report
   - translations
 
 :scheduler:
