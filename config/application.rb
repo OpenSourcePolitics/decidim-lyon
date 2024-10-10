@@ -52,6 +52,7 @@ module DevelopmentApp
       require "extends/commands/decidim/meetings/admin/create_meeting_extends"
       require "extends/commands/decidim/meetings/update_meeting_extends"
       require "extends/commands/decidim/meetings/create_meeting_extends"
+      require "extends/models/decidim/decidim_awesome/proposal_extra_field_extends"
 
       Decidim::GraphiQL::Rails.config.tap do |config|
         config.initial_query = "{\n  deployment {\n    version\n    branch\n    remote\n    upToDate\n    currentCommit\n    latestCommit\n    locallyModified\n  }\n}".html_safe
