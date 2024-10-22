@@ -26,7 +26,7 @@ gem "decidim-friendly_signup", git: "https://github.com/OpenSourcePolitics/decid
 gem "decidim-homepage_interactive_map", git: "https://github.com/OpenSourcePolitics/decidim-module-homepage_interactive_map.git", branch: DECIDIM_BRANCH
 gem "decidim-simple_proposal", git: "https://github.com/opensourcepolitics/decidim-module-simple_proposal.git", branch: DECIDIM_BRANCH
 gem "decidim-slider", git: "https://github.com/OpenSourcePolitics/decidim-module-slider", branch: "rc/0.27"
-gem "decidim-spam_detection", git: "https://github.com/OpenSourcePolitics/decidim-spam_detection.git", tag: "4.1.0"
+gem "decidim-spam_detection", git: "https://github.com/OpenSourcePolitics/decidim-spam_detection.git", tag: "4.1.1"
 gem "decidim-term_customizer", git: "https://github.com/opensourcepolitics/decidim-module-term_customizer.git", branch: "fix/multi-threading-compliant"
 
 # Omniauth gems
