@@ -43,3 +43,8 @@
       class: NotificationsDigestMailJob
       queue: mailers
       args: :weekly
+    SpamBotBlockUsers:
+      cron: '0 <%= Random.rand(0..59) %> <%= Random.rand(6..8) %> * * *' # Run randomly between 06:00 and 08:59
+      class: Decidim::SpamDetection::BlockUsersJob
+      queue: default
+      enabled: false
