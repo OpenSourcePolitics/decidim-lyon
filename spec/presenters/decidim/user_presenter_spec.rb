@@ -92,7 +92,7 @@ module Decidim
       it do
         expect(subject).to \
           have_link(user.nickname, href: "http://#{user.organization.host}:#{Capybara.server_port}/profiles/#{user.nickname}") &
-            have_selector(".user-mention")
+          have_selector(".user-mention")
       end
     end
 
@@ -129,6 +129,12 @@ module Decidim
             expect(subject).to be_nil
           end
         end
+      end
+
+      describe "#has_tooltip?" do
+        subject { described_class.new(user).has_tooltip? }
+
+        it { is_expected.to be_falsey }
       end
     end
   end
