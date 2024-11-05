@@ -769,6 +769,8 @@ GEM
       rack (>= 1.0, < 4)
     rack-cors (1.1.1)
       rack (>= 2.0.0)
+    rack-mini-profiler (3.3.1)
+      rack (>= 1.2.0)
     rack-protection (3.2.0)
       base64 (>= 0.1.0)
       rack (~> 2.2, >= 2.2.4)
@@ -959,6 +961,7 @@ GEM
       activesupport (>= 6.1)
       sprockets (>= 3.0.0)
     ssrf_filter (1.1.2)
+    stackprof (0.2.26)
     strscan (3.1.0)
     sys-filesystem (1.5.0)
       ffi (~> 1.1)
@@ -1067,6 +1070,7 @@ DEPENDENCIES
   parallel_tests
   puma (>= 5.5.1)
   rack-attack (~> 6.6)
+  rack-mini-profiler
   rubocop-faker
   sendgrid-ruby
   sentry-rails
@@ -1077,6 +1081,7 @@ DEPENDENCIES
   sidekiq_alive (~> 2.2)
   spring (~> 2.0)
   spring-watcher-listen (~> 2.0)
+  stackprof (~> 0.2.26)
   sys-filesystem
   web-console (= 4.0.4)
   wicked_pdf (= 2.6.3)

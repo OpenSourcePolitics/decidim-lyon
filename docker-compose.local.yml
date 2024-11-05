@@ -72,6 +72,7 @@ services:
       - PUMA_WORKERS=4
       - PUMA_PRELOAD_APP=true
       - RAILS_SESSION_STORE=active_record
+      - RACK_MINI_PROFILER_UUID=0f690f22-443b-459e-a226-c213acecf740
     volumes:
       - shared-volume:/app
     ports:
