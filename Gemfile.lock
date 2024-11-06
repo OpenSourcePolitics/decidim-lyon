@@ -18,9 +18,9 @@ GIT
 
 GIT
   remote: https://github.com/OpenSourcePolitics/decidim-module-friendly_signup.git
-  revision: 1c91e024ae4467c097b39673e5d78b06afd206d1
+  revision: 91756c7324172f39375519ab957704359f21c2b6
   specs:
-    decidim-friendly_signup (0.4.5)
+    decidim-friendly_signup (0.4.6)
       decidim-core (~> 0.27)
 
 GIT
@@ -68,25 +68,25 @@ GIT
       omniauth-oauth2 (>= 1.7.2, < 2.0)
 
 GIT
-  remote: https://github.com/alecslupu-pfa/decidim-module-custom_proposal_states
-  revision: 66bc4d1a9f00eb66356e583365597e737e1d6917
-  branch: release/0.27-stable
-  specs:
-    decidim-custom_proposal_states (0.27.5)
-      decidim-core (~> 0.27)
-      decidim-proposals (~> 0.27)
-      deface (>= 1.9)
-
-GIT
-  remote: https://github.com/decidim-ice/decidim-module-decidim_awesome
-  revision: 51bc593da8fb72d14c2e5b5df55dbb686be1fbbe
-  branch: release/0.27-stable
+  remote: https://github.com/Quentinchampenois/decidim-module-decidim_awesome
+  revision: 03a5b90f038d0662d61dc25ef3acf7692eb3dd87
+  branch: rc/0.27-without-vote-weighted
   specs:
     decidim-decidim_awesome (0.10.3)
       decidim-admin (>= 0.26.0, < 0.28)
       decidim-core (>= 0.26.0, < 0.28)
       deface (>= 1.5)
       sassc (~> 2.3)
+
+GIT
+  remote: https://github.com/alecslupu-pfa/decidim-module-custom_proposal_states
+  revision: 848eb550d44d9bebc9e72c458c4e3aab79203d9e
+  branch: release/0.27-stable
+  specs:
+    decidim-custom_proposal_states (0.27.5)
+      decidim-core (~> 0.27)
+      decidim-proposals (~> 0.27)
+      deface (>= 1.9)
 
 GIT
   remote: https://github.com/digidemlab/decidim-module-budgets_paper_ballots
