@@ -28,6 +28,66 @@ module Decidim::DecidimAwesome
       expect(extra_fields.proposal.reload.extra_fields).to eq(extra_fields)
     end
 
+    describe "weight_count" do
+      let!(:extra_fields) { create(:awesome_proposal_extra_fields, proposal: proposal) }
+      let!(:vote_weights) do
+        proposal
+        [
+          create(:awesome_vote_weight, vote: create(:proposal_vote, proposal: proposal), weight: 1),
+          create(:awesome_vote_weight, vote: create(:proposal_vote, proposal: proposal), weight: 2),
+          create(:awesome_vote_weight, vote: create(:proposal_vote, proposal: proposal), weight: 3)
+        ]
+      end
+
+      it "returns the weight count for a weight" do
+        expect(proposal.reload.weight_count(1)).to eq(1)
+        expect(proposal.weight_count(2)).to eq(1)
+        expect(proposal.weight_count(3)).to eq(1)
+      end
+
+      context "when a vote is added" do
+        before do
+          create(:awesome_vote_weight, vote: create(:proposal_vote, proposal: proposal), weight: 5)
+          create(:awesome_vote_weight, vote: create(:proposal_vote, proposal: proposal), weight: 3)
+        end
+
+        it "returns the weight count for a weight" do
+          expect(proposal.reload.weight_count(1)).to eq(1)
+          expect(proposal.weight_count(2)).to eq(1)
+          expect(proposal.weight_count(3)).to eq(2)
+          expect(proposal.weight_count(4)).to eq(0)
+          expect(proposal.weight_count(5)).to eq(1)
+        end
+      end
+
+      context "when extra_fields does not exist" do
+        let(:extra_fields) { nil }
+        let(:vote_weights) { nil }
+
+        it "returns 0" do
+          expect(proposal.reload.weight_count(1)).to eq(0)
+          expect(proposal.weight_count(2)).to eq(0)
+          expect(proposal.weight_count(3)).to eq(0)
+          expect(proposal.weight_count(100)).to eq(0)
+        end
+
+        context "when a vote is added" do
+          before do
+            create(:awesome_vote_weight, vote: create(:proposal_vote, proposal: proposal), weight: 5)
+            create(:awesome_vote_weight, vote: create(:proposal_vote, proposal: proposal), weight: 3)
+          end
+
+          it "returns the weight count for a weight" do
+            expect(proposal.reload.weight_count(1)).to eq(0)
+            expect(proposal.weight_count(2)).to eq(0)
+            expect(proposal.weight_count(3)).to eq(1)
+            expect(proposal.weight_count(4)).to eq(0)
+            expect(proposal.weight_count(5)).to eq(1)
+          end
+        end
+      end
+    end
+
     context "when proposal is destroyed" do
       let!(:extra_fields) { create(:awesome_proposal_extra_fields, proposal: proposal) }
 
