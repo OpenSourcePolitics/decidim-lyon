@@ -43,7 +43,6 @@ module DevelopmentApp
 
     config.to_prepare do
       ActiveStorage::Blob.include ActiveStorage::Downloadable
-      Decidim::UserPresenter.include Decidim::UserPresenterConcern
     end
 
     config.after_initialize do
