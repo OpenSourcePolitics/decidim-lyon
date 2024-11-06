@@ -1462,12 +1462,12 @@
   resolved "https://registry.npmjs.org/@csstools/selector-specificity/-/selector-specificity-3.0.1.tgz"
   integrity sha512-NPljRHkq4a14YzZ3YD406uaxh7s0g6eAq3L9aLOWywoqe8PkYamAvtsh7KNX6c++ihDrJ0RiU+/z7rGnhlZ5ww==
 
-"@decidim/browserslist-config@^0.27.9":
+"@decidim/browserslist-config@^0.27.8":
   version "0.27.9"
   resolved "https://registry.npmjs.org/@decidim/browserslist-config/-/browserslist-config-0.27.9.tgz"
   integrity sha512-5HLUVDZcU1K6hg6zEwJqK0/NAxGjcPtCPkjOq1CJlOx3av/tc/yCteKqATKxn620NSGeEEq2F3lFRXllR2mrvw==
 
-"@decidim/core@^0.27.9":
+"@decidim/core@^0.27.8":
   version "0.27.9"
   resolved "https://registry.npmjs.org/@decidim/core/-/core-0.27.9.tgz"
   integrity sha512-PnRXHiDzWuWmGiiiNmEdRmpjhhP4z/oyNsC1bKv2NkxSSXkyavMesCPlkB8ZpIdmofavcNK/9AmIIFjipG563Q==
@@ -1520,14 +1520,14 @@
     webpack "^5.11.0"
     webpack-cli "^4.2.0"
 
-"@decidim/dev@^0.27.9":
+"@decidim/dev@^0.27.8":
   version "0.27.9"
   resolved "https://registry.npmjs.org/@decidim/dev/-/dev-0.27.9.tgz"
   integrity sha512-aKeTPzdyJM32MWTuotbvzi8UUKxJJoDcqQ6Yn05r8ZmYYyf4eYrlvI5P87M8FPRV2Vtfp9FSpscLVUC8pgGJQA==
   dependencies:
     axe-core "^4.1.4"
 
-"@decidim/elections@^0.27.9":
+"@decidim/elections@^0.27.8":
   version "0.27.9"
   resolved "https://registry.npmjs.org/@decidim/elections/-/elections-0.27.9.tgz"
   integrity sha512-VOCNhJ2WBxFYu04iPV4chViuOeeMnSPOhsH+V1fNaB68P7BUXdhRSPpa4e6PoNFJxvGG3wRweazE+TCxy1DcKg==
@@ -1536,12 +1536,12 @@
     "@decidim/voting_schemes-dummy" "0.23.0"
     "@decidim/voting_schemes-electionguard" "0.23.0"
 
-"@decidim/eslint-config@^0.27.9":
+"@decidim/eslint-config@^0.27.8":
   version "0.27.9"
   resolved "https://registry.npmjs.org/@decidim/eslint-config/-/eslint-config-0.27.9.tgz"
   integrity sha512-d8D3JWpPjNxlsUoztEqn59TpOz1rXNAkveONFMoc+ztXMmGO6whE59aVaDMsZr9RjREs9PMuG0VMlaiJQ/Jchg==
 
-"@decidim/stylelint-config@^0.27.9":
+"@decidim/stylelint-config@^0.27.8":
   version "0.27.9"
   resolved "https://registry.npmjs.org/@decidim/stylelint-config/-/stylelint-config-0.27.9.tgz"
   integrity sha512-bbOpFIwQ5LAXHu3OgeOiIe3Q5bVcrkCsKT7h0zuCgRiZ2ZVMilSIXTBmfZEKDmRtQzhCHCediCkmjNtXNpuVhg==
@@ -1556,7 +1556,7 @@
   resolved "https://registry.npmjs.org/@decidim/voting_schemes-electionguard/-/voting_schemes-electionguard-0.23.0.tgz"
   integrity sha512-o5/UXRc6v0Cp2BG/MtNpVAEtyNO3VdfFjJSX75E5W7G2yIu7na+D1HZyHyqIk1rgHPqdJmdg0DT7JI16fDcbXQ==
 
-"@decidim/webpacker@^0.27.9":
+"@decidim/webpacker@^0.27.8":
   version "0.27.9"
   resolved "https://registry.npmjs.org/@decidim/webpacker/-/webpacker-0.27.9.tgz"
   integrity sha512-s9qvRDk7Y5reV6B3MdO+2xkxCwYoB8ysD0xVkeJvH+cNirvQX1THAMrkE5cCFnI2jzQoj5haNYcl7zBmmDXbhg==
