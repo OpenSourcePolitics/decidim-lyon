@@ -68,17 +68,6 @@ GIT
       omniauth-oauth2 (>= 1.7.2, < 2.0)
 
 GIT
-  remote: https://github.com/Quentinchampenois/decidim-module-decidim_awesome
-  revision: 03a5b90f038d0662d61dc25ef3acf7692eb3dd87
-  branch: rc/0.27-without-vote-weighted
-  specs:
-    decidim-decidim_awesome (0.10.3)
-      decidim-admin (>= 0.26.0, < 0.28)
-      decidim-core (>= 0.26.0, < 0.28)
-      deface (>= 1.5)
-      sassc (~> 2.3)
-
-GIT
   remote: https://github.com/alecslupu-pfa/decidim-module-custom_proposal_states
   revision: 848eb550d44d9bebc9e72c458c4e3aab79203d9e
   branch: release/0.27-stable
@@ -87,6 +76,17 @@ GIT
       decidim-core (~> 0.27)
       decidim-proposals (~> 0.27)
       deface (>= 1.9)
+
+GIT
+  remote: https://github.com/decidim-ice/decidim-module-decidim_awesome
+  revision: c72e7f0fa0fe98807ace8414ecc08cbf44ce72d5
+  branch: release/0.27-stable
+  specs:
+    decidim-decidim_awesome (0.10.4)
+      decidim-admin (>= 0.26.0, < 0.28)
+      decidim-core (>= 0.26.0, < 0.28)
+      deface (>= 1.5)
+      sassc (~> 2.3)
 
 GIT
   remote: https://github.com/digidemlab/decidim-module-budgets_paper_ballots
