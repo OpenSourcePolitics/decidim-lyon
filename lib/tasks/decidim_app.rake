@@ -5,6 +5,31 @@ require "decidim_app/k8s/organization_exporter"
 require "decidim_app/k8s/manager"
 
 namespace :decidim_app do
+  desc "Exports proposals from process"
+  task export_proposals: :environment do
+    host = "oye.participer.lyon.fr"
+    pp = Decidim::ParticipatoryProcess.find_by(slug: "bp2022")
+    component = Decidim::Component.find(1)
+    proposals = Decidim::Proposals::Proposal.includes(:attachments).where(component: component).state_published
+    props = proposals.map do |prop|
+      proposal_h = {}
+      proposal_h = proposal_h.merge(prop.attributes)
+      proposal_h[:attachments] = prop.attachments.map do |attc|
+        Rails.application.routes.url_helpers.rails_blob_url(attc.file.blob, host: host)
+      end
+
+      proposal_h
+    end
+
+    byebug
+
+    puts proposal_h
+    #  attc = proposals[0..100].select { |prop| prop.attachments.present? }
+    #  attc.first.attachments.first.file_blob.representation(resize_to_limit: [100, 100]).processed.url
+
+    # Find URL : Rails.application.routes.url_helpers.rails_blob_url(ActiveStorage::Blob.find(245), host: "oye.participer.lyon.fr")
+  end
+
   desc "Setup Decidim-app"
   task setup: :environment do
     # :nocov:
