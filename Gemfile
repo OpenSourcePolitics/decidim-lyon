@@ -20,13 +20,13 @@ gem "decidim-budgets_paper_ballots", git: "https://github.com/digidemlab/decidim
 
 gem "decidim-cache_cleaner"
 gem "decidim-custom_proposal_states", git: "https://github.com/alecslupu-pfa/decidim-module-custom_proposal_states", branch: DECIDIM_BRANCH
-gem "decidim-decidim_awesome", git: "https://github.com/Quentinchampenois/decidim-module-decidim_awesome", branch: "rc/0.27-without-vote-weighted"
+gem "decidim-decidim_awesome", git: "https://github.com/decidim-ice/decidim-module-decidim_awesome", branch: DECIDIM_BRANCH
 gem "decidim-extra_user_fields", git: "https://github.com/OpenSourcePolitics/decidim-module-extra_user_fields.git", branch: DECIDIM_BRANCH
 gem "decidim-friendly_signup", git: "https://github.com/OpenSourcePolitics/decidim-module-friendly_signup.git"
 gem "decidim-homepage_interactive_map", git: "https://github.com/OpenSourcePolitics/decidim-module-homepage_interactive_map.git", branch: DECIDIM_BRANCH
 gem "decidim-simple_proposal", git: "https://github.com/opensourcepolitics/decidim-module-simple_proposal.git", branch: DECIDIM_BRANCH
 gem "decidim-slider", git: "https://github.com/OpenSourcePolitics/decidim-module-slider", branch: "rc/0.27"
-gem "decidim-spam_detection", git: "https://github.com/OpenSourcePolitics/decidim-spam_detection.git", tag: "4.1.1"
+gem "decidim-spam_detection", git: "https://github.com/OpenSourcePolitics/decidim-spam_detection.git", tag: "4.1.2"
 gem "decidim-term_customizer", git: "https://github.com/opensourcepolitics/decidim-module-term_customizer.git", branch: "fix/multi-threading-compliant"
 
 # Omniauth gems

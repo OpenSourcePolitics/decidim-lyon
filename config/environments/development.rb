@@ -58,4 +58,5 @@ Rails.application.configure do
   config.active_job.queue_adapter = :sidekiq
   config.action_mailer.perform_deliveries = true
   config.log_level = ENV.fetch("RAILS_LOG_LEVEL", "debug").to_sym
+  config.log_tags = [:uuid, :remote_ip]
 end

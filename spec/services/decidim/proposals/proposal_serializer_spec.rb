@@ -123,6 +123,10 @@ module Decidim
           expect(serialized).to include(attachments: proposal.attachments.count)
         end
 
+        it "serializes the attachments urls" do
+          expect(serialized).to include(:attachment_urls)
+        end
+
         it "serializes the endorsements" do
           expect(serialized[:endorsements]).to include(total_count: proposal.endorsements.count)
           expect(serialized[:endorsements]).to include(user_endorsements: proposal.endorsements.for_listing.map { |identity| identity.normalized_author&.name })
