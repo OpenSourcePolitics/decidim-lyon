@@ -50,7 +50,7 @@ module ProposalSerializerExtends
   def attachment_urls
     proposal.attachments.map do |attc|
       Rails.application.routes.url_helpers.rails_blob_url(attc.file.blob, host: proposal.participatory_space.organization.host)
-    end.join(",")
+    end.join("\n")
   end
 end
 
