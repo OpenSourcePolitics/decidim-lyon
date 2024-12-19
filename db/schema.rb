@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2024_10_08_065657) do
+ActiveRecord::Schema.define(version: 2024_12_19_100638) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "ltree"
@@ -742,6 +742,16 @@ ActiveRecord::Schema.define(version: 2024_10_08_065657) do
     t.string "badge_name", null: false
     t.integer "value", default: 0, null: false
     t.index ["user_id"], name: "index_decidim_gamification_badge_scores_on_user_id"
+  end
+
+  create_table "decidim_half_signup_auth_settings", force: :cascade do |t|
+    t.boolean "enable_partial_sms_signup", default: false
+    t.boolean "enable_partial_email_signup", default: false
+    t.string "slug"
+    t.bigint "decidim_organization_id"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+    t.index ["decidim_organization_id"], name: "index_half_signup_auth_settings_on_organization_id"
   end
 
   create_table "decidim_hashtags", force: :cascade do |t|
@@ -1761,6 +1771,8 @@ ActiveRecord::Schema.define(version: 2024_10_08_065657) do
     t.datetime "digest_sent_at"
     t.datetime "password_updated_at"
     t.string "previous_passwords", default: [], array: true
+    t.string "phone_number"
+    t.string "phone_country"
     t.index ["confirmation_token"], name: "index_decidim_users_on_confirmation_token", unique: true
     t.index ["decidim_organization_id"], name: "index_decidim_users_on_decidim_organization_id"
     t.index ["email", "decidim_organization_id"], name: "index_decidim_users_on_email_and_decidim_organization_id", unique: true, where: "((deleted_at IS NULL) AND (managed = false) AND ((type)::text = 'Decidim::User'::text))"
@@ -1889,6 +1901,7 @@ ActiveRecord::Schema.define(version: 2024_10_08_065657) do
   add_foreign_key "decidim_debates_debates", "decidim_scopes"
   add_foreign_key "decidim_editor_images", "decidim_organizations"
   add_foreign_key "decidim_editor_images", "decidim_users", column: "decidim_author_id"
+  add_foreign_key "decidim_half_signup_auth_settings", "decidim_organizations"
   add_foreign_key "decidim_identities", "decidim_organizations"
   add_foreign_key "decidim_newsletters", "decidim_users", column: "author_id"
   add_foreign_key "decidim_participatory_process_steps", "decidim_participatory_processes"
