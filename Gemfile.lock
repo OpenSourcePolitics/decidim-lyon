@@ -8,8 +8,8 @@ GIT
 
 GIT
   remote: https://github.com/OpenSourcePolitics/decidim-module-extra_user_fields.git
-  revision: 25f5a7843a38a5f9360f9bd42eb7e246d997bc7b
-  branch: release/0.27-stable
+  revision: 40edb6a73ee1e21fa939392bcdcd8c0820436460
+  branch: temp/twilio-compatibility-0.27
   specs:
     decidim-extra_user_fields (0.27.2)
       country_select (~> 9.0)
@@ -22,6 +22,15 @@ GIT
   specs:
     decidim-friendly_signup (0.4.6)
       decidim-core (~> 0.27)
+
+GIT
+  remote: https://github.com/OpenSourcePolitics/decidim-module-half_sign_up.git
+  revision: 5bee2b5422e4131f933ad854ab872e049dcf7b54
+  branch: feature/half_signup_and_budgets_booth
+  specs:
+    decidim-half_signup (0.27.0)
+      countries (~> 5.1, >= 5.1.2)
+      decidim-core (~> 0.27.0)
 
 GIT
   remote: https://github.com/OpenSourcePolitics/decidim-module-homepage_interactive_map.git
@@ -288,7 +297,7 @@ GEM
     commonmarker (0.23.10)
     concurrent-ruby (1.3.3)
     connection_pool (2.4.1)
-    countries (6.0.1)
+    countries (5.7.2)
       unaccent (~> 0.3)
     country_select (9.0.0)
       countries (> 5.0, < 7.0)
@@ -1051,6 +1060,7 @@ DEPENDENCIES
   decidim-dev (~> 0.27.0)
   decidim-extra_user_fields!
   decidim-friendly_signup!
+  decidim-half_signup!
   decidim-homepage_interactive_map!
   decidim-simple_proposal!
   decidim-slider!
