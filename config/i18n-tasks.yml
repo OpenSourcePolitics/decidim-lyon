@@ -177,3 +177,5 @@ ignore_unused:
   - layouts.decidim.footer.made_with_open_source
   - decidim.proposals.admin.proposals.bulk-actions.statuses
   - decidim.participatory_processes.show.local_area
+  - decidim.events.participatory_process.step_activated.email_subject
+  - decidim.events.participatory_process.step_changed.email_subject
