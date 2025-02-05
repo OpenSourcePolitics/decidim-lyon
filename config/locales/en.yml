@@ -143,6 +143,11 @@ en:
           own_activity: Ma propre activité, comme quand quelqu'un commente dans ma proposition ou me mentionne
           receive_notifications_about: Je veux recevoir des notifications sur
           update_notifications_settings: Enregistrer les modifications
+      participatory_process:
+        step_activated:
+          email_subject: An update to %{participatory_space_title}
+        step_changed:
+          email_subject: Une mise à jour de la concertation "%{participatory_space_title}" vient d'être publiée ! Nous vous invitons à venir voir les dernières informations.
       users:
         user_officialized:
           email_intro: Le participant %{name} (%{nickname}) a été officialisé.

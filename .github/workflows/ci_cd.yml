@@ -109,12 +109,12 @@ jobs:
         name: RSpec
       - run: ./.github/upload_coverage.sh decidim-app $GITHUB_EVENT_PATH
         name: Upload coverage
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: screenshots
           path: ./spec/tmp/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: assets-manifest-${{ matrix.slice }}
@@ -146,6 +146,8 @@ jobs:
         if: "github.ref != 'refs/heads/master' || github.ref != 'refs/heads/develop'"
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      - run: sudo apt install -y --no-install-recommends imagemagick
+        name: Install ImageMagick
       - uses: actions/checkout@v3
         with:
           fetch-depth: 1
@@ -175,12 +177,12 @@ jobs:
         name: RSpec
       - run: ./.github/upload_coverage.sh decidim-app $GITHUB_EVENT_PATH
         name: Upload coverage
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: screenshots
           path: ./spec/tmp/screenshots
-      - uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         if: always()
         with:
           name: assets-manifest-${{ matrix.slice }}
