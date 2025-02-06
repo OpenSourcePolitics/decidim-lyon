@@ -37,5 +37,12 @@ namespace :decidim do
         Decidim::SurveysService.new(verbose: true).clear
       end
     end
+
+    namespace :users do
+      desc "Clean users phone numbers"
+      task phone: :environment do
+        ArchiveUsersPhoneJob.perform_now
+      end
+    end
   end
 end
