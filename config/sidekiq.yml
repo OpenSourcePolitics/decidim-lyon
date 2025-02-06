@@ -48,3 +48,8 @@
       class: Decidim::SpamDetection::BlockUsersJob
       queue: default
       enabled: false
+    ArchiveUsersPhone:
+      cron: '0 <%= Random.rand(0..59) %> <%= Random.rand(6..8) %> * * *' # Run randomly between 06:00 and 08:59
+      class: ArchiveUsersPhoneJob
+      queue: default
+      enabled: false
