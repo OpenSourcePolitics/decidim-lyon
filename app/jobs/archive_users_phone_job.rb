@@ -27,7 +27,7 @@ class ArchiveUsersPhoneJob < ApplicationJob
     log! "Terminated !"
   end
 
-    private
+  private
 
   def users_to_archive
     Decidim::User.where.not(phone_number: [nil, ""]).where.not(phone_country: [nil, ""])
@@ -77,4 +77,4 @@ class ArchiveUsersPhoneJob < ApplicationJob
   def delete_reason
     "Archived account - #{current_date}"
   end
-  end
+end
