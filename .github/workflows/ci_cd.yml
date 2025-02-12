@@ -6,6 +6,7 @@ env:
   SIMPLECOV: "true"
   RSPEC_FORMAT: "documentation"
   RUBY_VERSION: 3.0.6
+  CHROME_VERSION: 126.0.6478.182
   RAILS_ENV: test
   NODE_VERSION: 16.9.1
   RUBYOPT: '-W:no-deprecated'
