@@ -115,6 +115,7 @@ ignore_missing:
  - decidim.budgets_importer.actions.import
  - index.confirmed_orders_count
  - decidim.proposals.proposals.index.{new_proposal,collaborative_drafts_list}
+ - decidim.decidim_awesome.admin.proposal_custom_fields.*
 # Consider these keys used:
 ignore_unused:
   - faker.*
