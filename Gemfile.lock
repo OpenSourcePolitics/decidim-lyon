@@ -25,8 +25,8 @@ GIT
 
 GIT
   remote: https://github.com/OpenSourcePolitics/decidim-module-half_sign_up.git
-  revision: 5bee2b5422e4131f933ad854ab872e049dcf7b54
-  branch: feature/half_signup_and_budgets_booth
+  revision: 3595311ab355312986f11e38f8c38638832342a2
+  branch: middleware-1.0.0
   specs:
     decidim-half_signup (0.27.0)
       countries (~> 5.1, >= 5.1.2)
@@ -1100,4 +1100,4 @@ RUBY VERSION
    ruby 3.0.6p216
 
 BUNDLED WITH
-   2.4.6
+   2.4.9
