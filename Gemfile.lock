@@ -61,6 +61,16 @@ GIT
       decidim-core (~> 0.27.0)
 
 GIT
+  remote: https://github.com/OpenSourcePolitics/decidim-module-survey_multiple_answers
+  revision: 65ea83227f99d0f3d6237f98334ecc914a2a5597
+  specs:
+    decidim-survey_multiple_answers (0.26.2)
+      decidim-admin (>= 0.26.0, < 0.28.0)
+      decidim-core (>= 0.26.0, < 0.28.0)
+      decidim-forms (>= 0.26.0, < 0.28.0)
+      decidim-surveys (>= 0.26.0, < 0.28.0)
+
+GIT
   remote: https://github.com/OpenSourcePolitics/decidim-spam_detection.git
   revision: 5e4f92f19b903228b8349fb002d735e900d63ed4
   tag: 4.1.2
@@ -1065,6 +1075,7 @@ DEPENDENCIES
   decidim-simple_proposal!
   decidim-slider!
   decidim-spam_detection!
+  decidim-survey_multiple_answers!
   decidim-term_customizer!
   dotenv-rails
   faker (~> 2.14)
@@ -1100,4 +1111,4 @@ RUBY VERSION
    ruby 3.0.6p216
 
 BUNDLED WITH
-   2.4.9
+   2.5.21
