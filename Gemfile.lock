@@ -46,7 +46,7 @@ GIT
 
 GIT
   remote: https://github.com/OpenSourcePolitics/decidim-module-ptp.git
-  revision: 8f8fdfcb729b823e6a8efbcf9b0909a46c9d2f8e
+  revision: 46bb834a68d52cd7d1d4bba6182cca55f2495125
   specs:
     decidim-budgets_booth (0.27.0)
       decidim-budgets (~> 0.27.0)
@@ -561,8 +561,6 @@ GEM
     faraday-net_http (3.1.0)
       net-http
     ffi (1.17.0)
-    ffi (1.17.0-arm64-darwin)
-    ffi (1.17.0-x86_64-darwin)
     file_validators (3.0.0)
       activemodel (>= 3.2)
       mime-types (>= 1.0)
@@ -1113,4 +1111,4 @@ RUBY VERSION
    ruby 3.0.6p216
 
 BUNDLED WITH
-   2.5.10
+   2.5.21
