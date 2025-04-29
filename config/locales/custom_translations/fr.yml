@@ -1,0 +1,51 @@
+---
+fr:
+  decidim:
+    budgets:
+      order_summary_mailer:
+        order_summary:
+          selected_projects: 'Retrouvez les projets que vous avez choisis ci-dessous :'
+          subject: 'Merci d’avoir voté pour le Budget participatif #2 de la Ville de Lyon'
+          voted_on_space: 'Merci d’avoir voté pour le Budget participatif #2.'
+          voted_on_space_with_scope: 'Merci d’avoir voté pour le Budget participatif #2.'
+      orders:
+        modal:
+          description: Les projets que vous avez choisis pour le budget participatif
+      partials:
+        voting_help_modal:
+          step1: Choisissez au moins 3 projets
+          step3: Votez
+          subtitle: N’oubliez pas vous pouvez choisir jusqu’à 10 projets. Quand votre choix est fait cliquez sur « Je soumets mon vote »
+      projects:
+        budget_confirm:
+          description: Voici les projets que vous avez choisis.
+          half_signup:
+            warning: En confirmant vous quitterez la cabine de vote virtuelle et vous ne pourrez pas modifier votre vote ensuite
+        budget_summary:
+          choose_budget: A vous de décider !
+          choose_description: Parcourez les projets par thématique ou par arrondissement selon vos centres d’intérêt en utilisant les filtres. Votez ensuite pour 3 projets minimum et jusqu’à 10 projets maximum. Quand votre choix est fait, cliquez sur « Je soumets mon vote »
+          title: A vous de décider !
+        cancel_voting_modal:
+          description: Si vous annulez votre vote, il ne sera pas pris en compte pour le résultat final.
+        order_progress:
+          ready: Je soumets mon vote
+        pre_voting_budget_summary:
+          pre_vote:
+            casted_description: 'Vous avez voté pour le budget participatif #2. Si vous voulez voir les projets pour lesquels vous avez voté, cliquez sur le bouton "Revoir votre vote". Vous pouvez aussi %{cancel_link} et recommencer.'
+            finish_description: Vous avez déjà commencé à voter pour le budget participatif. Voulez-vous terminer votre vote ?
+            start_description: Munissez-vous de votre téléphone portable. Après avoir renseigné votre numéro, vous recevrez un code qui vous donnera accès à la cabine de vote virtuelle. Votre numéro sera anonymisé et ne sera pas conservé après votre vote. Attention vous ne pouvez voter qu’une fois. Vous avez déjà un compte sur cette plateforme ? Connectez-vous avant de voter et vous pourrez modifier votre vote plus tard. Vous n’avez pas de compte ? Il est encore temps d’en créer un !
+            title: A vous de voter !
+        show:
+          budget: Budget estimé
+      voting:
+        vote_completed_modal:
+          title: Votre vote a bien été enregistré.
+    half_signup:
+      quick_auth:
+        authenticate_user:
+          unauthorized: Vous avez déjà voté
+        sms:
+          instruction: Après avoir saisi votre numéro de téléphone vous allez recevoir un code par SMS. Ce code vous donnera accès à la cabine virtuelle de vote.
+    shared:
+      filter_form_help:
+        help: Utilisez les filtres ci-dessous ou tapez un mot dans Rechercher pour affiner votre navigation
