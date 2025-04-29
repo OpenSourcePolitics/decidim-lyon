@@ -21,12 +21,10 @@ Decidim.configure do |config|
   config.maps = {
     provider: :here,
     api_key: Rails.application.secrets.maps[:api_key],
-
     # Keep HERE as the default provider for autocomplete
     autocomplete: {
       address_format: [%w(houseNumber street), "city", "country"]
     },
-
     # Change to OSM for dynamic maps to avoid usage limits from HERE
     dynamic: {
       provider: :osm,
