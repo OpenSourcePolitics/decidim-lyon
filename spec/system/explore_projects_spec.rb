@@ -76,6 +76,54 @@ describe "Explore projects", :slow, type: :system do
         end
       end
 
+      context "when filtering by category and changing pages" do
+        let!(:projects_count) { 10 }
+        let!(:categories) { create_list(:category, 2, participatory_space: component.participatory_space) }
+
+        it "keeps the order of the projects displayed on the pages" do
+          component.update!(settings: { projects_per_page: 3 })
+          first_cate = categories.first
+          sec_cate = categories.last
+          projects.each_with_index do |project, index|
+            index.even? ? project.category = first_cate : project.category = sec_cate
+            project.save
+          end
+
+          visit_budget
+
+          within ".with_any_category_check_boxes_tree_filter" do
+            uncheck "All"
+            uncheck translated(first_cate.name)
+          end
+
+          within "#projects" do
+            expect(page).to have_css(".budget-list__item", count: 3)
+          end
+
+          budget_list = all('div.budget-list__item')
+          first_proj = budget_list[0][:id]
+          sec_proj = budget_list[1][:id]
+          third_proj = budget_list[2][:id]
+
+          within "#projects .pagination" do
+            # navigate page 2
+            expect(page).to have_content("2")
+            page.find("a", text: "2").click
+          end
+
+          within "#projects .pagination" do
+            # navigate back page 1
+            page.find("a", text: "1").click
+          end
+
+          # check that the projects are displayed in the same order on page one
+          new_budget_list = all('div.budget-list__item')
+          expect(new_budget_list[0][:id]).to eq(first_proj)
+          expect(new_budget_list[1][:id]).to eq(sec_proj)
+          expect(new_budget_list[2][:id]).to eq(third_proj)
+        end
+      end
+
       context "and votes are finished" do
         let!(:component) do
           create(:budgets_component,
