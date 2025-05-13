@@ -85,7 +85,7 @@ describe "Explore projects", :slow, type: :system do
           first_cate = categories.first
           sec_cate = categories.last
           projects.each_with_index do |project, index|
-            index.even? ? project.category = first_cate : project.category = sec_cate
+            project.category = index.even? ? first_cate : sec_cate
             project.save
           end
 
@@ -100,7 +100,7 @@ describe "Explore projects", :slow, type: :system do
             expect(page).to have_css(".budget-list__item", count: 3)
           end
 
-          budget_list = all('div.budget-list__item')
+          budget_list = all("div.budget-list__item")
           first_proj = budget_list[0][:id]
           sec_proj = budget_list[1][:id]
           third_proj = budget_list[2][:id]
@@ -117,7 +117,7 @@ describe "Explore projects", :slow, type: :system do
           end
 
           # check that the projects are displayed in the same order on page one
-          new_budget_list = all('div.budget-list__item')
+          new_budget_list = all("div.budget-list__item")
           expect(new_budget_list[0][:id]).to eq(first_proj)
           expect(new_budget_list[1][:id]).to eq(sec_proj)
           expect(new_budget_list[2][:id]).to eq(third_proj)

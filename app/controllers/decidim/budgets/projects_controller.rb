@@ -34,7 +34,7 @@ module Decidim
         # keep the order so that when we use filters and pagination, projects are always
         # displayed in the same order on the pages
         @projects = Decidim::Budgets::Project.where(id: ids)
-                                             .order(Arel.sql("position(id::text in '#{ids.join(',')}')"))
+                                             .order(Arel.sql("position(id::text in '#{ids.join(",")}')"))
                                              .page(params[:page])
                                              .per(current_component.settings.projects_per_page)
       end
