@@ -156,6 +156,8 @@ jobs:
         if: "github.ref != 'refs/heads/master' || github.ref != 'refs/heads/develop'"
         env:
           GITHUB_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+      - run: sudo apt install -y --no-install-recommends imagemagick
+        name: Install ImageMagick
       - uses: actions/checkout@v3
         with:
           fetch-depth: 1
