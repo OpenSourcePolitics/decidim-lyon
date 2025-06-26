@@ -116,6 +116,7 @@ ignore_missing:
  - index.confirmed_orders_count
  - decidim.proposals.proposals.index.{new_proposal,collaborative_drafts_list}
  - decidim.decidim_awesome.admin.proposal_custom_fields.*
+ - decidim.budgets.projects.order_selected_projects.*
 # Consider these keys used:
 ignore_unused:
   - faker.*
@@ -181,3 +182,7 @@ ignore_unused:
   - layouts.decidim.footer.made_with_open_source
   - decidim.proposals.admin.proposals.bulk-actions.statuses
   - decidim.participatory_processes.show.local_area
+  - activemodel.attributes.project.selected
+  - decidim.admin.filters.projects.selected_at_null.*
+  - decidim.budgets.projects.filters.status_values.not_selected
+  - decidim.budgets.projects.order_selected_projects.*

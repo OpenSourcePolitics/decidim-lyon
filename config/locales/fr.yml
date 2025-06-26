@@ -8,6 +8,8 @@ fr:
         postal_code: Code postal
       participatory_process:
         private_space: Espace privé
+      project:
+        selected: Lauréat
       proposal:
         address: Adresse précise (facultatif)
     errors:
@@ -42,6 +44,12 @@ fr:
     admin:
       exports:
         export_as: "%{name} au format %{export_format}"
+      filters:
+        projects:
+          selected_at_null:
+            label: Lauréats
+            values:
+              'false': Projet lauréat
       participatory_space_private_users:
         create:
           error: Erreur
@@ -82,6 +90,9 @@ fr:
         models:
           budget:
             name: Budget
+        projects:
+          index:
+            selected: Lauréat
         reminders:
           orders:
             description: Les utilisateurs vont recevoir un mail avec les liens des budgets pour lesquels ils ont un vote en cours. Le rappel ne sera pas envoyé aux utilisateurs ayant commencé leur vote il y a moins de deux heures, ni à ceux ayant reçu un rappel dans les dernières 24 heures.
@@ -99,6 +110,15 @@ fr:
           projects_count:
             one: 1 projet
             other: "%{count} projets"
+        filters:
+          status_values:
+            not_selected: Non sélectionné
+        order_selected_projects:
+          remove: supprimer
+          selected_projects:
+            one: projet lauréat
+            other: projets lauréats
+          view: voir
       vote_reminder_mailer:
         vote_reminder:
           email_budgets: 'Budget où vous avez un vote non terminé:'
