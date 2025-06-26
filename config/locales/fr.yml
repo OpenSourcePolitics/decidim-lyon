@@ -114,9 +114,11 @@ fr:
           status_values:
             not_selected: Non sélectionné
         order_selected_projects:
+          remove: supprimer
           selected_projects:
             one: projet lauréat
             other: projets lauréats
+          view: voir
       vote_reminder_mailer:
         vote_reminder:
           email_budgets: 'Budget où vous avez un vote non terminé:'
